@@ -39,6 +39,9 @@ export default Vue.extend({})
     <div class="menu">
       <router-link to="/">Home</router-link>
       <router-link to="/vue">Vue</router-link>
+      <a target="_blank" href="http://github.com/fluidpay/fp-money">
+        <img height="20" alt="Github Logomark" :src="require('@/docs/assets/images/github.png')" />
+      </a>
     </div>
   </div>
 </template>
