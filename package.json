@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": false,
   "description": "FluidPay input formatter and currency selector",
-  "repository": "bitbucket.org/fluidpay/fp-money",
+  "repository": "github.com/fluidpay/fp-money",
   "license": "MIT",
   "main": "dist/tokenizer.js",
   "types": "dist/index.d.ts",
@@ -11,31 +11,25 @@
     "serve": "vue-cli-service serve",
     "dev": "vue-cli-service serve",
     "iso": "node -e 'require(`./src/fp-money/iso.js`).outputUniqueCurrencies()'",
-    "library": "cd src/fp-money && webpack",
+    "library": "rm -r dist && cd src/fp-money && webpack && cd ../../ && rm dist/fp-money-css.js",
     "docs": "vue-cli-service build",
     "build": "npm run docs && npm run library",
     "lint": "vue-cli-service lint"
   },
   "devDependencies": {
+    "@types/prismjs": "^1.9.0",
     "@vue/cli-plugin-babel": "^3.0.0",
     "@vue/cli-plugin-typescript": "^3.0.0",
     "@vue/cli-service": "^3.0.0",
     "ajv": "^6.5.3",
     "node-sass": "^4.9.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "prismjs": "^1.15.0",
     "sass-loader": "^7.0.1",
     "typescript": "^3.0.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.5.17",
     "webpack-cli": "^3.1.0"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
-  "dependencies": {
-    "prismjs": "^1.15.0"
   }
 }
