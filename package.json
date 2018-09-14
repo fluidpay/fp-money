@@ -5,8 +5,8 @@
   "description": "FluidPay input formatter and currency selector",
   "repository": "github.com/fluidpay/fp-money",
   "license": "MIT",
-  "main": "dist/tokenizer.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/fp-money.js",
+  "types": "dist/fp-money.d.ts",
   "scripts": {
     "serve": "vue-cli-service serve",
     "dev": "vue-cli-service serve",
