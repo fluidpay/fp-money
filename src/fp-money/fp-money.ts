@@ -40,6 +40,7 @@ export interface Constructor {
   value?: string | number
   currency?: string
   locale?: string
+  showSelection?: boolean
   onChange: (values: Values) => void
 }
 
@@ -86,6 +87,7 @@ export default class FPMoney {
   public format: string = ''
   public currency: string = 'USD'
   public locale: string = this.getLocale()
+  public showSelection: boolean = true
 
   // Callbacks
   public onChange: (values: Values) => void
@@ -106,6 +108,7 @@ export default class FPMoney {
     if (info.currency) {this.currency = info.currency.toUpperCase()}
     if (info.locale) {this.locale = info.locale}
     if (info.value) {this.value = formatToLowestCommon(info.value, currencies[this.currency].fraction)}
+    if (info.showSelection !== undefined) {this.showSelection = info.showSelection}
 
     // Set Callbacks
     this.onChange = (info.onChange ? this.onChange = info.onChange : () => {return})
@@ -256,7 +259,7 @@ export default class FPMoney {
     // Add to container
     this.container.appendChild(this.currencyDiv)
     this.container.appendChild(this.input)
-    this.container.appendChild(this.select)
+    if (this.showSelection) {this.container.appendChild(this.select)}
   }
 
   // Deal with key inputs into money field

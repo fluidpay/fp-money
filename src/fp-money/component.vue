@@ -5,6 +5,7 @@ export default {
   name: 'fp-money',
   props: {
     value: [String, Number],
+    currency: String,
     locale: String,
     onChange: Function
   },
@@ -28,6 +29,7 @@ export default {
         container: this.$refs.fpmoney
       }
       if (this.value) {options.value = this.value}
+      if (this.currency) {options.currency = this.currency}
       if (this.locale) {options.locale = this.locale}
       if (this.onChange) {options.onChange = this.onChange}
       this.fpmoney = new FPMoney(options)
