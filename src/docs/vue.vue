@@ -1,10 +1,35 @@
 <script lang="ts">
 import Vue from 'vue'
-export default Vue.extend({
+import { Values } from '@/fp-money/fp-money.ts'
+import fpmoney from '@/fp-money/component.vue'
 
+export default Vue.extend({
+  components: { fpmoney },
+  methods: {
+    change(values: Values) {
+      console.log(values)
+    }
+  }
 })
 </script>
 
+<style lang="scss">
+.vue {
+  #example {
+    width: 250px;
+    margin: 0 auto;
+    margin-bottom: var(--spacing);
+  }
+}
+</style>
+
 <template>
-  <div>Vue</div>
+  <div class="vue">
+    <fpmoney id="example" value="85555" :onChange="change" />
+    <pre>
+      <code class="language-html">
+        &lt;fpmoney value="85555" :onChange="change" /&gt;
+      </code>
+    </pre>
+  </div>
 </template>

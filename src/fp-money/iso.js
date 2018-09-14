@@ -15,6 +15,7 @@ var symbols = {
   'THB': '฿', // Thai Baht
   'UAH': '₴', // Ukrainian Hryvnia
   'VND': '₫', // Vietnamese Dong
+  'HUF': 'Ft' // Hungary
 };
 
 let iso = [

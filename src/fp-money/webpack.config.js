@@ -2,16 +2,25 @@ const path = require('path')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   mode: 'production',
-  entry: ['./index.ts', './fp-money.scss'],
+  entry: {
+    'fp-money': './fp-money.ts',
+    'fp-money-vue': './component.vue',
+    'fp-money-css': './fp-money.scss'
+  },
   module: {
     rules: [
       {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      {
         test: /\.ts?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
+        loader: 'ts-loader',
+        options: { appendTsSuffixTo: [/\.vue$/] }
       },
       {
         test: /\.(sass|scss)$/,
@@ -24,12 +33,13 @@ module.exports = {
     ]
   },
   plugins: [
+    new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: 'fp-money.css'
     })
   ],
   resolve: {
-    extensions: [ '.ts', '.js' ]
+    extensions: [ '.vue', '.ts', '.js' ]
   },
   optimization: {
     minimizer: [
@@ -55,7 +65,7 @@ module.exports = {
     library: 'FPMoney',
     libraryTarget: 'umd',
     libraryExport: 'default',
-    filename: 'fp-money.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, '../../dist')
   }
 }

@@ -12,18 +12,19 @@ export const currencies: Currencies = {
   EUR: { symbol: '€', fraction: 2 },
   GBP: { symbol: '£', fraction: 2 },
   INR: { symbol: '₹', fraction: 2 },
-  VND: { symbol: '₫', fraction: 0 },
-  ILS: { symbol: '₪', fraction: 2 },
-  JPY: { symbol: '¥', fraction: 0 },
-  CNY: { symbol: '¥', fraction: 2 },
   CRC: { symbol: '₡', fraction: 2 },
+  VND: { symbol: '₫', fraction: 0 },
+  HUF: { symbol: 'Ft', fraction: 2 },
+  ILS: { symbol: '₪', fraction: 2 },
+  CNY: { symbol: '¥', fraction: 2 },
+  KRW: { symbol: '₩', fraction: 0 },
   NGN: { symbol: '₦', fraction: 2 },
   PYG: { symbol: '₲', fraction: 0 },
   PHP: { symbol: '₱', fraction: 2 },
   PLN: { symbol: 'zł', fraction: 2 },
   THB: { symbol: '฿', fraction: 2 },
   UAH: { symbol: '₴', fraction: 2 },
-  KRW: { symbol: '₩', fraction: 0 }
+  JPY: { symbol: '¥', fraction: 0 }
 }
 
 export interface Values {
@@ -42,22 +43,35 @@ export interface Constructor {
   onChange: (values: Values) => void
 }
 
-// Some need to
-export function lowestCommonToFloat() {
-  return
-}
-
-export function floatToLowestCommon(val: string | number, fraction: number = 2): string {
+export function lowestCommonToFormat(val: string | number, fraction: number = 2): string {
   val = val.toString()
-  if (fraction === 0) { return parseInt(val, 10).toString() }
 
+  // Create divide first
   let divide = '1'
-  for (let i = 0; i < fraction; i++) {
-    divide += '0'
-  }
+  for (let i = 0; i < fraction; i++) { divide += '0'}
   const divideInt = parseInt(divide, 10)
 
+  // If val includes . lets multiply it first
+  if (val.indexOf('.') !== -1) {
+    val = (parseFloat(val) * divideInt).toString()
+  }
+
+  // If fraction is 0 parseInt and return it
+  if (fraction === 0) { return parseInt(val, 10).toString() }
+
   return (parseInt(val, 10) / divideInt).toFixed(fraction)
+}
+
+export function formatToLowestCommon(val: string | number, fraction: number = 2): string {
+  const valStr = val.toString()
+
+  let multi = '1'
+  for (let i = 0; i < fraction; i++) { multi += '0'}
+  const multiInt = parseInt(multi, 10)
+
+  const valFloat = (parseFloat(valStr) * multiInt).toString()
+
+  return parseInt(valFloat, 10).toString()
 }
 
 export default class FPMoney {
@@ -91,7 +105,7 @@ export default class FPMoney {
     // Set values
     if (info.currency) {this.currency = info.currency.toUpperCase()}
     if (info.locale) {this.locale = info.locale}
-    if (info.value) {this.value = floatToLowestCommon(info.value, currencies[this.currency].fraction)}
+    if (info.value) {this.value = formatToLowestCommon(info.value, currencies[this.currency].fraction)}
 
     // Set Callbacks
     this.onChange = (info.onChange ? this.onChange = info.onChange : () => {return})
@@ -163,6 +177,11 @@ export default class FPMoney {
     const divideInt = parseInt(divide, 10)
 
     return (parseInt(val, 10) / divideInt).toFixed(fraction)
+  }
+
+  public destroy() {
+    // Clean out container
+    this.container.innerHTML = ''
   }
 
   private validate(info: Constructor) {
