@@ -1,12 +1,15 @@
 {
   "name": "fp-money",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "description": "FluidPay input formatter and currency selector",
   "repository": "github.com/fluidpay/fp-money",
   "license": "MIT",
   "main": "dist/fp-money.js",
   "types": "dist/fp-money.d.ts",
+  "css": "dist/fp-money.css",
+  "style": "dist/fp-money.css",
+  "sass": "src/fp-money/fp-money.scss",
   "scripts": {
     "serve": "vue-cli-service serve",
     "dev": "vue-cli-service serve",
