@@ -41,6 +41,7 @@ export default Vue.extend({
     <pre>
       <code class="language-javascript">
         import FPMoney from 'fp-money'
+        import 'fp-money/dist/fp-money.css'
 
         new FPMoney({
           container: document.querySelector('#example'),
