@@ -20,8 +20,8 @@ export interface Constructor {
     locale?: string;
     onChange: (values: Values) => void;
 }
-export declare function lowestCommonToFloat(): void;
-export declare function floatToLowestCommon(val: string | number, fraction?: number): string;
+export declare function lowestCommonToFormat(val: string | number, fraction?: number): string;
+export declare function formatToLowestCommon(val: string | number, fraction?: number): string;
 export default class FPMoney {
     container: HTMLDivElement;
     currencyDiv: HTMLDivElement;
@@ -38,6 +38,7 @@ export default class FPMoney {
     setLocale(locale: string): void;
     displayValue(): string;
     formatValue(): string;
+    destroy(): void;
     private validate;
     private updateInputDisplay;
     private updateOutput;
