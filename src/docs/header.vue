@@ -37,7 +37,7 @@ export default Vue.extend({})
   <div class="header">
     <div class="title">FluidPay Money Formatter</div>
     <div class="menu">
-      <router-link to="/">Basic</router-link>
+      <router-link to="/">Home</router-link>
       <router-link to="/vue">Vue</router-link>
     </div>
   </div>

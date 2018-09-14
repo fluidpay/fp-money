@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import BasicPage from '@/docs/basic.vue'
+import HomePage from '@/docs/home.vue'
 import VuePage from '@/docs/vue.vue'
 
 Vue.use(Router)
@@ -8,7 +8,7 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
-    { path: '/', component: BasicPage },
+    { path: '/', component: HomePage },
     { path: '/vue', component: VuePage }
   ]
 })

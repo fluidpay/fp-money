@@ -40,10 +40,14 @@ export default Vue.extend({
     </pre>
     <pre>
       <code class="language-javascript">
+        import FPMoney from 'fp-money'
+
         new FPMoney({
-          container: document.querySelector('#example') as HTMLDivElement,
-          // value: 86753.09, // optional
-          // locale: 'en-us', // optional
+          container: document.querySelector('#example'),
+          // value: 86753.09, // optional - default ''
+          // currency: 'usd', // optional - default 'usd'
+          // locale: 'en-us', // optional - default navigator.language
+          // showSelection: true, // optional - default true
           onChange: (values) => {
             console.log(values)
             // {

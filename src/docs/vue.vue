@@ -27,6 +27,20 @@ export default Vue.extend({
   <div class="vue">
     <fpmoney id="example" value="85555" :onChange="change" />
     <pre>
+      <code class="language-javascript">
+        import fpmoney from 'fp-money/fp-money-vue.js'
+
+        export default {
+          components: { fpmoney },
+          methods: {
+            change(values: Values) {
+              console.log(values)
+            }
+          }
+        }
+      </code>
+    </pre>
+    <pre>
       <code class="language-html">
         &lt;fpmoney value="85555" :onChange="change" /&gt;
       </code>

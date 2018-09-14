@@ -18,6 +18,7 @@ export interface Constructor {
     value?: string | number;
     currency?: string;
     locale?: string;
+    showSelection?: boolean;
     onChange: (values: Values) => void;
 }
 export declare function lowestCommonToFormat(val: string | number, fraction?: number): string;
@@ -32,6 +33,7 @@ export default class FPMoney {
     format: string;
     currency: string;
     locale: string;
+    showSelection: boolean;
     onChange: (values: Values) => void;
     constructor(info: Constructor);
     setCurrency(currency: string): void;
