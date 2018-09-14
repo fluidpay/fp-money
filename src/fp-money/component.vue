@@ -7,7 +7,11 @@ export default {
     value: [String, Number],
     currency: String,
     locale: String,
-    onChange: Function
+    onChange: Function,
+    showSelection: {
+      type: Boolean,
+      default: true
+    }
   },
   data() {
     return {
@@ -31,6 +35,7 @@ export default {
       if (this.value) {options.value = this.value}
       if (this.currency) {options.currency = this.currency}
       if (this.locale) {options.locale = this.locale}
+      options.showSelection = this.showSelection
       if (this.onChange) {options.onChange = this.onChange}
       this.fpmoney = new FPMoney(options)
     }
