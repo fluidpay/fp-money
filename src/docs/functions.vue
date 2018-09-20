@@ -14,8 +14,8 @@ export default Vue.extend({
     intToFraction(value: number, fraction: number) {
       return intToFraction(value, fraction)
     },
-    displayValue(value: number, currency: string, locale: string) {
-      return displayValue(value, currency, locale)
+    displayValue(value: number, currency: string, fraction: number, locale: string) {
+      return displayValue(value, currency, fraction, locale)
     },
     getLocale() {
       return getLocale()
@@ -54,7 +54,7 @@ export default Vue.extend({
     <div class="section">
       <div class="item">fractionToInt(value, fraction): 86753.09 - {{fractionToInt(86753.09, 2)}}</div>
       <div class="item">intToFraction(value, fraction): 8675309 - {{intToFraction(8675309, 2)}}</div>
-      <div class="item">displayValue(value, currency, locale): 86753.09 - {{displayValue(86753.09, 'usd', 'en-us')}}</div>
+      <div class="item">displayValue(value, currency, fraction, locale): 86753.09 - {{displayValue(86753.09, 'usd', 2, 'en-us')}}</div>
       <div class="item">getLocale(): {{getLocale()}}</div>
     </div>
   </div>
