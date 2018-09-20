@@ -1,6 +1,6 @@
 <script lang="ts">
 import Vue from 'vue'
-import FPMoney, {lowestCommonToFormat} from '@/fp-money/fp-money.ts'
+import FPMoney from '@/fp-money/fp-money.ts'
 
 export default Vue.extend({
   mounted() {
@@ -16,13 +16,15 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.basic {
-  #example {
-    width: 250px;
-    margin: 0 auto;
-    margin-bottom: var(--spacing);
+  @import './assets/scss/_variables.scss';
+    
+  .basic {
+    #example {
+      width: 250px;
+      margin: 0 auto;
+      margin-bottom: $spacing;
+    }
   }
-}
 </style>
 
 <template>
@@ -45,10 +47,13 @@ export default Vue.extend({
 
         new FPMoney({
           container: document.querySelector('#example'),
-          // value: 86753.09, // optional - default ''
-          // currency: 'usd', // optional - default 'usd'
-          // locale: 'en-us', // optional - default navigator.language
+          // value: 86753.09,     // optional - default ''
+          // currencies: Object   // optional - {USD: {symbol: '$', fraction:2}}
+          // currency: 'USD',     // optional - default 'USD'
+          // locale: 'en-us',     // optional - default navigator.language
+          // maxValue: 999,       // optional - default no limit
           // showSelection: true, // optional - default true
+
           onChange: (values) => {
             console.log(values)
             // {

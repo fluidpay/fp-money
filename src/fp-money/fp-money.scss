@@ -1,41 +1,51 @@
+$color-font: #666666 !default;
+$color-border: #dcdee2 !default;
+$color-background: #efefef !default;
+
+$height: 30px;
+$border-radius: 4px !default;
+
+$spacing: 20px;
+$spacing-half: 10px;
+$spacing-quarter: 5px;
+
 .fpm {
   display: flex;
   -webkit-font-smoothing: antialiased;
 
   .fpm-currency, .fpm-value, .fpm-select {
-    color: #666666;
+    color: $color-font;
     display: block;
-    height: 30px;
-    padding: 5px 10px;
+    height: $height;
+    padding: $spacing-quarter $spacing-half;
     margin: 0px;
     outline: 0;
     box-sizing: border-box;
-    background-color: #ffffff;
 
     &::placeholder {
-      color: #DCDEE2;
+      color: $color-border;
     }
   }
 
   > * {
-    border-top: 1px solid #DCDEE2;
-    border-left: 1px solid #DCDEE2;
-    border-bottom: 1px solid #DCDEE2;
+    border-top: 1px solid $color-border;
+    border-left: 1px solid $color-border;
+    border-bottom: 1px solid $color-border;
   }
 
   :first-child {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
   }
 
   :last-child {
-    border-right: 1px solid #DCDEE2;
+    border-right: 1px solid $color-border;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
   }
 
   .fpm-currency {
@@ -44,7 +54,7 @@
     align-items: center;
     font-weight: bold;
     flex: 0 0 auto;
-    background-color: #efefef;
+    background-color: $color-background;
     user-select: none;
   }
   
@@ -61,6 +71,6 @@
     appearance: none;
     overflow: hidden;
     background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1024' height='640'><path d='M1017 68L541 626q-11 12-26 12t-26-12L13 68Q-3 49 6 24.5T39 0h952q24 0 33 24.5t-7 43.5z'></path></svg>") 85%/10px 5px no-repeat;
-    background-color: #efefef;
+    background-color: $color-background;
   }
 }

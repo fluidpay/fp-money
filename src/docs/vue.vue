@@ -14,13 +14,15 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.vue {
-  #example {
-    width: 250px;
-    margin: 0 auto;
-    margin-bottom: var(--spacing);
+  @import './assets/scss/_variables.scss';
+    
+  .vue {
+    #example {
+      width: 250px;
+      margin: 0 auto;
+      margin-bottom: $spacing;
+    }
   }
-}
 </style>
 
 <template>

@@ -43,7 +43,7 @@ table {
 
 button {
   background: none;
-  color: var(--color-font);
+  color: $color-font;
   &:active {
     outline: none;
   }
