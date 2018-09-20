@@ -1,6 +1,6 @@
 <script lang="ts">
 import Vue from 'vue'
-import FPMoney, {lowestCommonToFormat} from '@/fp-money/fp-money.ts'
+import FPMoney from '@/fp-money/fp-money.ts'
 
 export default Vue.extend({
   mounted() {
@@ -16,13 +16,15 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.basic {
-  #example {
-    width: 250px;
-    margin: 0 auto;
-    margin-bottom: var(--spacing);
+  @import './assets/scss/_variables.scss';
+    
+  .basic {
+    #example {
+      width: 250px;
+      margin: 0 auto;
+      margin-bottom: $spacing;
+    }
   }
-}
 </style>
 
 <template>

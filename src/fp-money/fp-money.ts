@@ -1,31 +1,6 @@
-interface Currencies {
-  [currency: string]: Currency
-}
+import { currencies, intToFraction, fractionToInt, displayValue, getLocale } from './currencies'
 
-interface Currency {
-  symbol: string
-  fraction: number
-}
-
-export const currencies: Currencies = {
-  USD: { symbol: '$', fraction: 2 },
-  EUR: { symbol: '€', fraction: 2 },
-  GBP: { symbol: '£', fraction: 2 },
-  INR: { symbol: '₹', fraction: 2 },
-  CRC: { symbol: '₡', fraction: 2 },
-  VND: { symbol: '₫', fraction: 0 },
-  HUF: { symbol: 'Ft', fraction: 2 },
-  ILS: { symbol: '₪', fraction: 2 },
-  CNY: { symbol: '¥', fraction: 2 },
-  KRW: { symbol: '₩', fraction: 0 },
-  NGN: { symbol: '₦', fraction: 2 },
-  PYG: { symbol: '₲', fraction: 0 },
-  PHP: { symbol: '₱', fraction: 2 },
-  PLN: { symbol: 'zł', fraction: 2 },
-  THB: { symbol: '฿', fraction: 2 },
-  UAH: { symbol: '₴', fraction: 2 },
-  JPY: { symbol: '¥', fraction: 0 }
-}
+export { currencies, intToFraction, fractionToInt, displayValue, getLocale }
 
 export interface Values {
   value: string
@@ -40,39 +15,9 @@ export interface Constructor {
   value?: string | number
   currency?: string
   locale?: string
+  maxValue?: number
   showSelection?: boolean
   onChange: (values: Values) => void
-}
-
-export function lowestCommonToFormat(val: string | number, fraction: number = 2): string {
-  val = val.toString()
-
-  // Create divide first
-  let divide = '1'
-  for (let i = 0; i < fraction; i++) { divide += '0'}
-  const divideInt = parseInt(divide, 10)
-
-  // If val includes . lets multiply it first
-  if (val.indexOf('.') !== -1) {
-    val = (parseFloat(val) * divideInt).toString()
-  }
-
-  // If fraction is 0 parseInt and return it
-  if (fraction === 0) { return parseInt(val, 10).toString() }
-
-  return (parseInt(val, 10) / divideInt).toFixed(fraction)
-}
-
-export function formatToLowestCommon(val: string | number, fraction: number = 2): string {
-  const valStr = val.toString()
-
-  let multi = '1'
-  for (let i = 0; i < fraction; i++) { multi += '0'}
-  const multiInt = parseInt(multi, 10)
-
-  const valFloat = (parseFloat(valStr) * multiInt).toString()
-
-  return parseInt(valFloat, 10).toString()
 }
 
 export default class FPMoney {
@@ -86,7 +31,8 @@ export default class FPMoney {
   public display: string = ''
   public format: string = ''
   public currency: string = 'USD'
-  public locale: string = this.getLocale()
+  public locale: string = getLocale()
+  public maxValue: number = 0
   public showSelection: boolean = true
 
   // Callbacks
@@ -107,7 +53,8 @@ export default class FPMoney {
     // Set values
     if (info.currency) {this.currency = info.currency.toUpperCase()}
     if (info.locale) {this.locale = info.locale}
-    if (info.value) {this.value = formatToLowestCommon(info.value, currencies[this.currency].fraction)}
+    if (info.value) {this.value = fractionToInt(info.value, currencies[this.currency].fraction).toString()}
+    if (info.maxValue) {this.maxValue = fractionToInt(info.maxValue, currencies[this.currency].fraction)}
     if (info.showSelection !== undefined) {this.showSelection = info.showSelection}
 
     // Set Callbacks
@@ -152,36 +99,6 @@ export default class FPMoney {
     this.updateOutput()
   }
 
-  public displayValue(): string {
-    const fraction = currencies[this.currency.toUpperCase()].fraction
-    const formatter = new Intl.NumberFormat(this.locale, {
-      localeMatcher: 'best fit',
-      style: 'currency',
-      currency: this.currency.toUpperCase(),
-      currencyDisplay: 'symbol',
-
-      minimumFractionDigits: fraction,
-      maximumFractionDigits: fraction
-    })
-
-    return formatter.format(parseFloat(this.formatValue()))
-  }
-
-  public formatValue(): string {
-    const val = (this.value === '' ? '0' : this.value) // Lets make sure value is at least a
-    const fraction = currencies[this.currency.toUpperCase()].fraction
-
-    if (fraction === 0) { return val }
-
-    let divide = '1'
-    for (let i = 0; i < fraction; i++) {
-      divide += '0'
-    }
-    const divideInt = parseInt(divide, 10)
-
-    return (parseInt(val, 10) / divideInt).toFixed(fraction)
-  }
-
   public destroy() {
     // Clean out container
     this.container.innerHTML = ''
@@ -212,8 +129,8 @@ export default class FPMoney {
 
   private updateOutput() {
     this.value = (this.value === '' ? '' : parseInt(this.value, 10).toString())
-    this.format = this.formatValue()
-    this.display = this.displayValue()
+    this.format = intToFraction(this.value, currencies[this.currency].fraction).toString()
+    this.display = displayValue(this.value, this.currency, this.locale)
 
     this.updateInputDisplay()
 
@@ -264,28 +181,31 @@ export default class FPMoney {
 
   // Deal with key inputs into money field
   private inputKeydown(evt: KeyboardEvent) {
-    evt.preventDefault() // Disable normal operations
-
     const charCode = evt.keyCode || evt.which
 
-    // If delete
-    if (charCode === 8 || charCode === 46) {
+    if (charCode === 8 || charCode === 46) { // If delete
+      evt.preventDefault() // Disable normal operations
+
       // Add key to value
       this.value = this.value.substring(0, this.value.length - 1)
 
       // Update display in input field
       this.updateOutput()
       return
-    }
+    } else if (charCode >= 48 && charCode <= 57) { // If hitting 0-9
+      evt.preventDefault() // Disable normal operations
 
-    // If hitting 0-9
-    if (charCode >= 48 && charCode <= 57) {
       // Add key to value
       this.value += String.fromCharCode(charCode)
 
       // Update display in input field
       this.updateOutput()
       return
+    } else if (charCode === 9) {
+      // Tab let it operate normally
+    } else {
+      // Disable normal operations
+      evt.preventDefault()
     }
   }
 
@@ -297,17 +217,6 @@ export default class FPMoney {
         const range = el.createTextRange()
         range.collapse(false)
         range.select()
-    }
-  }
-
-  // Try to identify the users locale - default en
-  private getLocale(): string {
-    if (navigator.languages !== undefined) {
-      return navigator.languages[0]
-    } else if (navigator.language) {
-      return navigator.language
-    } else {
-      return 'en'
     }
   }
 }
