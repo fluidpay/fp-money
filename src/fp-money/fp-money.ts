@@ -1,4 +1,4 @@
-import { currencies, intToFraction, fractionToInt, displayValue, getLocale } from './currencies'
+import { Currencies, currencies, intToFraction, fractionToInt, displayValue, getLocale } from './currencies'
 
 export { currencies, intToFraction, fractionToInt, displayValue, getLocale }
 
@@ -13,6 +13,7 @@ export interface Values {
 export interface Constructor {
   container: HTMLDivElement
   value?: string | number
+  currencies?: Currencies
   currency?: string
   locale?: string
   maxValue?: number
@@ -30,7 +31,8 @@ export default class FPMoney {
   public value: string = ''
   public display: string = ''
   public format: string = ''
-  public currency: string = 'USD'
+  public currencies: Currencies = JSON.parse(JSON.stringify(currencies))
+  public currency: string = '' // default is set in the constructor
   public locale: string = getLocale()
   public maxValue: number = 0
   public showSelection: boolean = true
@@ -51,10 +53,11 @@ export default class FPMoney {
     this.container = el
 
     // Set values
-    if (info.currency) {this.currency = info.currency.toUpperCase()}
+    if (info.currencies) {this.currencies = info.currencies}
+    if (info.currency) {this.currency = info.currency.toUpperCase()} else {this.currency = Object.keys(this.currencies)[0]}
     if (info.locale) {this.locale = info.locale}
-    if (info.value) {this.value = fractionToInt(info.value, currencies[this.currency].fraction).toString()}
-    if (info.maxValue) {this.maxValue = fractionToInt(info.maxValue, currencies[this.currency].fraction)}
+    if (info.value) {this.value = fractionToInt(info.value, this.currencies[this.currency].fraction).toString()}
+    if (info.maxValue) {this.maxValue = fractionToInt(info.maxValue, this.currencies[this.currency].fraction)}
     if (info.showSelection !== undefined) {this.showSelection = info.showSelection}
 
     // Set Callbacks
@@ -75,10 +78,10 @@ export default class FPMoney {
     this.currency = currency
 
     // Currency display
-    this.currencyDiv.innerHTML = currencies[currency].symbol
+    this.currencyDiv.innerHTML = this.currencies[currency].symbol
 
     // Input display
-    const fraction = currencies[currency].fraction
+    const fraction = this.currencies[currency].fraction
     let multi = ''
     for (let i = 0; i < fraction; i++) {
       multi += '0'
@@ -122,8 +125,8 @@ export default class FPMoney {
       this.value = val.toString()
     }
 
-    this.format = intToFraction(this.value, currencies[this.currency].fraction).toFixed(currencies[this.currency].fraction)
-    this.display = displayValue(this.value, this.currency, this.locale)
+    this.format = intToFraction(this.value, this.currencies[this.currency].fraction).toFixed(this.currencies[this.currency].fraction)
+    this.display = displayValue(this.value, this.currency, this.currencies[this.currency].fraction, this.locale)
 
     this.updateInputDisplay()
 
@@ -141,8 +144,9 @@ export default class FPMoney {
     if (this.value === '') { this.input.value = ''; return }
 
     // Clean display output
-    let clean = this.display.replace(currencies[this.currency.toUpperCase()].symbol, '') // Remove symbol
+    let clean = this.display.replace(this.currencies[this.currency.toUpperCase()].symbol, '') // Remove symbol
     const cur = this.currency
+    clean = clean.replace(cur, '')
     cur.split('').forEach((c, i) => {
       clean = clean.replace(cur.substring(0, cur.length - i), '')
     })
@@ -165,8 +169,8 @@ export default class FPMoney {
     }, false)
 
     // Add options to select
-    for (const c in currencies) {
-      if (currencies.hasOwnProperty(c)) {
+    for (const c in this.currencies) {
+      if (this.currencies.hasOwnProperty(c)) {
         const option = document.createElement('option')
         option.value = c
         option.text = c.toUpperCase()

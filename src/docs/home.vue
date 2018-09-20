@@ -48,10 +48,12 @@ export default Vue.extend({
         new FPMoney({
           container: document.querySelector('#example'),
           // value: 86753.09,     // optional - default ''
-          // currency: 'usd',     // optional - default 'usd'
+          // currencies: Object   // optional - {USD: {symbol: '$', fraction:2}}
+          // currency: 'USD',     // optional - default 'USD'
           // locale: 'en-us',     // optional - default navigator.language
           // maxValue: 999,       // optional - default no limit
           // showSelection: true, // optional - default true
+
           onChange: (values) => {
             console.log(values)
             // {

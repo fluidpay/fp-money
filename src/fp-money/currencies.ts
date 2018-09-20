@@ -59,8 +59,7 @@ export function fractionToInt(val: string | number, fraction: number = 2): numbe
   return parseInt(valFloat, 10)
 }
 
-export function displayValue(value: string | number, currency: string, locale: string = getLocale()): string {
-  const fraction = currencies[currency.toUpperCase()].fraction
+export function displayValue(value: string | number, currency: string, fraction: number, locale: string = getLocale()): string {
   const formatter = new Intl.NumberFormat(locale, {
     localeMatcher: 'best fit',
     style: 'currency',
