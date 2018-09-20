@@ -29,6 +29,7 @@ export const currencies: Currencies = {
 
 export function intToFraction(val: string | number, fraction: number = 2): number {
   val = val.toString()
+  if (val === '') {val = '0'}
 
   // Create divide first
   let divide = '1'
@@ -53,7 +54,7 @@ export function fractionToInt(val: string | number, fraction: number = 2): numbe
   for (let i = 0; i < fraction; i++) { multi += '0'}
   const multiInt = parseInt(multi, 10)
 
-  const valFloat = (parseFloat(valStr) * multiInt).toString()
+  const valFloat = Math.round(parseFloat(valStr) * multiInt).toString()
 
   return parseInt(valFloat, 10)
 }

@@ -114,22 +114,15 @@ export default class FPMoney {
     if (!el) { throw new Error('Could not find container') }
   }
 
-  private updateInputDisplay() {
-    if (this.value === '') { this.input.value = ''; return }
-
-    // Clean display output
-    let clean = this.display.replace(currencies[this.currency.toUpperCase()].symbol, '') // Remove symbol
-    const cur = this.currency
-    cur.split('').forEach((c, i) => {
-      clean = clean.replace(cur.substring(0, cur.length - i), '')
-    })
-    clean = clean.trim() // Remove whitespace
-    this.input.value = clean
-  }
-
   private updateOutput() {
-    this.value = (this.value === '' ? '' : parseInt(this.value, 10).toString())
-    this.format = intToFraction(this.value, currencies[this.currency].fraction).toString()
+    if (this.value !== '') {
+      let val = parseInt(this.value, 10)
+      // Limit if max
+      if (this.maxValue !== 0 && val > this.maxValue) {val = this.maxValue}
+      this.value = val.toString()
+    }
+
+    this.format = intToFraction(this.value, currencies[this.currency].fraction).toFixed(currencies[this.currency].fraction)
     this.display = displayValue(this.value, this.currency, this.locale)
 
     this.updateInputDisplay()
@@ -142,6 +135,19 @@ export default class FPMoney {
       currency: this.currency,
       locale: this.locale
     })
+  }
+
+  private updateInputDisplay() {
+    if (this.value === '') { this.input.value = ''; return }
+
+    // Clean display output
+    let clean = this.display.replace(currencies[this.currency.toUpperCase()].symbol, '') // Remove symbol
+    const cur = this.currency
+    cur.split('').forEach((c, i) => {
+      clean = clean.replace(cur.substring(0, cur.length - i), '')
+    })
+    clean = clean.trim() // Remove whitespace
+    this.input.value = clean
   }
 
   private render() {
@@ -186,23 +192,21 @@ export default class FPMoney {
     if (charCode === 8 || charCode === 46) { // If delete
       evt.preventDefault() // Disable normal operations
 
-      // Add key to value
+      // Remove key from value
       this.value = this.value.substring(0, this.value.length - 1)
 
       // Update display in input field
       this.updateOutput()
-      return
-    } else if (charCode >= 48 && charCode <= 57) { // If hitting 0-9
+    } else if ((charCode >= 48 && charCode <= 57) || (charCode >= 96 && charCode <= 105)) { // If hitting 0-9
       evt.preventDefault() // Disable normal operations
 
       // Add key to value
-      this.value += String.fromCharCode(charCode)
+      this.value += evt.key
 
       // Update display in input field
       this.updateOutput()
-      return
-    } else if (charCode === 9) {
-      // Tab let it operate normally
+    } else if (charCode === 9 || charCode === 13) {
+      // Tab or enter let it operate normally
     } else {
       // Disable normal operations
       evt.preventDefault()
