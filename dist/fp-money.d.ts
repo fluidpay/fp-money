@@ -1,5 +1,5 @@
-import { Currencies, currencies, intToFraction, fractionToInt, displayValue, getLocale } from './currencies';
-export { currencies, intToFraction, fractionToInt, displayValue, getLocale };
+import { Currencies } from './currencies';
+export * from './currencies';
 export interface Values {
     value: string;
     display: string;
