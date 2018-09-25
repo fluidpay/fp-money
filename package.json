@@ -1,6 +1,6 @@
 {
   "name": "fp-money",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": false,
   "description": "FluidPay input formatter and currency selector",
   "repository": "github.com/fluidpay/fp-money",
