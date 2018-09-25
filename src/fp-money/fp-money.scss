@@ -2,12 +2,12 @@ $color-font: #666666 !default;
 $color-border: #dcdee2 !default;
 $color-background: #efefef !default;
 
-$height: 30px;
+$height: 30px !default;
 $border-radius: 4px !default;
 
-$spacing: 20px;
-$spacing-half: 10px;
-$spacing-quarter: 5px;
+$spacing: 20px !default;
+$spacing-half: 10px !default;
+$spacing-quarter: 5px !default;
 
 .fpm {
   display: flex;

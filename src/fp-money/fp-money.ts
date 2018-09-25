@@ -1,6 +1,6 @@
 import { Currencies, currencies, intToFraction, fractionToInt, displayValue, getLocale } from './currencies'
 
-export { currencies, intToFraction, fractionToInt, displayValue, getLocale }
+export * from './currencies'
 
 export interface Values {
   value: string
