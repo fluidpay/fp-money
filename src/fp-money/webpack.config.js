@@ -64,7 +64,7 @@ module.exports = {
   output: {
     library: 'FPMoney',
     libraryTarget: 'umd',
-    libraryExport: 'default',
+    // libraryExport: 'default',
     filename: '[name].js',
     path: path.resolve(__dirname, '../../dist')
   }
