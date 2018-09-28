@@ -17,7 +17,13 @@ export default {
   },
   data() {
     return {
-      fpmoney: null
+      fpmoney: null,
+      values: {
+        value: '',
+        format: '',
+        display: '',
+        currency: ''
+      }
     }
   },
   mounted() {
@@ -32,7 +38,20 @@ export default {
   methods: {
     init() {
       const options = {
-        container: this.$refs.fpmoney
+        container: this.$refs.fpmoney,
+        onChange: (values) => {
+          this.values = values // Set values in data
+
+          // Set Values
+          this.$emit('input', this.values.format)
+          this.$emit('update:value', this.values.value)
+          this.$emit('update:format', this.values.format)
+          this.$emit('update:display', this.values.display)
+          this.$emit('update:currency', this.values.currency)
+
+          // If the requester wants and onChange callback lets send them the values
+          if (this.onChange) { this.onChange(values) }
+        }
       }
       if (this.value) {options.value = this.value}
       if (this.currencies) {options.currencies = this.currencies}
@@ -40,7 +59,6 @@ export default {
       if (this.locale) {options.locale = this.locale}
       if (this.maxValue) {options.maxValue = this.maxValue}
       options.showSelection = this.showSelection
-      if (this.onChange) {options.onChange = this.onChange}
       this.fpmoney = new FPMoney(options)
     }
   }
