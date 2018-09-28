@@ -3,12 +3,23 @@ import Vue from 'vue'
 import FPMoney from '@/fp-money/fp-money.ts'
 
 export default Vue.extend({
+  data() {
+    return {
+      value: '',
+      format: '',
+      display: '',
+      currency: ''
+    }
+  },
   mounted() {
     new FPMoney({
       container: document.querySelector('#example') as HTMLDivElement,
       value: 86753.09,
       onChange: (values) => {
-        console.log(values)
+        this.value = values.value
+        this.format = values.format
+        this.display = values.display
+        this.currency = values.currency
       }
     })
   }
@@ -24,12 +35,26 @@ export default Vue.extend({
       margin: 0 auto;
       margin-bottom: $spacing;
     }
+
+    .outputs {
+      padding: 0 0 $spacing 0;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+    }
   }
 </style>
 
 <template>
   <div class="basic">
     <div id="example"></div>
+    <div class="outputs">
+      Value: {{value}}<br />
+      Format: {{format}}<br />
+      Display: {{display}}<br />
+      Currency: {{currency}}
+    </div>
     <pre>
       <code class="language-bash">
         npm install fp-money

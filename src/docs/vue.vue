@@ -5,6 +5,15 @@ import fpmoney from '@/fp-money/component.vue'
 
 export default Vue.extend({
   components: { fpmoney },
+  data() {
+    return {
+      value: 86753.09,
+      int: '',
+      format: '',
+      display: '',
+      currency: ''
+    }
+  },
   methods: {
     change(values: Values) {
       console.log(values)
@@ -22,20 +31,51 @@ export default Vue.extend({
       margin: 0 auto;
       margin-bottom: $spacing;
     }
+
+    .outputs {
+      padding: 0 0 $spacing 0;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+    }
   }
 </style>
 
 <template>
   <div class="vue">
-    <fpmoney id="example" value="85555" :onChange="change" />
+    <fpmoney id="example" 
+      v-model="value" 
+      :value.sync="int" 
+      :format.sync="format" 
+      :display.sync="display"
+      :currency.sync="currency"
+      :onChange="change" />
+    
+    <div class="outputs">
+      Value: {{value}}<br />
+      Format: {{format}}<br />
+      Display: {{display}}<br />
+      Currency: {{currency}}
+    </div>
+    
     <pre>
       <code class="language-javascript">
         import fpmoney from 'fp-money/dist/fp-money-vue.js'
 
         export default {
           components: { fpmoney },
+          data() {
+            return {
+              value: 86753.09,
+              int: '',
+              format: '',
+              display: '',
+              currency: ''
+            }
+          },
           methods: {
-            change(values: Values) {
+            change(values) {
               console.log(values)
             }
           }
@@ -44,7 +84,13 @@ export default Vue.extend({
     </pre>
     <pre>
       <code class="language-html">
-        &lt;fpmoney value="85555" :onChange="change" /&gt;
+        &lt;fpmoney id="example" 
+          v-model="value" 
+          :value.sync="int" 
+          :format.sync="format" 
+          :display.sync="display"
+          :currency.sync="currency"
+          :onChange="change" /&gt;
       </code>
     </pre>
   </div>
