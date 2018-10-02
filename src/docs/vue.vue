@@ -53,7 +53,7 @@ export default Vue.extend({
       :onChange="change" />
     
     <div class="outputs">
-      Value: {{value}}<br />
+      Value: {{int}}<br />
       Format: {{format}}<br />
       Display: {{display}}<br />
       Currency: {{currency}}
