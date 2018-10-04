@@ -11,7 +11,8 @@ export default Vue.extend({
       int: '',
       format: '',
       display: '',
-      currency: ''
+      currency: '',
+      locale: 'en-US'
     }
   },
   methods: {
@@ -50,6 +51,7 @@ export default Vue.extend({
       :format.sync="format" 
       :display.sync="display"
       :currency.sync="currency"
+      :locale.sync="locale"
       :onChange="change" />
     
     <div class="outputs">
@@ -71,7 +73,8 @@ export default Vue.extend({
               int: '',
               format: '',
               display: '',
-              currency: ''
+              currency: '',
+              locale: 'en-us'
             }
           },
           methods: {
@@ -86,11 +89,13 @@ export default Vue.extend({
       <code class="language-html">
         &lt;fpmoney id="example" 
           v-model="value" 
-          :value.sync="int" 
-          :format.sync="format" 
-          :display.sync="display"
-          :currency.sync="currency"
-          :onChange="change" /&gt;
+          :value.sync="int" &lt;-- Optional
+          :format.sync="format" &lt;-- Optional
+          :display.sync="display" &lt;-- Optional
+          :currency.sync="currency" &lt;-- Optional
+          :locale="locale" &lt;-- Optional
+          :onChange="change" &lt;-- Optional 
+          :showSelection="true" &lt;-- Optional /&gt;
       </code>
     </pre>
   </div>
