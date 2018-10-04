@@ -16,6 +16,7 @@ export default Vue.extend({
       container: document.querySelector('#example') as HTMLDivElement,
       value: 86753.09,
       onChange: (values) => {
+        console.log(values)
         this.value = values.value
         this.format = values.format
         this.display = values.display
