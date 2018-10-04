@@ -73,6 +73,11 @@ export default class FPMoney {
     this.setCurrency(this.currency)
   }
 
+  public setValue(value: number) {
+    this.value = fractionToInt(value, this.currencies[this.currency].fraction).toString()
+    this.updateOutput()
+  }
+
   public setCurrency(currency: string) {
     currency = currency.toUpperCase()
     this.currency = currency

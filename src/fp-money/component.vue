@@ -22,7 +22,8 @@ export default {
         value: '',
         format: '',
         display: '',
-        currency: ''
+        currency: '',
+        locale: ''
       }
     }
   },
@@ -34,6 +35,17 @@ export default {
       this.fpmoney.destroy()
     }
     this.init()
+  },
+  watch: {
+    value(newValue, oldValue) {
+      this.fpmoney.setValue(newValue)
+    },
+    currency(newValue, oldValue) {
+      this.fpmoney.setCurrency(newValue)
+    },
+    locale(newValue, oldValue) {
+      this.fpmoney.setLocale(newValue)
+    }
   },
   methods: {
     init() {
@@ -48,6 +60,7 @@ export default {
           this.$emit('update:format', this.values.format)
           this.$emit('update:display', this.values.display)
           this.$emit('update:currency', this.values.currency)
+          this.$emit('update:locale', this.values.locale)
 
           // If the requester wants and onChange callback lets send them the values
           if (this.onChange) { this.onChange(values) }
