@@ -84,8 +84,8 @@ export default Vue.extend({
             console.log(values)
             // {
             // value: "8675309",
-            // display: "$86,753.09",
             // format: "86753.09",
+            // display: "$86,753.09",
             // currency: "USD",
             // locale: "en-US"
             // }
