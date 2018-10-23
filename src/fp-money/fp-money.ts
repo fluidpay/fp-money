@@ -28,6 +28,7 @@ export default class FPMoney {
   public select: HTMLSelectElement
 
   // Input items
+  public isNegaitve: boolean = false
   public value: string = ''
   public display: string = ''
   public format: string = ''
@@ -130,6 +131,14 @@ export default class FPMoney {
       this.value = val.toString()
     }
 
+    // Identify isNegative
+    if (this.isNegaitve) {
+      this.value = '-' + this.value.replace('-', '')
+      if (this.value === '-') { this.value = '' }
+    } else {
+      this.value = this.value.replace('-', '')
+    }
+
     this.format = intToFraction(this.value, this.currencies[this.currency].fraction).toFixed(this.currencies[this.currency].fraction)
     this.display = displayValue(this.value, this.currency, this.currencies[this.currency].fraction, this.locale)
 
@@ -156,6 +165,7 @@ export default class FPMoney {
       clean = clean.replace(cur.substring(0, cur.length - i), '')
     })
     clean = clean.trim() // Remove whitespace
+    if (this.isNegaitve) { clean = '-' + clean.replace('-', '') }
     this.input.value = clean
   }
 
@@ -197,12 +207,14 @@ export default class FPMoney {
   // Deal with key inputs into money field
   private inputKeydown(evt: KeyboardEvent) {
     const charCode = evt.keyCode || evt.which
+    const isShift = evt.shiftKey
 
     if (charCode === 8 || charCode === 46) { // If delete
       evt.preventDefault() // Disable normal operations
 
       // Remove key from value
       this.value = this.value.substring(0, this.value.length - 1)
+      if (this.value === '-') { this.value = '' }
 
       // Update display in input field
       this.updateOutput()
@@ -216,6 +228,22 @@ export default class FPMoney {
       this.updateOutput()
     } else if (charCode === 9 || charCode === 13) {
       // Tab or enter let it operate normally
+    } else if (charCode === 107 || (isShift && charCode === 187)) { // If + plus character
+      evt.preventDefault() // Disable normal operations
+
+      // Set isNegative
+      this.isNegaitve = false
+
+      // Update display in input field
+      this.updateOutput()
+    } else if (charCode === 109 || charCode === 189) { // If - negative character
+      evt.preventDefault() // Disable normal operations
+
+      // Set isNegative
+      this.isNegaitve = true
+
+      // Update display in input field
+      this.updateOutput()
     } else {
       // Disable normal operations
       evt.preventDefault()
