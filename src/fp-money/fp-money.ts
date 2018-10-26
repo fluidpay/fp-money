@@ -1,4 +1,4 @@
-import { Currencies, currencies, intToFraction, fractionToInt, displayValue, getLocale } from './currencies'
+import { Currencies, currencies, intToFraction, fractionToInt, displayValue, getLocale, isNegative } from './currencies'
 
 export * from './currencies'
 
@@ -28,7 +28,7 @@ export default class FPMoney {
   public select: HTMLSelectElement
 
   // Input items
-  public isNegaitve: boolean = false
+  public isNegative: boolean = false
   public value: string = ''
   public display: string = ''
   public format: string = ''
@@ -57,7 +57,10 @@ export default class FPMoney {
     if (info.currencies) {this.currencies = info.currencies}
     if (info.currency) {this.currency = info.currency.toUpperCase()} else {this.currency = Object.keys(this.currencies)[0]}
     if (info.locale) {this.locale = info.locale}
-    if (info.value) {this.value = fractionToInt(info.value, this.currencies[this.currency].fraction).toString()}
+    if (info.value) {
+      this.isNegative = isNegative(info.value.toString())
+      this.value = fractionToInt(info.value, this.currencies[this.currency].fraction).toString()
+    }
     if (info.maxValue) {this.maxValue = fractionToInt(info.maxValue, this.currencies[this.currency].fraction)}
     if (info.showSelection !== undefined) {this.showSelection = info.showSelection}
 
@@ -75,6 +78,7 @@ export default class FPMoney {
   }
 
   public setValue(value: number) {
+    this.isNegative = isNegative(value.toString())
     this.value = fractionToInt(value, this.currencies[this.currency].fraction).toString()
     this.updateOutput()
   }
@@ -132,7 +136,7 @@ export default class FPMoney {
     }
 
     // Identify isNegative
-    if (this.isNegaitve) {
+    if (this.isNegative) {
       this.value = '-' + this.value.replace('-', '')
       if (this.value === '-') { this.value = '' }
     } else {
@@ -165,7 +169,7 @@ export default class FPMoney {
       clean = clean.replace(cur.substring(0, cur.length - i), '')
     })
     clean = clean.trim() // Remove whitespace
-    if (this.isNegaitve) { clean = '-' + clean.replace('-', '') }
+    if (this.isNegative) { clean = '-' + clean.replace('-', '') }
     this.input.value = clean
   }
 
@@ -232,7 +236,7 @@ export default class FPMoney {
       evt.preventDefault() // Disable normal operations
 
       // Set isNegative
-      this.isNegaitve = false
+      this.isNegative = false
 
       // Update display in input field
       this.updateOutput()
@@ -240,7 +244,7 @@ export default class FPMoney {
       evt.preventDefault() // Disable normal operations
 
       // Set isNegative
-      this.isNegaitve = true
+      this.isNegative = true
 
       // Update display in input field
       this.updateOutput()
@@ -250,6 +254,7 @@ export default class FPMoney {
     }
   }
 
+  // Will take in an element and select the end of the input field
   private moveCursorToEnd(el: any) {
     if (typeof el.selectionStart === 'number') {
         el.selectionStart = el.selectionEnd = el.value.length
