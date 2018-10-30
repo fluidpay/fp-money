@@ -1,5 +1,5 @@
 <script>
-import FPMoney from './fp-money'
+import FPMoney, {intToFraction, fractionToInt} from './fp-money'
 
 export default {
   name: 'fp-money',
@@ -10,6 +10,14 @@ export default {
     locale: String,
     maxValue: Number,
     onChange: Function,
+    valueFormat: {
+      type: String,
+      default: 'float',
+      // The value must match one of these strings
+      validator(value) {
+        return ['float', 'int'].indexOf(value) !== -1
+      }
+    },
     showSelection: {
       type: Boolean,
       default: true
@@ -38,7 +46,11 @@ export default {
   },
   watch: {
     value(newValue, oldValue) {
-      this.fpmoney.setValue(newValue)
+      if (this.valueFormat === 'int') {
+        this.fpmoney.setValue(intToFraction(newValue))
+      } else {
+        this.fpmoney.setValue(newValue)
+      }
     },
     currency(newValue, oldValue) {
       this.fpmoney.setCurrency(newValue)
@@ -55,7 +67,7 @@ export default {
           this.values = values // Set values in data
 
           // Set Values
-          this.$emit('input', this.values.format)
+          this.$emit('input', (this.valueFormat === 'int' ? this.values.value : this.values.format))
           this.$emit('update:value', this.values.value)
           this.$emit('update:format', this.values.format)
           this.$emit('update:display', this.values.display)
@@ -66,7 +78,13 @@ export default {
           if (this.onChange) { this.onChange(values) }
         }
       }
-      if (this.value) {options.value = this.value}
+      if (this.value) {
+        if (this.valueFormat === 'int') {
+          options.value = intToFraction(this.value)
+        } else {
+          options.value = this.value
+        }
+      }
       if (this.currencies) {options.currencies = this.currencies}
       if (this.currency) {options.currency = this.currency}
       if (this.locale) {options.locale = this.locale}

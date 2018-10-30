@@ -94,6 +94,7 @@ export default Vue.extend({
           :display.sync="display" &lt;-- Optional
           :currency.sync="currency" &lt;-- Optional
           :locale="locale" &lt;-- Optional
+          valueFormat="float | int" &lt;-- Optional - default float
           :onChange="change" &lt;-- Optional 
           :showSelection="true" &lt;-- Optional /&gt;
       </code>

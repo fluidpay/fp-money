@@ -22,7 +22,7 @@ export default class FPMoney {
     currencyDiv: HTMLDivElement;
     input: HTMLInputElement;
     select: HTMLSelectElement;
-    isNegaitve: boolean;
+    isNegative: boolean;
     value: string;
     display: string;
     format: string;
