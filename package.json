@@ -21,9 +21,9 @@
   },
   "devDependencies": {
     "@types/prismjs": "^1.9.0",
-    "@vue/cli-plugin-babel": "^3.0.5",
-    "@vue/cli-plugin-typescript": "^3.0.5",
-    "@vue/cli-service": "^3.0.5",
+    "@vue/cli-plugin-babel": "^3.1.0",
+    "@vue/cli-plugin-typescript": "^3.1.0",
+    "@vue/cli-service": "^3.1.0",
     "ajv": "^6.5.4",
     "node-sass": "^4.9.4",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
