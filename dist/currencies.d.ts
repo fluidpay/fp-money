@@ -10,3 +10,4 @@ export declare function intToFraction(val: string | number, fraction?: number): 
 export declare function fractionToInt(val: string | number, fraction?: number): number;
 export declare function displayValue(value: string | number, currency: string, fraction: number, locale?: string): string;
 export declare function getLocale(): string;
+export declare function isNegative(value: string): boolean;
