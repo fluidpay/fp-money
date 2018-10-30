@@ -1,5 +1,5 @@
 <script>
-import FPMoney, {intToFraction, fractionToInt} from './fp-money'
+import FPMoney, {intToFraction, fractionToInt, currencies} from './fp-money'
 
 export default {
   name: 'fp-money',
@@ -46,6 +46,7 @@ export default {
   },
   watch: {
     value(newValue, oldValue) {
+      if (newValue.toString() === oldValue.toString()) {return}
       if (this.valueFormat === 'int') {
         this.fpmoney.setValue(intToFraction(newValue))
       } else {
@@ -78,15 +79,16 @@ export default {
           if (this.onChange) { this.onChange(values) }
         }
       }
+      if (this.currencies) {options.currencies = this.currencies} else {options.currencies = currencies}
+      if (this.currency) {options.currency = this.currency} else {options.currency = Object.keys(options.currencies)[0]}
       if (this.value) {
         if (this.valueFormat === 'int') {
-          options.value = intToFraction(this.value)
+          const getCurrency = options.currencies[options.currency]
+          options.value = intToFraction(this.value, getCurrency.fraction)
         } else {
           options.value = this.value
         }
       }
-      if (this.currencies) {options.currencies = this.currencies}
-      if (this.currency) {options.currency = this.currency}
       if (this.locale) {options.locale = this.locale}
       if (this.maxValue) {options.maxValue = this.maxValue}
       options.showSelection = this.showSelection
