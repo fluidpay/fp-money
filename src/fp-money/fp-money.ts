@@ -78,6 +78,7 @@ export default class FPMoney {
   }
 
   public setValue(value: number) {
+    if (value.toString() === this.value.toString()) {return} // Dont do anything if nothing changed
     this.isNegative = isNegative(value.toString())
     this.value = fractionToInt(value, this.currencies[this.currency].fraction).toString()
     this.updateOutput()
