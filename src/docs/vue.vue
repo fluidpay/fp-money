@@ -2,18 +2,25 @@
 import Vue from 'vue'
 import { Values } from '@/fp-money/fp-money.ts'
 import fpmoney from '@/fp-money/component.vue'
+import Chance from 'chance'
+const chance = new Chance()
 
 export default Vue.extend({
   components: { fpmoney },
   data() {
     return {
-      value: 86753.09,
+      value: 8675309,
       int: '',
       format: '',
       display: '',
       currency: '',
       locale: 'en-US'
     }
+  },
+  mounted() {
+    setInterval(() => {
+      this.value = chance.integer({ min: 1000, max: 100000 })
+    }, 10000)
   },
   methods: {
     change(values: Values) {
