@@ -10,14 +10,7 @@ export default {
     locale: String,
     maxValue: Number,
     onChange: Function,
-    valueFormat: {
-      type: String,
-      default: 'float',
-      // The value must match one of these strings
-      validator(value) {
-        return ['float', 'int'].indexOf(value) !== -1
-      }
-    },
+    valueFormat: String,
     showSelection: {
       type: Boolean,
       default: true
@@ -47,11 +40,7 @@ export default {
   watch: {
     value(newValue, oldValue) {
       if (newValue.toString() === oldValue.toString()) {return}
-      if (this.valueFormat === 'int') {
-        this.fpmoney.setValue(intToFraction(newValue))
-      } else {
-        this.fpmoney.setValue(newValue)
-      }
+      this.fpmoney.setValue(newValue)
     },
     currency(newValue, oldValue) {
       this.fpmoney.setCurrency(newValue)
@@ -81,15 +70,10 @@ export default {
       }
       if (this.currencies) {options.currencies = this.currencies} else {options.currencies = currencies}
       if (this.currency) {options.currency = this.currency} else {options.currency = Object.keys(options.currencies)[0]}
-      if (this.value) {
-        if (this.valueFormat === 'int') {
-          const getCurrency = options.currencies[options.currency]
-          options.value = intToFraction(this.value, getCurrency.fraction)
-        } else {
-          options.value = this.value
-        }
-      }
+      if (this.valueFormat) {options.valueFormat = this.valueFormat}
+      if (this.value) {options.value = this.value}
       if (this.locale) {options.locale = this.locale}
+
       if (this.maxValue) {options.maxValue = this.maxValue}
       options.showSelection = this.showSelection
       this.fpmoney = new FPMoney(options)
