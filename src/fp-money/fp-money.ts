@@ -16,6 +16,7 @@ export interface Constructor {
   currencies?: Currencies
   currency?: string
   locale?: string
+  valueFormat?: string
   maxValue?: number
   showSelection?: boolean
   onChange: (values: Values) => void
@@ -35,6 +36,7 @@ export default class FPMoney {
   public currencies: Currencies = JSON.parse(JSON.stringify(currencies))
   public currency: string = '' // default is set in the constructor
   public locale: string = getLocale()
+  public valueFormat: string = 'float'
   public maxValue: number = 0
   public showSelection: boolean = true
 
@@ -57,9 +59,12 @@ export default class FPMoney {
     if (info.currencies) {this.currencies = info.currencies}
     if (info.currency) {this.currency = info.currency.toUpperCase()} else {this.currency = Object.keys(this.currencies)[0]}
     if (info.locale) {this.locale = info.locale}
+    if (info.valueFormat) {this.valueFormat = info.valueFormat}
     if (info.value) {
-      this.isNegative = isNegative(info.value.toString())
-      this.value = fractionToInt(info.value, this.currencies[this.currency].fraction).toString()
+      let curVal = info.value
+      this.isNegative = isNegative(curVal.toString())
+      if (info.valueFormat === 'int') {curVal = intToFraction(curVal, this.currencies[this.currency].fraction)}
+      this.value = fractionToInt(curVal, this.currencies[this.currency].fraction).toString()
     }
     if (info.maxValue) {this.maxValue = fractionToInt(info.maxValue, this.currencies[this.currency].fraction)}
     if (info.showSelection !== undefined) {this.showSelection = info.showSelection}
@@ -78,9 +83,17 @@ export default class FPMoney {
   }
 
   public setValue(value: number) {
-    if (value.toString() === this.value.toString()) {return} // Dont do anything if nothing changed
+    const fraction = this.currencies[this.currency].fraction
+    // Dont do anything if nothing changed
+    if (this.value.toString() === (this.valueFormat === 'float' ? fractionToInt(value, fraction).toString() : value.toString())) {return}
+
+    // Check if negative number
     this.isNegative = isNegative(value.toString())
-    this.value = fractionToInt(value, this.currencies[this.currency].fraction).toString()
+
+    // Normalize number to int
+    if (this.format === 'int') {value = intToFraction(value, fraction)}
+    this.value = fractionToInt(value, fraction).toString()
+
     this.updateOutput()
   }
 

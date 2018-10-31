@@ -13,6 +13,7 @@ export interface Constructor {
     currencies?: Currencies;
     currency?: string;
     locale?: string;
+    valueFormat?: string;
     maxValue?: number;
     showSelection?: boolean;
     onChange: (values: Values) => void;
@@ -29,6 +30,7 @@ export default class FPMoney {
     currencies: Currencies;
     currency: string;
     locale: string;
+    valueFormat: string;
     maxValue: number;
     showSelection: boolean;
     onChange: (values: Values) => void;

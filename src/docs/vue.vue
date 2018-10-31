@@ -9,11 +9,17 @@ export default Vue.extend({
   components: { fpmoney },
   data() {
     return {
-      value: 8675309,
+      value: 86753.09,
       int: '',
       format: '',
       display: '',
       currency: '',
+      // currencies: {
+      //   USD: {
+      //     symbol: '$',
+      //     fraction: 3
+      //   }
+      // },
       locale: 'en-US'
     }
   },
