@@ -49,6 +49,7 @@ export function intToFraction(val: string | number, fraction: number = 2): numbe
 
 export function fractionToInt(val: string | number, fraction: number = 2): number {
   const valStr = val.toString()
+  if (valStr.trim() === '') {return 0}
 
   let multi = '1'
   for (let i = 0; i < fraction; i++) { multi += '0'}

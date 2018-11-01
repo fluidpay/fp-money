@@ -71,7 +71,7 @@ export default {
       if (this.currencies) {options.currencies = this.currencies} else {options.currencies = currencies}
       if (this.currency) {options.currency = this.currency} else {options.currency = Object.keys(options.currencies)[0]}
       if (this.valueFormat) {options.valueFormat = this.valueFormat}
-      if (this.value) {options.value = this.value}
+      if (this.value !== undefined) {options.value = this.value}
       if (this.locale) {options.locale = this.locale}
 
       if (this.maxValue) {options.maxValue = this.maxValue}
