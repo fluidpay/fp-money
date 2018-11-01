@@ -60,7 +60,7 @@ export default class FPMoney {
     if (info.currency) {this.currency = info.currency.toUpperCase()} else {this.currency = Object.keys(this.currencies)[0]}
     if (info.locale) {this.locale = info.locale}
     if (info.valueFormat) {this.valueFormat = info.valueFormat}
-    if (info.value) {
+    if (info.value !== undefined) {
       let curVal = info.value
       this.isNegative = isNegative(curVal.toString())
       if (info.valueFormat === 'int') {curVal = intToFraction(curVal, this.currencies[this.currency].fraction)}
