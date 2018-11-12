@@ -18,6 +18,7 @@ export interface Constructor {
   locale?: string
   valueFormat?: string
   maxValue?: number
+  displayOnly?: boolean
   showSelection?: boolean
   onChange: (values: Values) => void
 }
@@ -38,6 +39,7 @@ export default class FPMoney {
   public locale: string = getLocale()
   public valueFormat: string = 'float'
   public maxValue: number = 0
+  public displayOnly: boolean = false
   public showSelection: boolean = true
 
   // Callbacks
@@ -67,6 +69,7 @@ export default class FPMoney {
       this.value = fractionToInt(curVal, this.currencies[this.currency].fraction).toString()
     }
     if (info.maxValue) {this.maxValue = fractionToInt(info.maxValue, this.currencies[this.currency].fraction)}
+    if (info.displayOnly === true) {this.displayOnly = true}
     if (info.showSelection !== undefined) {this.showSelection = info.showSelection}
 
     // Set Callbacks
@@ -124,6 +127,24 @@ export default class FPMoney {
 
     // Update display input
     this.updateOutput()
+  }
+
+  public setDisplayOnly(bool: boolean) {
+    this.displayOnly = bool
+
+    if (this.displayOnly) {
+      this.currencyDiv.classList.add('display-only')
+      this.input.classList.add('display-only')
+      this.input.disabled = true
+      this.select.classList.add('display-only')
+      this.select.disabled = true
+    } else {
+      this.currencyDiv.classList.remove('display-only')
+      this.input.classList.remove('display-only')
+      this.input.disabled = false
+      this.select.classList.remove('display-only')
+      this.select.disabled = false
+    }
   }
 
   public destroy() {
@@ -197,9 +218,15 @@ export default class FPMoney {
     // Add event listeners for input field
     this.input.addEventListener('keydown', (evt: KeyboardEvent) => { this.inputKeydown(evt) }, false)
     this.input.addEventListener('click', (e: MouseEvent) => {
+      // Dont do anything if displayOnly
+      if (this.displayOnly) {e.preventDefault(); return}
+
       this.input.focus()
       this.moveCursorToEnd(this.input)
     }, false)
+
+    // Check if displayOnly
+    if (this.displayOnly) {this.setDisplayOnly(true)}
 
     // Add options to select
     for (const c in this.currencies) {
@@ -224,6 +251,9 @@ export default class FPMoney {
 
   // Deal with key inputs into money field
   private inputKeydown(evt: KeyboardEvent) {
+    // Dont do anything if displayOnly
+    if (this.displayOnly) {evt.preventDefault(); return}
+
     const charCode = evt.keyCode || evt.which
     const isShift = evt.shiftKey
 
