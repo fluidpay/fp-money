@@ -9,6 +9,7 @@ export default {
     currency: String,
     locale: String,
     maxValue: Number,
+    displayOnly: Boolean,
     onChange: Function,
     valueFormat: String,
     showSelection: {
@@ -47,6 +48,9 @@ export default {
     },
     locale(newValue, oldValue) {
       this.fpmoney.setLocale(newValue)
+    },
+    displayOnly(newValue, oldValue) {
+      this.fpmoney.setDisplayOnly(newValue)
     }
   },
   methods: {
@@ -73,8 +77,8 @@ export default {
       if (this.valueFormat) {options.valueFormat = this.valueFormat}
       if (this.value !== undefined) {options.value = this.value}
       if (this.locale) {options.locale = this.locale}
-
       if (this.maxValue) {options.maxValue = this.maxValue}
+      if (this.displayOnly === true) {options.displayOnly = true}
       options.showSelection = this.showSelection
       this.fpmoney = new FPMoney(options)
     }

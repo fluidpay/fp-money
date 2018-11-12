@@ -1,6 +1,7 @@
 $color-font: #666666 !default;
 $color-border: #dcdee2 !default;
 $color-background: #efefef !default;
+$color-white: #ffffff !default;
 
 $height: 30px !default;
 $border-radius: 4px !default;
@@ -56,21 +57,39 @@ $spacing-quarter: 5px !default;
     flex: 0 0 auto;
     background-color: $color-background;
     user-select: none;
+
+    &.display-only {
+      cursor: pointer;
+    }
   }
   
   .fpm-value {
     flex: 1 1 auto;
     min-width: 70px;
     text-align: right;
+    transition: all 0.3s ease-in-out;
+
+    &.display-only {
+      cursor: pointer;
+    }
   }
   
   .fpm-select {
     position: relative;
-    flex: 0 0 70px;
-    width: 70px;
+    flex: 0 0 65px;
+    width: 65px;
     appearance: none;
     overflow: hidden;
     background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1024' height='640'><path d='M1017 68L541 626q-11 12-26 12t-26-12L13 68Q-3 49 6 24.5T39 0h952q24 0 33 24.5t-7 43.5z'></path></svg>") 85%/10px 5px no-repeat;
     background-color: $color-background;
+    transition: all 0.3s ease-in-out;
+
+    &.display-only {
+      cursor: pointer;
+      flex: 0 0 50px;
+      width: 50px;
+      background: none;
+      background-color: $color-background;
+    }
   }
 }

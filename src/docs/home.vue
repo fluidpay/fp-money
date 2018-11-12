@@ -12,7 +12,7 @@ export default Vue.extend({
     }
   },
   mounted() {
-    new FPMoney({
+    const fp = new FPMoney({
       container: document.querySelector('#example') as HTMLDivElement,
       value: 86753.09,
       onChange: (values) => {
@@ -23,6 +23,9 @@ export default Vue.extend({
         this.currency = values.currency
       }
     })
+    // setInterval(() => {
+    //   fp.setDisplayOnly(!fp.displayOnly)
+    // }, 5000)
   }
 })
 </script>
@@ -78,6 +81,8 @@ export default Vue.extend({
           // currency: 'USD',     // optional - default 'USD'
           // locale: 'en-us',     // optional - default navigator.language
           // maxValue: 999,       // optional - default no limit
+          // maxValue: 999,       // optional - default no limit
+          // displayOnly: false,  // optional - default false
           // showSelection: true, // optional - default true
 
           onChange: (values) => {
