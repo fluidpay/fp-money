@@ -1,7 +1,6 @@
 const path = require('path')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
+// const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
@@ -42,14 +41,6 @@ module.exports = {
     extensions: [ '.vue', '.ts', '.js' ]
   },
   optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: false
-      }),
-      new OptimizeCSSAssetsPlugin({})
-    ],
     splitChunks: {
       cacheGroups: {
         styles: {

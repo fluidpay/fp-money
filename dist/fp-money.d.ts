@@ -38,6 +38,7 @@ export default class FPMoney {
     onChange: (values: Values) => void;
     constructor(info: Constructor);
     setValue(value: number): void;
+    setCurrencies(currenciesValue: Currencies): void;
     setCurrency(currency: string): void;
     setLocale(locale: string): void;
     setDisplayOnly(bool: boolean): void;
@@ -46,6 +47,7 @@ export default class FPMoney {
     private updateOutput;
     private updateInputDisplay;
     private render;
+    private updateCurrenciesSelect;
     private inputKeydown;
     private moveCursorToEnd;
 }

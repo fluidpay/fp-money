@@ -1,6 +1,6 @@
 <script lang="ts">
 import Vue from 'vue'
-import { Values } from '@/fp-money/fp-money.ts'
+import { Values, Currencies } from '@/fp-money/fp-money.ts'
 import fpmoney from '@/fp-money/component.vue'
 import Chance from 'chance'
 const chance = new Chance()
@@ -19,18 +19,27 @@ export default Vue.extend({
       //     symbol: '$',
       //     fraction: 3
       //   }
-      // },
+      // } as Currencies,
       locale: 'en-US'
     }
   },
   mounted() {
     setInterval(() => {
       this.value = chance.integer({ min: 1000, max: 100000 })
-    }, 10000)
+    }, 2000)
+
+    // setTimeout(() => {
+    //   this.currencies = {
+    //     PER: {
+    //       symbol: '%',
+    //       fraction: 0
+    //     }
+    //   }
+    // }, 1000)
   },
   methods: {
     change(values: Values) {
-      console.log(values)
+      // console.log(values)
     }
   }
 })
@@ -58,10 +67,10 @@ export default Vue.extend({
 
 <template>
   <div class="vue">
-    <fpmoney id="example" 
-      v-model="value" 
-      :value.sync="int" 
-      :format.sync="format" 
+    <fpmoney id="example"
+      v-model="value"
+      :value.sync="int"
+      :format.sync="format"
       :display.sync="display"
       :currency.sync="currency"
       :locale.sync="locale"
