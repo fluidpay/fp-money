@@ -100,15 +100,28 @@ export default class FPMoney {
     this.updateOutput()
   }
 
+  public setCurrencies(currenciesValue: Currencies) {
+    this.currencies = currenciesValue
+
+    // Double check that the current currency is in the list presented
+    // If not, set currency to first key in object
+    if (!this.currencies[this.currency]) {
+      this.currency = Object.keys(this.currencies)[0]
+    }
+
+    this.updateCurrenciesSelect()
+
+    this.setCurrency(this.currency) // This will also run this.updateOutput()
+  }
+
   public setCurrency(currency: string) {
-    currency = currency.toUpperCase()
-    this.currency = currency
+    this.currency = currency.toUpperCase()
 
     // Currency display
-    this.currencyDiv.innerHTML = this.currencies[currency].symbol
+    this.currencyDiv.innerHTML = this.currencies[this.currency].symbol
 
     // Input display
-    const fraction = this.currencies[currency].fraction
+    const fraction = this.currencies[this.currency].fraction
     let multi = ''
     for (let i = 0; i < fraction; i++) {
       multi += '0'
@@ -116,7 +129,7 @@ export default class FPMoney {
     this.input.placeholder = '0' + (fraction === 0 ? '' : '.' + multi)
 
     // Set currency select
-    this.select.value = currency
+    this.select.value = this.currency
 
     // Update display input
     this.updateOutput()
@@ -229,14 +242,7 @@ export default class FPMoney {
     if (this.displayOnly) {this.setDisplayOnly(true)}
 
     // Add options to select
-    for (const c in this.currencies) {
-      if (this.currencies.hasOwnProperty(c)) {
-        const option = document.createElement('option')
-        option.value = c
-        option.text = c.toUpperCase()
-        this.select.appendChild(option)
-      }
-    }
+    this.updateCurrenciesSelect()
 
     // Add event listener to select dropdown
     this.select.addEventListener('change', () => {
@@ -247,6 +253,22 @@ export default class FPMoney {
     this.container.appendChild(this.currencyDiv)
     this.container.appendChild(this.input)
     if (this.showSelection) {this.container.appendChild(this.select)}
+  }
+
+  // For the currency select dropdown to update options
+  private updateCurrenciesSelect() {
+    // Clear out current select dropdown
+    this.select.innerHTML = ''
+
+    // Loop through currencies and add options
+    for (const c in this.currencies) {
+      if (this.currencies.hasOwnProperty(c)) {
+        const option = document.createElement('option')
+        option.value = c
+        option.text = c.toUpperCase()
+        this.select.appendChild(option)
+      }
+    }
   }
 
   // Deal with key inputs into money field
