@@ -9,7 +9,7 @@ export default Vue.extend({
   components: { fpmoney },
   data() {
     return {
-      value: 86753.09,
+      value: 86753.09 as any,
       int: '',
       format: '',
       display: '',
@@ -25,8 +25,9 @@ export default Vue.extend({
   },
   mounted() {
     setInterval(() => {
+      // this.value = Math.random() * 1000
       this.value = chance.integer({ min: 1000, max: 100000 })
-    }, 2000)
+    }, 5000)
 
     // setTimeout(() => {
     //   this.currencies = {
