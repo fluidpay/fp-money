@@ -86,6 +86,6 @@ export function getLocale(): string {
 }
 
 // Takes in a value and identifies if its a positive or negative number
-export function isNegative(value: string): boolean {
-  return value.indexOf('-') !== -1
+export function isNegative(value: string | number): boolean {
+  return String(value).indexOf('-') !== -1
 }
