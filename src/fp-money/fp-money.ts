@@ -85,17 +85,18 @@ export default class FPMoney {
     this.setCurrency(this.currency)
   }
 
-  public setValue(value: number) {
+  public setValue(value: number | string) {
     const fraction = this.currencies[this.currency].fraction
+    value = (this.valueFormat === 'float' ? fractionToInt(value, fraction).toString() : value.toString())
+
     // Dont do anything if nothing changed
-    if (this.value.toString() === (this.valueFormat === 'float' ? fractionToInt(value, fraction).toString() : value.toString())) {return}
+    if (this.value.toString() === value) {return}
 
     // Check if negative number
-    this.isNegative = isNegative(value.toString())
+    this.isNegative = isNegative(value)
 
     // Normalize number to int
-    if (this.format === 'int') {value = intToFraction(value, fraction)}
-    this.value = fractionToInt(value, fraction).toString()
+    this.value = fractionToInt(intToFraction(value, fraction), fraction).toString()
 
     this.updateOutput()
   }
