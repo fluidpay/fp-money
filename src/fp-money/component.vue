@@ -32,12 +32,6 @@ export default {
   mounted() {
     this.init()
   },
-  updated() {
-    if (this.fpmoney) {
-      this.fpmoney.destroy()
-    }
-    this.init()
-  },
   watch: {
     value(newValue, oldValue) {
       if (newValue.toString() === oldValue.toString()) {return}
