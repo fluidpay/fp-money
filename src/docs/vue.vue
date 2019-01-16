@@ -76,6 +76,7 @@ export default Vue.extend({
       :currency.sync="currency"
       :locale.sync="locale"
       :onChange="change" />
+    <!-- <fpmoney id="example" v-model="value" valueFormat="int" /> -->
     
     <div class="outputs">
       Value: {{int}}<br />

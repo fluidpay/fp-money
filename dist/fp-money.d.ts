@@ -37,7 +37,7 @@ export default class FPMoney {
     showSelection: boolean;
     onChange: (values: Values) => void;
     constructor(info: Constructor);
-    setValue(value: number): void;
+    setValue(value: number | string): void;
     setCurrencies(currenciesValue: Currencies): void;
     setCurrency(currency: string): void;
     setLocale(locale: string): void;
