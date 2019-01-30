@@ -217,6 +217,15 @@ export default class FPMoney {
     cur.split('').forEach((c, i) => {
       clean = clean.replace(cur.substring(0, cur.length - i), '')
     })
+
+    // Remove all other symbols that are in base currencies
+    for (const key in currencies) {
+      if (currencies.hasOwnProperty(key)) {
+        clean = clean.replace(key, '')
+        clean = clean.replace(currencies[key].symbol, '')
+      }
+    }
+
     clean = clean.trim() // Remove whitespace
     if (this.isNegative) { clean = '-' + clean.replace('-', '') }
     this.input.value = clean
