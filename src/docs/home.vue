@@ -15,6 +15,9 @@ export default Vue.extend({
     const fp = new FPMoney({
       container: document.querySelector('#example') as HTMLDivElement,
       value: 86753.09,
+      // minValue: 200.00,
+      // maxValue: 500.00,
+      // step: 0.01,
       onChange: (values) => {
         console.log(values)
         this.value = values.value
@@ -80,8 +83,9 @@ export default Vue.extend({
           // currencies: Object   // optional - {USD: {symbol: '$', fraction:2}}
           // currency: 'USD',     // optional - default 'USD'
           // locale: 'en-us',     // optional - default navigator.language
+          // minValue: 999,       // optional - default no limit
           // maxValue: 999,       // optional - default no limit
-          // maxValue: 999,       // optional - default no limit
+          // step: 1.00,          // optional - set up/down increment
           // displayOnly: false,  // optional - default false
           // showSelection: true, // optional - default true
 
