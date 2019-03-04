@@ -17,7 +17,9 @@ export interface Constructor {
   currency?: string
   locale?: string
   valueFormat?: string
+  minValue?: number
   maxValue?: number
+  step?: number
   displayOnly?: boolean
   showSelection?: boolean
   onChange: (values: Values) => void
@@ -38,7 +40,9 @@ export default class FPMoney {
   public currency: string = '' // default is set in the constructor
   public locale: string = getLocale()
   public valueFormat: string = 'float'
-  public maxValue: number = 0
+  public minValue?: number = undefined
+  public maxValue?: number = undefined
+  public step: number = 1.00
   public displayOnly: boolean = false
   public showSelection: boolean = true
 
@@ -68,7 +72,9 @@ export default class FPMoney {
       if (info.valueFormat === 'int') {curVal = intToFraction(curVal, this.currencies[this.currency].fraction)}
       this.value = fractionToInt(curVal, this.currencies[this.currency].fraction).toString()
     }
+    if (info.minValue) {this.minValue = fractionToInt(info.minValue, this.currencies[this.currency].fraction)}
     if (info.maxValue) {this.maxValue = fractionToInt(info.maxValue, this.currencies[this.currency].fraction)}
+    if (info.step) {this.step = info.step}
     if (info.displayOnly === true) {this.displayOnly = true}
     if (info.showSelection !== undefined) {this.showSelection = info.showSelection}
 
@@ -179,8 +185,9 @@ export default class FPMoney {
   private updateOutput() {
     if (this.value !== '') {
       let val = parseInt(this.value, 10)
-      // Limit if max
-      if (this.maxValue !== 0 && val > this.maxValue) {val = this.maxValue}
+      // Limit if min/max
+      if (this.minValue !== undefined && val < this.minValue) {val = this.minValue}
+      if (this.maxValue !== undefined && val > this.maxValue) {val = this.maxValue}
       this.value = val.toString()
     }
 
@@ -321,6 +328,22 @@ export default class FPMoney {
 
       // Set isNegative
       this.isNegative = true
+
+      // Update display in input field
+      this.updateOutput()
+    } else if (charCode === 38) { // Up arrow
+      evt.preventDefault() // Disable normal operations
+
+      // Add step
+      this.value = String(parseInt(this.value, 10) + fractionToInt(this.step))
+
+      // Update display in input field
+      this.updateOutput()
+    } else if (charCode === 40) { // Down arrow
+      evt.preventDefault() // Disable normal operations
+
+      // Remove step
+      this.value = String(parseInt(this.value, 10) - fractionToInt(this.step))
 
       // Update display in input field
       this.updateOutput()
