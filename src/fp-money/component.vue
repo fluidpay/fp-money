@@ -8,7 +8,9 @@ export default {
     currencies: Object,
     currency: String,
     locale: String,
+    minValue: Number,
     maxValue: Number,
+    step: Number,
     displayOnly: Boolean,
     onChange: Function,
     valueFormat: String,
@@ -74,7 +76,9 @@ export default {
       if (this.valueFormat) {options.valueFormat = this.valueFormat}
       if (this.value !== undefined) {options.value = this.value}
       if (this.locale) {options.locale = this.locale}
+      if (this.minValue) {options.minValue = this.minValue}
       if (this.maxValue) {options.maxValue = this.maxValue}
+      if (this.step !== undefined) {options.step = this.step}
       if (this.displayOnly === true) {options.displayOnly = true}
       options.showSelection = this.showSelection
       this.fpmoney = new FPMoney(options)
