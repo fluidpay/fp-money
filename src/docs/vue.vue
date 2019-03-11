@@ -113,15 +113,19 @@ export default Vue.extend({
       <code class="language-html">
         &lt;fpmoney id="example" 
           v-model="value" 
-          :value.sync="int" &lt;-- Optional
-          :format.sync="format" &lt;-- Optional
-          :display.sync="display" &lt;-- Optional
-          :currency.sync="currency" &lt;-- Optional
-          :locale="locale" &lt;-- Optional
-          :displayOnly="false" &lt;-- Optional
-          valueFormat="float | int" &lt;-- Optional - default float
-          :onChange="change" &lt;-- Optional 
-          :showSelection="true" &lt;-- Optional /&gt;
+          :value.sync="int"           &lt;-- Optional
+          :format.sync="format"       &lt;-- Optional
+          :display.sync="display"     &lt;-- Optional
+          :currency.sync="currency"   &lt;-- Optional
+          :locale="locale"            &lt;-- Optional
+          :displayOnly="false"        &lt;-- Optional
+          valueFormat="float | int"   &lt;-- Optional - default float
+          :minValue="minValue"        &lt;-- Optional
+          :maxValue="maxValue"        &lt;-- Optional
+          :step="step"                &lt;-- Optional
+          :onChange="change"          &lt;-- Optional 
+          :showSelection="true"       &lt;-- Optional
+        /&gt;
       </code>
     </pre>
   </div>
