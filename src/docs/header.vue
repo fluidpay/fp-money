@@ -40,6 +40,7 @@ export default Vue.extend({})
     <div class="title">FluidPay Money Formatter</div>
     <div class="menu">
       <router-link to="/">Home</router-link>
+      <router-link to="/examples">Examples</router-link>
       <router-link to="/functions">Functions</router-link>
       <router-link to="/vue">Vue</router-link>
       <a target="_blank" href="http://github.com/fluidpay/fp-money">

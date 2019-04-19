@@ -9,31 +9,35 @@ export default Vue.extend({
   components: { fpmoney },
   data() {
     return {
-      value: 86753.09 as any,
+      value: 8675309 as any,
       int: '',
       format: '',
       display: '',
       currency: '',
-      // currencies: {
-      //   USD: {
-      //     symbol: '$',
-      //     fraction: 3
-      //   }
-      // } as Currencies,
+      currencies: {
+        KFL: {
+          symbol: '%',
+          fraction: 3
+        }
+      } as Currencies,
       locale: 'en-US'
     }
   },
   mounted() {
-    setInterval(() => {
-      // this.value = Math.random() * 1000
-      this.value = chance.integer({ min: 1000, max: 100000 })
-    }, 5000)
+    // setInterval(() => {
+    //   // this.value = Math.random() * 1000
+    //   this.value = chance.integer({ min: 1000, max: 100000 })
+    // }, 5000)
 
     // setTimeout(() => {
+    //   setTimeout(() => {
+    //     this.value = 500
+    //   }, 200)
+
     //   this.currencies = {
     //     PER: {
     //       symbol: '%',
-    //       fraction: 0
+    //       fraction: 2
     //     }
     //   }
     // }, 1000)
@@ -74,8 +78,10 @@ export default Vue.extend({
       :format.sync="format"
       :display.sync="display"
       :currency.sync="currency"
+      :currencies="currencies"
       :locale.sync="locale"
-      :onChange="change" />
+      :onChange="change"
+      valueFormat="int" />
     <!-- <fpmoney id="example" v-model="value" valueFormat="int" /> -->
     
     <div class="outputs">
@@ -118,6 +124,7 @@ export default Vue.extend({
           :display.sync="display"     &lt;-- Optional
           :currency.sync="currency"   &lt;-- Optional
           :locale="locale"            &lt;-- Optional
+          :disabled="false"           &lt;-- Optional
           :displayOnly="false"        &lt;-- Optional
           valueFormat="float | int"   &lt;-- Optional - default float
           :minValue="minValue"        &lt;-- Optional
