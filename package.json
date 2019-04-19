@@ -1,6 +1,6 @@
 {
   "name": "fp-money",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "private": false,
   "description": "FluidPay input formatter and currency selector",
   "repository": "github.com/fluidpay/fp-money",
@@ -20,21 +20,22 @@
     "lint": "vue-cli-service lint"
   },
   "devDependencies": {
-    "@types/chance": "^1.0.1",
-    "@types/prismjs": "^1.9.1",
-    "@vue/cli-plugin-babel": "^3.5.0",
-    "@vue/cli-plugin-typescript": "^3.5.0",
-    "@vue/cli-service": "^3.5.0",
+    "@types/chance": "^1.0.2",
+    "@types/prismjs": "^1.16.0",
+    "@vue/cli-plugin-babel": "^3.6.0",
+    "@vue/cli-plugin-typescript": "^3.6.0",
+    "@vue/cli-service": "^3.6.0",
     "ajv": "^6.10.0",
     "chance": "^1.0.18",
     "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "prismjs": "^1.15.0",
+    "prismjs": "^1.16.0",
     "sass-loader": "^7.0.1",
-    "typescript": "^3.3.3333",
-    "vue": "^2.6.8",
-    "vue-router": "^3.0.2",
-    "vue-template-compiler": "^2.6.8",
-    "webpack-cli": "^3.2.3"
-  }
+    "typescript": "^3.4.4",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.6",
+    "vue-template-compiler": "^2.6.10",
+    "webpack-cli": "^3.3.0"
+  },
+  "dependencies": {}
 }

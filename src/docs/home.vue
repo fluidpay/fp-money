@@ -38,7 +38,7 @@ export default Vue.extend({
     
   .basic {
     #example {
-      width: 250px;
+      width: 200px;
       margin: 0 auto;
       margin-bottom: $spacing;
     }
@@ -86,17 +86,18 @@ export default Vue.extend({
           // minValue: 999,       // optional - default no limit
           // maxValue: 999,       // optional - default no limit
           // step: 1.00,          // optional - set up/down increment
-          // displayOnly: false,  // optional - default false
+          // disable: false,      // optional - default false
+          // display: false,      // optional - default false
           // showSelection: true, // optional - default true
 
           onChange: (values) => {
             console.log(values)
             // {
-            // value: "8675309",
-            // format: "86753.09",
-            // display: "$86,753.09",
-            // currency: "USD",
-            // locale: "en-US"
+            //   value: "8675309",
+            //   format: "86753.09",
+            //   display: "$86,753.09",
+            //   currency: "USD",
+            //   locale: "en-US"
             // }
           }
         })

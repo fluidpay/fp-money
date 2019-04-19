@@ -1,6 +1,7 @@
 $color-font: #666666 !default;
 $color-border: #dcdee2 !default;
 $color-background: #efefef !default;
+$color-disabled-background: #dcdee2 !default;
 $color-white: #ffffff !default;
 
 $height: 30px !default;
@@ -12,6 +13,8 @@ $spacing-quarter: 5px !default;
 
 .fpm {
   display: flex;
+  flex-direction: row;
+  width: auto;
   -webkit-font-smoothing: antialiased;
 
   .fpm-currency, .fpm-value, .fpm-select {
@@ -57,21 +60,15 @@ $spacing-quarter: 5px !default;
     flex: 0 0 auto;
     background-color: $color-background;
     user-select: none;
-
-    &.display-only {
-      cursor: pointer;
-    }
   }
   
   .fpm-value {
+    display: flex;
     flex: 1 1 auto;
     min-width: 70px;
+    width: 100%;
     text-align: right;
     transition: all 0.3s ease-in-out;
-
-    &.display-only {
-      cursor: pointer;
-    }
   }
   
   .fpm-select {
@@ -83,13 +80,63 @@ $spacing-quarter: 5px !default;
     background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1024' height='640'><path d='M1017 68L541 626q-11 12-26 12t-26-12L13 68Q-3 49 6 24.5T39 0h952q24 0 33 24.5t-7 43.5z'></path></svg>") 85%/10px 5px no-repeat;
     background-color: $color-background;
     transition: all 0.3s ease-in-out;
+  }
 
-    &.display-only {
+  &.disabled {
+    .fpm-currency {
+      cursor: pointer;
+    }
+
+    .fpm-value:disabled {
+      cursor: pointer;
+      background-color: $color-disabled-background;
+    }
+
+    .fpm-select:disabled {
       cursor: pointer;
       flex: 0 0 50px;
       width: 50px;
       background: none;
-      background-color: $color-background;
+      background-color: $color-disabled-background;
+    }
+  }
+
+  &.display-only {
+    .fpm-currency {
+      display: flex;
+      cursor: pointer;
+      font-weight: normal;
+      flex: 0 0 auto;
+      width: auto;
+      height: auto;
+      padding: 0 2px 0 0;
+      margin: 0;
+      background-color: transparent;
+      border: none;
+    }
+
+    .fpm-value {
+      text-align: left;
+      appearance: none;
+      display: flex;
+      cursor: pointer;
+      outline: none;
+      text-indent: 0;
+      box-sizing: border-box;
+      flex: 0 0 auto;
+      min-height: auto;
+      height: auto;
+      min-width: 0px;
+      width: auto;
+      max-width: 999px;
+      padding: 0;
+      margin: 0;
+      background-color: transparent;
+      border: none;
+    }
+
+    .fpm-select {
+      display: none;
     }
   }
 }

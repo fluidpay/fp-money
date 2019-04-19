@@ -17,9 +17,10 @@ export interface Constructor {
     minValue?: number;
     maxValue?: number;
     step?: number;
+    disabled?: boolean;
     displayOnly?: boolean;
     showSelection?: boolean;
-    onChange: (values: Values) => void;
+    onChange?: (values: Values) => void;
 }
 export default class FPMoney {
     container: HTMLDivElement;
@@ -37,6 +38,7 @@ export default class FPMoney {
     minValue?: number;
     maxValue?: number;
     step: number;
+    disabled: boolean;
     displayOnly: boolean;
     showSelection: boolean;
     onChange: (values: Values) => void;
@@ -45,6 +47,7 @@ export default class FPMoney {
     setCurrencies(currenciesValue: Currencies): void;
     setCurrency(currency: string): void;
     setLocale(locale: string): void;
+    setDisabled(bool: boolean): void;
     setDisplayOnly(bool: boolean): void;
     destroy(): void;
     private validate;

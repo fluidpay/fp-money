@@ -20,9 +20,10 @@ export interface Constructor {
   minValue?: number
   maxValue?: number
   step?: number
+  disabled?: boolean
   displayOnly?: boolean
   showSelection?: boolean
-  onChange: (values: Values) => void
+  onChange?: (values: Values) => void
 }
 
 export default class FPMoney {
@@ -43,8 +44,9 @@ export default class FPMoney {
   public minValue?: number = undefined
   public maxValue?: number = undefined
   public step: number = 1.00
+  public disabled: boolean = false
   public displayOnly: boolean = false
-  public showSelection: boolean = true
+  public showSelection: boolean = false
 
   // Callbacks
   public onChange: (values: Values) => void
@@ -75,6 +77,7 @@ export default class FPMoney {
     if (info.minValue) {this.minValue = fractionToInt(info.minValue, this.currencies[this.currency].fraction)}
     if (info.maxValue) {this.maxValue = fractionToInt(info.maxValue, this.currencies[this.currency].fraction)}
     if (info.step) {this.step = info.step}
+    if (info.disabled === true) {this.disabled = true}
     if (info.displayOnly === true) {this.displayOnly = true}
     if (info.showSelection !== undefined) {this.showSelection = info.showSelection}
 
@@ -89,6 +92,16 @@ export default class FPMoney {
 
     // Set default currency
     this.setCurrency(this.currency)
+
+    // Set disabled
+    if (this.disabled) {
+      this.setDisabled(this.disabled)
+    }
+
+    // Set display only
+    if (this.displayOnly) {
+      this.setDisplayOnly(this.displayOnly)
+    }
   }
 
   public setValue(value: number | string) {
@@ -149,20 +162,30 @@ export default class FPMoney {
     this.updateOutput()
   }
 
+  public setDisabled(bool: boolean) {
+    this.disabled = bool
+
+    if (this.disabled) {
+      this.container.classList.add('disabled')
+      this.input.disabled = true
+      this.select.disabled = true
+    } else {
+      this.container.classList.remove('disabled')
+      this.input.disabled = false
+      this.select.disabled = false
+    }
+  }
+
   public setDisplayOnly(bool: boolean) {
     this.displayOnly = bool
 
     if (this.displayOnly) {
-      this.currencyDiv.classList.add('display-only')
-      this.input.classList.add('display-only')
-      this.input.disabled = true
-      this.select.classList.add('display-only')
+      this.container.classList.add('display-only')
+      this.input.readOnly = true
       this.select.disabled = true
     } else {
-      this.currencyDiv.classList.remove('display-only')
-      this.input.classList.remove('display-only')
-      this.input.disabled = false
-      this.select.classList.remove('display-only')
+      this.container.classList.remove('display-only')
+      this.input.readOnly = false
       this.select.disabled = false
     }
   }
