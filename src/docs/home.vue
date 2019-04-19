@@ -86,9 +86,9 @@ export default Vue.extend({
           // minValue: 999,       // optional - default no limit
           // maxValue: 999,       // optional - default no limit
           // step: 1.00,          // optional - set up/down increment
-          // disable: false,      // optional - default false
-          // display: false,      // optional - default false
-          // showSelection: true, // optional - default true
+          // disabled: false,      // optional - default false
+          // displayOnly: false,      // optional - default false
+          // showSelection: false, // optional - default false
 
           onChange: (values) => {
             console.log(values)

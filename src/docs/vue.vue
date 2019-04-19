@@ -131,7 +131,7 @@ export default Vue.extend({
           :maxValue="maxValue"        &lt;-- Optional
           :step="step"                &lt;-- Optional
           :onChange="change"          &lt;-- Optional 
-          :showSelection="true"       &lt;-- Optional
+          :showSelection="false"      &lt;-- Optional
         /&gt;
       </code>
     </pre>
