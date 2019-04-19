@@ -1,5 +1,7 @@
 .fpm {
   display: flex;
+  flex-direction: row;
+  width: auto;
   -webkit-font-smoothing: antialiased; }
   .fpm .fpm-currency, .fpm .fpm-value, .fpm .fpm-select {
     color: #666666;
@@ -34,15 +36,13 @@
     flex: 0 0 auto;
     background-color: #efefef;
     user-select: none; }
-    .fpm .fpm-currency.display-only {
-      cursor: pointer; }
   .fpm .fpm-value {
+    display: flex;
     flex: 1 1 auto;
     min-width: 70px;
+    width: 100%;
     text-align: right;
     transition: all 0.3s ease-in-out; }
-    .fpm .fpm-value.display-only {
-      cursor: pointer; }
   .fpm .fpm-select {
     position: relative;
     flex: 0 0 65px;
@@ -52,10 +52,46 @@
     background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1024' height='640'><path d='M1017 68L541 626q-11 12-26 12t-26-12L13 68Q-3 49 6 24.5T39 0h952q24 0 33 24.5t-7 43.5z'></path></svg>") 85%/10px 5px no-repeat;
     background-color: #efefef;
     transition: all 0.3s ease-in-out; }
-    .fpm .fpm-select.display-only {
-      cursor: pointer;
-      flex: 0 0 50px;
-      width: 50px;
-      background: none;
-      background-color: #efefef; }
+  .fpm.disabled .fpm-currency {
+    cursor: pointer; }
+  .fpm.disabled .fpm-value:disabled {
+    cursor: pointer;
+    background-color: #dcdee2; }
+  .fpm.disabled .fpm-select:disabled {
+    cursor: pointer;
+    flex: 0 0 50px;
+    width: 50px;
+    background: none;
+    background-color: #dcdee2; }
+  .fpm.display-only .fpm-currency {
+    display: flex;
+    cursor: pointer;
+    font-weight: normal;
+    flex: 0 0 auto;
+    width: auto;
+    height: auto;
+    padding: 0 2px 0 0;
+    margin: 0;
+    background-color: transparent;
+    border: none; }
+  .fpm.display-only .fpm-value {
+    text-align: left;
+    appearance: none;
+    display: flex;
+    cursor: pointer;
+    outline: none;
+    text-indent: 0;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    min-height: auto;
+    height: auto;
+    min-width: 0px;
+    width: auto;
+    max-width: 999px;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border: none; }
+  .fpm.display-only .fpm-select {
+    display: none; }
 
