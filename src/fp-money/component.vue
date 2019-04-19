@@ -11,12 +11,13 @@ export default {
     minValue: Number,
     maxValue: Number,
     step: Number,
+    disabled: Boolean,
     displayOnly: Boolean,
     onChange: Function,
     valueFormat: String,
     showSelection: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   data() {
@@ -47,6 +48,9 @@ export default {
     },
     locale(newValue, oldValue) {
       this.fpmoney.setLocale(newValue)
+    },
+    disabled(newValue, oldValue) {
+      this.fpmoney.setDisabled(newValue)
     },
     displayOnly(newValue, oldValue) {
       this.fpmoney.setDisplayOnly(newValue)
@@ -79,6 +83,7 @@ export default {
       if (this.minValue) {options.minValue = this.minValue}
       if (this.maxValue) {options.maxValue = this.maxValue}
       if (this.step !== undefined) {options.step = this.step}
+      if (this.disabled === true) {options.disabled = true}
       if (this.displayOnly === true) {options.displayOnly = true}
       options.showSelection = this.showSelection
       this.fpmoney = new FPMoney(options)

@@ -1,0 +1,25 @@
+button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-self: flex-start;
+  height: 30px;
+  min-height: 30px;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+  color: $color-font;
+  font-size: $font-size;
+  padding: $spacing-quarter $spacing-half;
+  cursor: pointer;
+  background-color: $color-background;
+  font-weight: $font-weight-bold;
+  text-align: center;
+  user-select: none;
+  white-space: nowrap;
+  border: 1px solid $color-border;
+  border-radius: $border-radius;
+  vertical-align: middle;
+  box-shadow: 0 0 0 0 transparent rgba(0,0,0,0);
+  transform: translateY(0px);
+  transition: all .3s ease;
+}
