@@ -181,11 +181,13 @@ export default class FPMoney {
 
     if (this.displayOnly) {
       this.container.classList.add('display-only')
+      this.input.tabIndex = -1
       this.input.readOnly = true
       this.select.disabled = true
     } else {
       this.container.classList.remove('display-only')
       this.input.readOnly = false
+      this.input.removeAttribute('tabindex')
       this.select.disabled = false
     }
   }
