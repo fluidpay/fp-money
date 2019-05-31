@@ -32,6 +32,8 @@ export default class FPMoney {
   public input: HTMLInputElement
   public select: HTMLSelectElement
 
+  public mobileOs: string
+
   // Input items
   public isNegative: boolean = false
   public value: string = ''
@@ -53,6 +55,8 @@ export default class FPMoney {
 
   constructor(info: Constructor) {
     this.validate(info)
+
+    this.mobileOs = this.getMobileOs()
 
     // Set container
     let el: HTMLDivElement
@@ -86,7 +90,11 @@ export default class FPMoney {
 
     // Render select and input
     this.currencyDiv = document.createElement('div')
+
+    // Input specifics
     this.input = document.createElement('input')
+    if (this.mobileOs === 'android') { this.input.inputMode = 'numeric' }
+    if (this.mobileOs === 'ios') { this.input.inputMode = 'numeric'; this.input.pattern = '[0-9]*' }
     this.select = document.createElement('select')
     this.render()
 
@@ -321,7 +329,17 @@ export default class FPMoney {
     const key = evt.key
     const charCode = key.charCodeAt(0)
 
-    if (charCode === 68 || charCode === 66) { // If delete
+    // Deal with unidentified keys. This usually deals with android keyboard issues
+    if (key.toLowerCase() === 'unidentified') {
+      evt.preventDefault()
+      setTimeout(() => {
+        this.updateOutput()
+      }, 100)
+      return
+    }
+
+    // If delete
+    if (charCode === 68 || charCode === 66) {
       evt.preventDefault() // Disable normal operations
 
       // Remove key from value
@@ -330,7 +348,11 @@ export default class FPMoney {
 
       // Update display in input field
       this.updateOutput()
-    } else if ((charCode >= 48 && charCode <= 57) || (charCode >= 96 && charCode <= 105)) { // If hitting 0-9
+      return
+    }
+
+    // If hitting 0-9
+    if ((charCode >= 48 && charCode <= 57) || (charCode >= 96 && charCode <= 105)) {
       evt.preventDefault() // Disable normal operations
 
       // Add key to value
@@ -338,9 +360,17 @@ export default class FPMoney {
 
       // Update display in input field
       this.updateOutput()
-    } else if (charCode === 84) { // Tab
+      return
+    }
+
+    // Tab
+    if (charCode === 84) {
       // Tab or enter let it operate normally
-    } else if (charCode === 43) { // If + plus character
+      return
+    }
+
+    // If + plus character
+    if (charCode === 43) {
       evt.preventDefault() // Disable normal operations
 
       // Set isNegative
@@ -348,7 +378,11 @@ export default class FPMoney {
 
       // Update display in input field
       this.updateOutput()
-    } else if (charCode === 45) { // If - negative character
+      return
+    }
+
+    // If - negative character
+    if (charCode === 45) {
       evt.preventDefault() // Disable normal operations
 
       // Set isNegative
@@ -356,7 +390,11 @@ export default class FPMoney {
 
       // Update display in input field
       this.updateOutput()
-    } else if (key === 'ArrowUp') { // Up arrow
+      return
+    }
+
+    // Up arrow
+    if (key === 'ArrowUp') {
       evt.preventDefault() // Disable normal operations
 
       // Add step
@@ -364,7 +402,11 @@ export default class FPMoney {
 
       // Update display in input field
       this.updateOutput()
-    } else if (key === 'ArrowDown') { // Down arrow
+      return
+    }
+
+    // Down arrow
+    if (key === 'ArrowDown') {
       evt.preventDefault() // Disable normal operations
 
       // Remove step
@@ -372,10 +414,11 @@ export default class FPMoney {
 
       // Update display in input field
       this.updateOutput()
-    } else {
-      // Disable normal operations
-      evt.preventDefault()
+      return
     }
+
+    // Disable normal operations
+    evt.preventDefault()
   }
 
   // Will take in an element and select the end of the input field
@@ -388,5 +431,26 @@ export default class FPMoney {
         range.collapse(false)
         range.select()
     }
+  }
+
+  private getMobileOs() {
+    const w = window as any
+    const userAgent = navigator.userAgent || navigator.vendor || w.opera
+
+        // Windows Phone must come first because its UA also contains "Android"
+    if (/windows phone/i.test(userAgent)) {
+          return 'windows'
+      }
+
+    if (/android/i.test(userAgent)) {
+          return 'android'
+      }
+
+      // iOS detection from: http://stackoverflow.com/a/9039885/177710
+    if (/iPad|iPhone|iPod/.test(userAgent) && !w.MSStream) {
+          return 'ios'
+      }
+
+    return 'desktop'
   }
 }
