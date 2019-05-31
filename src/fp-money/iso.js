@@ -2040,6 +2040,4 @@ module.exports.outputUniqueCurrencies = function () {
   for (const item in items) {
     delete items[item].count
   }
-
-  console.log(items)
 }
