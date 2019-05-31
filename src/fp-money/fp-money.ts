@@ -318,10 +318,10 @@ export default class FPMoney {
     // Dont do anything if displayOnly
     if (this.displayOnly) {evt.preventDefault(); return}
 
-    const charCode = evt.keyCode || evt.which
-    const isShift = evt.shiftKey
+    const key = evt.key
+    const charCode = key.charCodeAt(0)
 
-    if (charCode === 8 || charCode === 46) { // If delete
+    if (charCode === 68 || charCode === 66) { // If delete
       evt.preventDefault() // Disable normal operations
 
       // Remove key from value
@@ -338,9 +338,9 @@ export default class FPMoney {
 
       // Update display in input field
       this.updateOutput()
-    } else if (charCode === 9 || charCode === 13) {
+    } else if (charCode === 84) { // Tab
       // Tab or enter let it operate normally
-    } else if (charCode === 107 || (isShift && charCode === 187)) { // If + plus character
+    } else if (charCode === 43) { // If + plus character
       evt.preventDefault() // Disable normal operations
 
       // Set isNegative
@@ -348,7 +348,7 @@ export default class FPMoney {
 
       // Update display in input field
       this.updateOutput()
-    } else if (charCode === 109 || charCode === 189) { // If - negative character
+    } else if (charCode === 45) { // If - negative character
       evt.preventDefault() // Disable normal operations
 
       // Set isNegative
@@ -356,7 +356,7 @@ export default class FPMoney {
 
       // Update display in input field
       this.updateOutput()
-    } else if (charCode === 38) { // Up arrow
+    } else if (key === 'ArrowUp') { // Up arrow
       evt.preventDefault() // Disable normal operations
 
       // Add step
@@ -364,7 +364,7 @@ export default class FPMoney {
 
       // Update display in input field
       this.updateOutput()
-    } else if (charCode === 40) { // Down arrow
+    } else if (key === 'ArrowDown') { // Down arrow
       evt.preventDefault() // Disable normal operations
 
       // Remove step
