@@ -27,6 +27,7 @@ export default class FPMoney {
     currencyDiv: HTMLDivElement;
     input: HTMLInputElement;
     select: HTMLSelectElement;
+    mobileOs: string;
     isNegative: boolean;
     value: string;
     display: string;
@@ -57,4 +58,5 @@ export default class FPMoney {
     private updateCurrenciesSelect;
     private inputKeydown;
     private moveCursorToEnd;
+    private getMobileOs;
 }
