@@ -41,14 +41,15 @@ export default {
       this.fpmoney.setValue(newValue)
     },
     currencies(newValue, oldValue) {
-      if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
-        this.fpmoney.setCurrencies(newValue)
-      }
+      if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {return}
+      this.fpmoney.setCurrencies(newValue)
     },
     currency(newValue, oldValue) {
+      if (newValue.toLowerCase() === oldValue.toLowerCase()) {return}
       this.fpmoney.setCurrency(newValue)
     },
     locale(newValue, oldValue) {
+      if (newValue.toLowerCase() === oldValue.toLowerCase()) {return}
       this.fpmoney.setLocale(newValue)
     },
     disabled(newValue, oldValue) {

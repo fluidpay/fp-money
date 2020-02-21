@@ -68,7 +68,7 @@ export default class FPMoney {
     this.container = el
 
     // Set values
-    if (info.currencies) {this.currencies = info.currencies}
+    if (info.currencies) {this.currencies = JSON.parse(JSON.stringify(info.currencies))}
     if (info.currency) {this.currency = info.currency.toUpperCase()} else {this.currency = Object.keys(this.currencies)[0]}
     if (info.locale) {this.locale = info.locale}
     if (info.valueFormat) {this.valueFormat = info.valueFormat}
@@ -129,7 +129,7 @@ export default class FPMoney {
   }
 
   public setCurrencies(currenciesValue: Currencies) {
-    this.currencies = currenciesValue
+    this.currencies = JSON.parse(JSON.stringify(currenciesValue))
 
     // Double check that the current currency is in the list presented
     // If not, set currency to first key in object
