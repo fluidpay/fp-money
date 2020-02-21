@@ -37,25 +37,30 @@ export default Vue.extend({
     //   this.value = chance.integer({ min: 1000, max: 100000 })
     // }, 5000)
 
-    // setTimeout(() => {
-    //   setTimeout(() => {
-    //     this.value = 500
-    //   }, 200)
+    setTimeout(() => {
+      this.currencies = {
+        PER: {
+          symbol: '%',
+          fraction: 2
+        },
+        CAD: {
+          symbol: '$',
+          fraction: 2
+        }
+      }
 
-    //   this.currencies = {
-    //     PER: {
-    //       symbol: '%',
-    //       fraction: 2
-    //     },
-    //     CAD: {
-    //       symbol: '$',
-    //       fraction: 2
-    //     }
-    //   }
-    //   setTimeout(() => {
-    //     this.currency = 'cad'
-    //   }, 500)
-    // }, 1000)
+      setTimeout(() => {
+        this.value = 500
+      }, 1000)
+
+      setTimeout(() => {
+        this.currency = 'cad'
+      }, 2000)
+
+      setTimeout(() => {
+        this.currency = 'per'
+      }, 3000)
+    }, 1000)
   },
   methods: {
     change(values: Values) {
