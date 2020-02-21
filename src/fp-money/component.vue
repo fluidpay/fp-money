@@ -41,7 +41,11 @@ export default {
       this.fpmoney.setValue(newValue)
     },
     currencies(newValue, oldValue) {
-      this.fpmoney.setCurrencies(newValue)
+      if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+        this.fpmoney.setCurrencies(newValue)
+      }
+      // console.log(JSON.stringify(oldValue))
+      // console.log(JSON.stringify(newValue))
     },
     currency(newValue, oldValue) {
       this.fpmoney.setCurrency(newValue)
