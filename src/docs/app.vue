@@ -14,6 +14,10 @@ export default Vue.extend({
   @import './assets/scss/_variables.scss';
 
   .container {
+    input {
+      border-radius: 4px; // Just to test fp-money border radius override
+    }
+
     .bluebar {
       position: absolute;
       top: -350px;
