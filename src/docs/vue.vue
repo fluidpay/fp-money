@@ -18,6 +18,14 @@ export default Vue.extend({
         KFL: {
           symbol: '%',
           fraction: 3
+        },
+        PER: {
+          symbol: '%',
+          fraction: 2
+        },
+        CAD: {
+          symbol: '$',
+          fraction: 2
         }
       } as Currencies,
       locale: 'en-US'
@@ -38,8 +46,15 @@ export default Vue.extend({
     //     PER: {
     //       symbol: '%',
     //       fraction: 2
+    //     },
+    //     CAD: {
+    //       symbol: '$',
+    //       fraction: 2
     //     }
     //   }
+    //   setTimeout(() => {
+    //     this.currency = 'cad'
+    //   }, 500)
     // }, 1000)
   },
   methods: {
@@ -81,6 +96,7 @@ export default Vue.extend({
       :currencies="currencies"
       :locale.sync="locale"
       :onChange="change"
+      :showSelection="true"
       valueFormat="int" />
     <!-- <fpmoney id="example" v-model="value" valueFormat="int" /> -->
     

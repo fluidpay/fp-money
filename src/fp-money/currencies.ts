@@ -9,6 +9,7 @@ export interface Currency {
 
 export const currencies: Currencies = {
   USD: { symbol: '$', fraction: 2 },
+  CAD: { symbol: '$', fraction: 2 },
   EUR: { symbol: '€', fraction: 2 },
   GBP: { symbol: '£', fraction: 2 },
   INR: { symbol: '₹', fraction: 2 },
