@@ -52,6 +52,7 @@ export default class FPMoney {
 
   // Callbacks
   public onChange: (values: Values) => void
+  private debounceUpdateOutput = debounce(() => {this.updateOutput()})
 
   constructor(info: Constructor) {
     this.validate(info)
@@ -213,10 +214,6 @@ export default class FPMoney {
       el = info.container
     }
     if (!el) { throw new Error('Could not find container') }
-  }
-
-  private debounceUpdateOutput() {
-    debounce(() => {this.updateOutput()})()
   }
 
   private updateOutput() {
@@ -463,7 +460,7 @@ type Procedure = (...args: any[]) => void
 interface Options { isImmediate: boolean }
 function debounce<F extends Procedure>(
   func: F,
-  waitMilliseconds = 50,
+  waitMilliseconds = 100,
   options: Options = {isImmediate: false}
 ): (this: ThisParameterType<F>, ...args: Parameters<F>) => void {
   let timeoutId: ReturnType<typeof setTimeout> | undefined
