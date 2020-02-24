@@ -49,17 +49,19 @@ export default Vue.extend({
         }
       }
 
-      setTimeout(() => {
-        this.value = 500
-      }, 1000)
+      this.currency = 'CAD'
 
-      setTimeout(() => {
-        this.currency = 'cad'
-      }, 2000)
+      // setTimeout(() => {
+      //   this.value = 500
+      // }, 1000)
 
-      setTimeout(() => {
-        this.currency = 'per'
-      }, 3000)
+      // setTimeout(() => {
+      //   this.currency = 'cad'
+      // }, 2000)
+
+      // setTimeout(() => {
+      //   this.currency = 'per'
+      // }, 3000)
     }, 1000)
   },
   methods: {

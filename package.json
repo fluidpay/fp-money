@@ -1,6 +1,6 @@
 {
   "name": "fp-money",
-  "version": "0.19.2",
+  "version": "0.20.0",
   "private": false,
   "description": "FluidPay input formatter and currency selector",
   "repository": "github.com/fluidpay/fp-money",
@@ -25,7 +25,7 @@
     "@vue/cli-plugin-babel": "^4.2.2",
     "@vue/cli-plugin-typescript": "^4.2.2",
     "@vue/cli-service": "^4.2.2",
-    "ajv": "^6.11.0",
+    "ajv": "^6.12.0",
     "chance": "^1.1.4",
     "node-sass": "^4.13.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",

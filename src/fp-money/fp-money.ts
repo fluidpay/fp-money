@@ -125,7 +125,7 @@ export default class FPMoney {
     // Normalize number to int
     this.value = fractionToInt(intToFraction(value, fraction), fraction).toString()
 
-    this.updateOutput()
+    this.debounceUpdateOutput()
   }
 
   public setCurrencies(currenciesValue: Currencies) {
@@ -160,14 +160,14 @@ export default class FPMoney {
     this.select.value = this.currency
 
     // Update display input
-    this.updateOutput()
+    this.debounceUpdateOutput()
   }
 
   public setLocale(locale: string) {
     this.locale = locale
 
     // Update display input
-    this.updateOutput()
+    this.debounceUpdateOutput()
   }
 
   public setDisabled(bool: boolean) {
@@ -213,6 +213,10 @@ export default class FPMoney {
       el = info.container
     }
     if (!el) { throw new Error('Could not find container') }
+  }
+
+  private debounceUpdateOutput() {
+    debounce(() => {this.updateOutput()})()
   }
 
   private updateOutput() {
@@ -452,5 +456,31 @@ export default class FPMoney {
       }
 
     return 'desktop'
+  }
+}
+
+type Procedure = (...args: any[]) => void
+interface Options { isImmediate: boolean }
+function debounce<F extends Procedure>(
+  func: F,
+  waitMilliseconds = 50,
+  options: Options = {isImmediate: false}
+): (this: ThisParameterType<F>, ...args: Parameters<F>) => void {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined
+
+  return function(this: ThisParameterType<F>, ...args: Parameters<F>) {
+    const context = this
+
+    const doLater = () => {
+      timeoutId = undefined
+      if (!options.isImmediate) {
+        func.apply(context, args)
+      }
+    }
+
+    const shouldCallNow = options.isImmediate && timeoutId === undefined
+    if (timeoutId !== undefined) { clearTimeout(timeoutId) }
+    timeoutId = setTimeout(doLater, waitMilliseconds)
+    if (shouldCallNow) { func.apply(context, args) }
   }
 }
