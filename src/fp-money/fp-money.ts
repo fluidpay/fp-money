@@ -344,6 +344,7 @@ export default class FPMoney {
       evt.preventDefault() // Disable normal operations
 
       // Remove key from value
+
       this.value = this.value.substring(0, this.value.length - 1)
       if (this.value === '-') { this.value = '' }
 
@@ -353,7 +354,7 @@ export default class FPMoney {
     }
 
     // If hitting 0-9
-    if ((charCode >= 48 && charCode <= 57) || (charCode >= 96 && charCode <= 105)) {
+    if (charCode >= 48 && charCode <= 57) {
       evt.preventDefault() // Disable normal operations
 
       // Add key to value
@@ -420,6 +421,7 @@ export default class FPMoney {
 
     // Disable normal operations
     evt.preventDefault()
+    evt.stopPropagation()
   }
 
   // Will take in an element and select the end of the input field
