@@ -25,6 +25,7 @@ export const currencies: Currencies = {
   PLN: { symbol: 'zł', fraction: 2 },
   THB: { symbol: '฿', fraction: 2 },
   UAH: { symbol: '₴', fraction: 2 },
+  PEN: { symbol: 'S/', fraction: 2 },
   JPY: { symbol: '¥', fraction: 0 }
 }
 
