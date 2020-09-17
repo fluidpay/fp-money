@@ -22,20 +22,20 @@
   "devDependencies": {
     "@types/chance": "^1.1.0",
     "@types/prismjs": "^1.16.1",
-    "@vue/cli-plugin-babel": "^4.4.1",
-    "@vue/cli-plugin-typescript": "^4.4.1",
-    "@vue/cli-service": "^4.4.1",
-    "ajv": "^6.12.2",
-    "chance": "^1.1.6",
+    "@vue/cli-plugin-babel": "^4.5.6",
+    "@vue/cli-plugin-typescript": "^4.5.6",
+    "@vue/cli-service": "^4.5.6",
+    "ajv": "^6.12.5",
+    "chance": "^1.1.7",
     "node-sass": "^4.14.1",
-    "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "prismjs": "^1.20.0",
-    "sass-loader": "^8.0.2",
-    "typescript": "^3.9.5",
-    "vue": "^2.6.11",
-    "vue-router": "^3.3.2",
-    "vue-template-compiler": "^2.6.11",
-    "webpack-cli": "^3.3.11"
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "prismjs": "^1.21.0",
+    "sass-loader": "^10.0.2",
+    "typescript": "^4.0.2",
+    "vue": "^2.6.12",
+    "vue-router": "^3.4.3",
+    "vue-template-compiler": "^2.6.12",
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {}
 }
