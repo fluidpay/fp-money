@@ -12,30 +12,36 @@
   "sass": "src/fp-money/fp-money.scss",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "build": "npm run docs && npm run library",
+    "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve",
     "iso": "node -e 'require(`./src/fp-money/iso.js`).outputUniqueCurrencies()'",
     "library": "rm -r dist && cd src/fp-money && webpack && cd ../../ && rm dist/fp-money-css.js",
     "docs": "vue-cli-service build",
-    "build": "npm run docs && npm run library",
-    "lint": "vue-cli-service lint"
+    "test:unit": "vue-cli-service test:unit"
   },
+  "dependencies": {},
   "devDependencies": {
+    "@types/chai": "^4.2.11",
     "@types/chance": "^1.1.0",
+    "@types/mocha": "^8.0.3",
     "@types/prismjs": "^1.16.1",
-    "@vue/cli-plugin-babel": "^4.4.1",
-    "@vue/cli-plugin-typescript": "^4.4.1",
-    "@vue/cli-service": "^4.4.1",
-    "ajv": "^6.12.2",
-    "chance": "^1.1.6",
+    "@vue/cli-plugin-babel": "^4.5.6",
+    "@vue/cli-plugin-typescript": "^4.5.6",
+    "@vue/cli-plugin-unit-mocha": "^4.5.6",
+    "@vue/cli-service": "^4.5.6",
+    "@vue/test-utils": "^1.0.3",
+    "ajv": "^6.12.5",
+    "chai": "^4.1.2",
+    "chance": "^1.1.7",
     "node-sass": "^4.14.1",
-    "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "prismjs": "^1.20.0",
-    "sass-loader": "^8.0.2",
-    "typescript": "^3.9.5",
-    "vue": "^2.6.11",
-    "vue-router": "^3.3.2",
-    "vue-template-compiler": "^2.6.11",
-    "webpack-cli": "^3.3.11"
-  },
-  "dependencies": {}
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "prismjs": "^1.21.0",
+    "sass-loader": "^10.0.2",
+    "typescript": "^4.0.2",
+    "vue": "^2.6.12",
+    "vue-router": "^3.4.3",
+    "vue-template-compiler": "^2.6.12",
+    "webpack-cli": "^3.3.12"
+  }
 }
