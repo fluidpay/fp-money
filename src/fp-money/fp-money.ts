@@ -79,8 +79,8 @@ export default class FPMoney {
       if (info.valueFormat === 'int') {curVal = intToFraction(curVal, this.currencies[this.currency].fraction)}
       this.value = fractionToInt(curVal, this.currencies[this.currency].fraction).toString()
     }
-    if (info.minValue) {this.minValue = fractionToInt(info.minValue, this.currencies[this.currency].fraction)}
-    if (info.maxValue) {this.maxValue = fractionToInt(info.maxValue, this.currencies[this.currency].fraction)}
+    if (info.minValue !== undefined) {this.minValue = fractionToInt(info.minValue, this.currencies[this.currency].fraction)}
+    if (info.maxValue !== undefined) {this.maxValue = fractionToInt(info.maxValue, this.currencies[this.currency].fraction)}
     if (info.step) {this.step = info.step}
     if (info.disabled === true) {this.disabled = true}
     if (info.displayOnly === true) {this.displayOnly = true}
@@ -386,6 +386,10 @@ export default class FPMoney {
     // If - negative character
     if (charCode === 45) {
       evt.preventDefault() // Disable normal operations
+      // If minValue is set and it's greater than or equal 0 we wouldn't handle negative input
+      if (this.minValue !== undefined && this.minValue >= 0) {
+        return
+      }
 
       // Set isNegative
       this.isNegative = true
