@@ -30,6 +30,11 @@ export default Vue.extend({
       value: 86753.09,
       displayOnly: true
     })
+
+    new FPMoney({
+      container: document.querySelector('#exampleMinValue') as HTMLDivElement,
+      minValue: 0
+    })
   },
   methods: {
     toggleDisabled() {
@@ -142,6 +147,21 @@ export default Vue.extend({
 
           var fp = new FPMoney({ container: document.querySelector('#example') })
           fp.setDisplayOnly(true)
+        </code>
+      </pre>
+    </div>
+
+    <div class="section">
+      <div class="header">Min Value</div>
+      <div class="example row">
+        <div id="exampleMinValue"></div>
+      </div>
+      <pre>
+        <code class="language-javascript">
+          new FPMoney({
+            container: document.querySelector('#example'),
+            minValue: 0 // only positive numbers allowed
+          })
         </code>
       </pre>
     </div>

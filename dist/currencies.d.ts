@@ -12,3 +12,4 @@ export declare function percentOfValue(val: string | number, perc: string | numb
 export declare function displayValue(value: string | number, currency: string, fraction: number, locale?: string): string;
 export declare function getLocale(): string;
 export declare function isNegative(value: string | number): boolean;
+export declare function bankersRounding(num: number, fraction: number): number;

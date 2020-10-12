@@ -22,13 +22,25 @@ describe('functions', () => {
 
   it('percentOfValue', () => {
     const tests = [
+      // ceil
       { val: 1.00, perc: 10.250, fraction: 2, round: 'ceil', expected: .11 },
+      { val: 100, perc: 10.501, fraction: 2, round: 'ceil', expected: 10.51 },
+
+      // Floor
       { val: 1.00, perc: 10.250, fraction: 2, round: 'floor', expected: .10 },
+
+      // Round
       { val: 1.00, perc: 10.250, fraction: 2, round: 'round', expected: .10 },
       { val: 1.00, perc: 10.500, fraction: 2, round: 'round', expected: .11 },
       { val: 1.00, perc: 10.500, fraction: 2, round: 'round', expected: .11 },
       { val: 100, perc: 10.500, fraction: 2, round: 'round', expected: 10.50 },
-      { val: 100, perc: 10.501, fraction: 2, round: 'ceil', expected: 10.51 }
+
+      // Bankers Round
+      { val: 1.00, perc: 10.250, fraction: 2, round: 'bankers', expected: .10 },
+      { val: 1.00, perc: 10.500, fraction: 2, round: 'bankers', expected: .10 },
+      { val: 1.00, perc: 10.510, fraction: 2, round: 'bankers', expected: .11 },
+      { val: 1.00, perc: 2.500, fraction: 2, round: 'bankers', expected: .02 }, // Even round down
+      { val: 1.00, perc: 3.500, fraction: 2, round: 'bankers', expected: .04 } // Odd round up
     ] as PercentTest[]
 
     for (const t of tests) {

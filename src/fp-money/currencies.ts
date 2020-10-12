@@ -11,6 +11,11 @@ export const currencies: Currencies = {
   USD: { symbol: '$', fraction: 2 },
   CAD: { symbol: '$', fraction: 2 },
   EUR: { symbol: '€', fraction: 2 },
+  MXN: { symbol: '$', fraction: 2 },
+  AUD: { symbol: '$', fraction: 2 },
+  SEK: { symbol: 'kr', fraction: 2 },
+  NOK: { symbol: 'kr', fraction: 2 },
+  DKK: { symbol: 'kr', fraction: 2 },
   GBP: { symbol: '£', fraction: 2 },
   INR: { symbol: '₹', fraction: 2 },
   CRC: { symbol: '₡', fraction: 2 },
@@ -85,6 +90,8 @@ export function percentOfValue(val: string | number, perc: string | number, frac
     return Math.floor(((val / 100) * perc) * multiInt) / multiInt
   } else if (round === 'round') {
     return Math.round(((val / 100) * perc) * multiInt) / multiInt
+  } else if (round === 'bankers') {
+    return bankersRounding(((val / 100) * perc) * multiInt, 0) / multiInt
   }
 
   // Fallback to using round
@@ -119,4 +126,16 @@ export function getLocale(): string {
 // Takes in a value and identifies if its a positive or negative number
 export function isNegative(value: string | number): boolean {
   return String(value).indexOf('-') !== -1
+}
+
+export function bankersRounding(num: number, fraction: number): number {
+  const d = fraction || 0
+  const m = Math.pow(10, d)
+  const n = +(d ? num * m : num).toFixed(8)
+  const i = Math.floor(n)
+  const f = n - i
+  const e = 1e-8
+  const r = (f > 0.5 - e && f < 0.5 + e) ? ((i % 2 === 0) ? i : i + 1) : Math.round(n)
+
+  return d ? r / m : r
 }

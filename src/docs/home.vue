@@ -19,7 +19,6 @@ export default Vue.extend({
       // maxValue: 500.00,
       // step: 0.01,
       onChange: (values) => {
-        console.log(values)
         this.value = values.value
         this.format = values.format
         this.display = values.display
