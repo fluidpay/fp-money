@@ -85,17 +85,17 @@ export function percentOfValue(val: string | number, perc: string | number, frac
 
   // Decide which math round to use
   if (round === 'ceil') {
-    return Math.ceil(((val / 100) * perc) * multiInt) / multiInt
+    return Math.ceil(Number(((val / 100) * perc).toFixed(5)) * multiInt) / multiInt
   } else if (round === 'floor') {
-    return Math.floor(((val / 100) * perc) * multiInt) / multiInt
+    return Math.floor(Number(((val / 100) * perc).toFixed(5)) * multiInt) / multiInt
   } else if (round === 'round') {
-    return Math.round(((val / 100) * perc) * multiInt) / multiInt
+    return Math.round(Number(((val / 100) * perc).toFixed(5)) * multiInt) / multiInt
   } else if (round === 'bankers') {
-    return bankersRounding(((val / 100) * perc) * multiInt, 0) / multiInt
+    return bankersRounding(Number(((val / 100) * perc).toFixed(5)) * multiInt, 0) / multiInt
   }
 
   // Fallback to using round
-  return Math.round(((val / 100) * perc) * multiInt) / multiInt
+  return Math.round(Number(((val / 100) * perc).toFixed(5)) * multiInt) / multiInt
 }
 
 export function displayValue(value: string | number, currency: string, fraction: number, locale: string = getLocale()): string {
