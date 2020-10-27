@@ -83,8 +83,8 @@ export default {
       if (this.valueFormat) {options.valueFormat = this.valueFormat}
       if (this.value !== undefined) {options.value = this.value}
       if (this.locale) {options.locale = this.locale}
-      if (this.minValue != undefined) {options.minValue = this.minValue}
-      if (this.maxValue != undefined) {options.maxValue = this.maxValue}
+      if (this.minValue !== undefined) {options.minValue = this.minValue}
+      if (this.maxValue !== undefined) {options.maxValue = this.maxValue}
       if (this.step !== undefined) {options.step = this.step}
       if (this.disabled === true) {options.disabled = true}
       if (this.displayOnly === true) {options.displayOnly = true}

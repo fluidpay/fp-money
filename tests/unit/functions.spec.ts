@@ -25,6 +25,7 @@ describe('functions', () => {
       // ceil
       { val: 1.00, perc: 10.250, fraction: 2, round: 'ceil', expected: .11 },
       { val: 100, perc: 10.501, fraction: 2, round: 'ceil', expected: 10.51 },
+      { val: 898.00, perc: 56.7, fraction: 3, round: 'ceil', expected: 509.166 },
 
       // Floor
       { val: 1.00, perc: 10.250, fraction: 2, round: 'floor', expected: .10 },
