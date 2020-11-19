@@ -1,12 +1,14 @@
 <script lang="ts">
 import Vue from 'vue'
-import FPMoney from '@/fp-money/fp-money.ts'
+import FPMoney, { Values } from '@/fp-money/fp-money.ts'
 
 export default Vue.extend({
   data() {
     return {
       disabled: null as any,
-      displayOnly: null as any
+      displayOnly: null as any,
+
+      curSelectionValues: {} as Values
     }
   },
   mounted() {
@@ -16,7 +18,10 @@ export default Vue.extend({
 
     new FPMoney({
       container: document.querySelector('#exampleSelection') as HTMLDivElement,
-      showSelection: true
+      showSelection: true,
+      onChange: (values) => {
+        this.curSelectionValues = values
+      }
     })
 
     this.disabled = new FPMoney({
@@ -99,6 +104,7 @@ export default Vue.extend({
     <div class="section">
       <div class="header">Currency Selection</div>
       <div class="example" id="exampleSelection"></div>
+      <div>{{curSelectionValues}}</div>
       <pre>
         <code class="language-javascript">
           new FPMoney({
