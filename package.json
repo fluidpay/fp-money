@@ -20,31 +20,33 @@
     "docs": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "npm-check": "^5.9.2"
+  },
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/chance": "^1.1.0",
-    "@types/mocha": "^8.0.3",
-    "@types/prismjs": "^1.16.1",
-    "@typescript-eslint/parser": "^4.6.0",
-    "@vue/cli-plugin-babel": "^4.5.8",
-    "@vue/cli-plugin-typescript": "^4.5.8",
-    "@vue/cli-plugin-unit-mocha": "^4.5.8",
-    "@vue/cli-service": "^4.5.8",
-    "@vue/test-utils": "^1.0.3",
+    "@types/mocha": "^8.0.4",
+    "@types/prismjs": "^1.16.2",
+    "@typescript-eslint/parser": "^4.8.1",
+    "@vue/cli-plugin-babel": "^4.5.9",
+    "@vue/cli-plugin-typescript": "^4.5.9",
+    "@vue/cli-plugin-unit-mocha": "^4.5.9",
+    "@vue/cli-service": "^4.5.9",
+    "@vue/test-utils": "^1.1.1",
     "ajv": "^6.12.6",
     "chai": "^4.1.2",
     "chance": "^1.1.7",
-    "eslint": "^7.12.1",
+    "eslint": "^7.13.0",
     "eslint-plugin-vue": "^7.1.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "prismjs": "^1.22.0",
-    "sass-loader": "^10.0.4",
+    "sass-loader": "^10.1.0",
     "typescript": "^4.0.5",
     "vue": "^2.6.12",
-    "vue-router": "^3.4.8",
+    "vue-router": "^3.4.9",
     "vue-template-compiler": "^2.6.12",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^4.2.0"
   }
 }
