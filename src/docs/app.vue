@@ -1,9 +1,9 @@
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 import Header from '@/docs/header.vue'
 
-export default Vue.extend({
-  name: 'app',
+export default defineComponent({
+  name: 'App',
   components: {
     Header
   }
@@ -53,13 +53,13 @@ export default Vue.extend({
 
 <template>
   <div class="container">
-    <div class="bluebar"></div>
-    <div class="greenbar"></div>
-    <div class="orangebar"></div>
+    <div class="bluebar" />
+    <div class="greenbar" />
+    <div class="orangebar" />
     <div class="app">
-      <Header></Header>
+      <Header />
       <transition mode="out-in" name="slide-left">
-        <router-view></router-view>
+        <router-view />
       </transition>
     </div>
   </div>

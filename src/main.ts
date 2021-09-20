@@ -1,7 +1,7 @@
 import '@/docs/assets/scss/index.scss'
 
-import Vue from 'vue'
-import app from '@/docs/app.vue'
+import { createApp } from 'vue'
+import App from '@/docs/app.vue'
 import router from '@/docs/router'
 
 import Prism from 'prismjs'
@@ -17,15 +17,11 @@ new Normalizer({
   'right-trim': true
 })
 
-Vue.mixin({
-  updated() {
+const app = createApp(App)
+app.use(router)
+app.mixin({
+  updated () {
     Prism.highlightAll()
   }
 })
-
-Vue.config.productionTip = false
-
-new Vue({
-  router,
-  render: (h) => h(app)
-}).$mount('#app')
+app.mount('#app')
