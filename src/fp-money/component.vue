@@ -3,6 +3,7 @@ import FPMoney, { intToFraction, fractionToInt, currencies } from './fp-money'
 
 export default {
   name: 'FpMoney',
+  emits: ['input', 'update:value', 'update:format', 'update:display', 'update:currency', 'update:locale'],
   props: {
     value: [String, Number],
     currencies: Object,
