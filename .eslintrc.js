@@ -23,6 +23,7 @@ module.exports = {
     // Vue
     'vue/no-v-model-argument': 'off',
     'vue/require-default-prop': 'off',
+    'vue/attribute-hyphenation': 'off',
     'vue/order-in-components': ['error', {
       order: [
         'name',
