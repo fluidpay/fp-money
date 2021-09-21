@@ -14,10 +14,6 @@ export default defineComponent({
   @import './assets/scss/_variables.scss';
 
   .container {
-    input {
-      border-radius: 4px; // Just to test fp-money border radius override
-    }
-
     .bluebar {
       position: absolute;
       top: -350px;
@@ -58,9 +54,13 @@ export default defineComponent({
     <div class="orangebar" />
     <div class="app">
       <Header />
-      <transition mode="out-in" name="slide-left">
-        <router-view />
-      </transition>
+      <router-view v-slot="{ Component }">
+        <transition mode="out-in" name="slide-left">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+
+      <!-- <router-view /> -->
     </div>
   </div>
 </template>

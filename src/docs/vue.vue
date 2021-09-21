@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { Currencies } from '@/fp-money/fp-money'
+import { Currencies, Values } from '@/fp-money/fp-money'
 import fpmoney from '@/fp-money/component.vue'
 import Chance from 'chance'
 const chance = new Chance()
@@ -66,9 +66,9 @@ export default defineComponent({
     }, 1000)
   },
   methods: {
-    // change (values: Values) {
-    //   console.log(values)
-    // }
+    change (values: Values) {
+      console.log(values)
+    }
   }
 })
 </script>
@@ -104,7 +104,7 @@ export default defineComponent({
       v-model:currency="currency"
       v-model:locale="locale"
       :currencies="currencies"
-      :on-change="change"
+      :onChange="change"
       :show-selection="true"
       value-format="int"
     />

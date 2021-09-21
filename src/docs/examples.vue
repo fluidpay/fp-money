@@ -14,7 +14,8 @@ export default defineComponent({
   },
   mounted () {
     new FPMoney({
-      container: document.querySelector('#exampleBasic') as HTMLDivElement
+      container: document.querySelector('#exampleBasic') as HTMLDivElement,
+      value: 86753.09
     })
 
     new FPMoney({
