@@ -67,7 +67,7 @@ export default defineComponent({
   },
   methods: {
     change (values: Values) {
-      console.log(values)
+      // console.log(values)
     }
   }
 })
