@@ -1,6 +1,8 @@
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({})
+import { defineComponent } from 'vue'
+export default defineComponent({
+  name: 'Header'
+})
 </script>
 
 <style lang="scss">
@@ -37,14 +39,24 @@ export default Vue.extend({})
 
 <template>
   <div class="header">
-    <div class="title">FluidPay Money Formatter</div>
+    <div class="title">
+      FluidPay Money Formatter
+    </div>
     <div class="menu">
-      <router-link to="/">Home</router-link>
-      <router-link to="/examples">Examples</router-link>
-      <router-link to="/functions">Functions</router-link>
-      <router-link to="/vue">Vue</router-link>
+      <router-link to="/">
+        Home
+      </router-link>
+      <router-link to="/examples">
+        Examples
+      </router-link>
+      <router-link to="/functions">
+        Functions
+      </router-link>
+      <router-link to="/vue">
+        Vue
+      </router-link>
       <a target="_blank" href="http://github.com/fluidpay/fp-money">
-        <img height="20" alt="Github Logomark" :src="require('@/docs/assets/images/github.png')" />
+        <img height="20" alt="Github Logomark" :src="require('@/docs/assets/images/github.png')">
       </a>
     </div>
   </div>

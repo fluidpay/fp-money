@@ -1,22 +1,29 @@
 <script lang="ts">
-import Vue from 'vue'
-import FPMoney from '@/fp-money/fp-money.ts'
+import { defineComponent } from 'vue'
+import FPMoney, { Values } from '@/fp-money/fp-money'
 
-export default Vue.extend({
-  data() {
+export default defineComponent({
+  name: 'Examples',
+  data () {
     return {
-      disabled: null as any,
-      displayOnly: null as any
+      disabled: null as FPMoney | null,
+      displayOnly: null as FPMoney | null,
+
+      curSelectionValues: {} as Values
     }
   },
-  mounted() {
+  mounted () {
     new FPMoney({
-      container: document.querySelector('#exampleBasic') as HTMLDivElement
+      container: document.querySelector('#exampleBasic') as HTMLDivElement,
+      value: 86753.09
     })
 
     new FPMoney({
       container: document.querySelector('#exampleSelection') as HTMLDivElement,
-      showSelection: true
+      showSelection: true,
+      onChange: (values) => {
+        this.curSelectionValues = values
+      }
     })
 
     this.disabled = new FPMoney({
@@ -37,11 +44,15 @@ export default Vue.extend({
     })
   },
   methods: {
-    toggleDisabled() {
-      this.disabled.setDisabled(!this.disabled.disabled)
+    toggleDisabled () {
+      if (this.disabled) {
+        this.disabled.setDisabled(!this.disabled.disabled)
+      }
     },
-    toggleDisplayOnly() {
-      this.displayOnly.setDisplayOnly(!this.displayOnly.displayOnly)
+    toggleDisplayOnly () {
+      if (this.displayOnly) {
+        this.displayOnly.setDisplayOnly(!this.displayOnly.displayOnly)
+      }
     }
   }
 })
@@ -49,7 +60,7 @@ export default Vue.extend({
 
 <style lang="scss">
   @import './assets/scss/_variables.scss';
-    
+
   .examples {
     .section {
       margin-bottom: $spacing;
@@ -85,8 +96,10 @@ export default Vue.extend({
 <template>
   <div class="examples">
     <div class="section">
-      <div class="header">Basic</div>
-      <div class="example" id="exampleBasic"></div>
+      <div class="header">
+        Basic
+      </div>
+      <div id="exampleBasic" class="example" />
       <pre>
         <code class="language-javascript">
           new FPMoney({
@@ -97,8 +110,11 @@ export default Vue.extend({
     </div>
 
     <div class="section">
-      <div class="header">Currency Selection</div>
-      <div class="example" id="exampleSelection"></div>
+      <div class="header">
+        Currency Selection
+      </div>
+      <div id="exampleSelection" class="example" />
+      <div>{{ curSelectionValues }}</div>
       <pre>
         <code class="language-javascript">
           new FPMoney({
@@ -110,10 +126,14 @@ export default Vue.extend({
     </div>
 
     <div class="section">
-      <div class="header">Disabled</div>
+      <div class="header">
+        Disabled
+      </div>
       <div class="row example">
-        <div id="exampleDisabled"></div>
-        <button v-if="disabled" @click="toggleDisabled()">{{disabled.disabled ? 'Enable': 'Disable'}}</button>
+        <div id="exampleDisabled" />
+        <button v-if="disabled" @click="toggleDisabled()">
+          {{ disabled.disabled ? 'Enable': 'Disable' }}
+        </button>
       </div>
       <pre>
         <code class="language-javascript">
@@ -131,10 +151,14 @@ export default Vue.extend({
     </div>
 
     <div class="section">
-      <div class="header">Display Only</div>
+      <div class="header">
+        Display Only
+      </div>
       <div class="example row">
-        <div id="exampleDisplayOnly"></div>
-        <button v-if="disabled" @click="toggleDisplayOnly()">{{displayOnly.displayOnly ? 'Enable': 'Disable'}}</button>
+        <div id="exampleDisplayOnly" />
+        <button v-if="disabled" @click="toggleDisplayOnly()">
+          {{ displayOnly.displayOnly ? 'Enable': 'Disable' }}
+        </button>
       </div>
       <pre>
         <code class="language-javascript">
@@ -152,9 +176,11 @@ export default Vue.extend({
     </div>
 
     <div class="section">
-      <div class="header">Min Value</div>
+      <div class="header">
+        Min Value
+      </div>
       <div class="example row">
-        <div id="exampleMinValue"></div>
+        <div id="exampleMinValue" />
       </div>
       <pre>
         <code class="language-javascript">
@@ -165,6 +191,5 @@ export default Vue.extend({
         </code>
       </pre>
     </div>
-
   </div>
 </template>

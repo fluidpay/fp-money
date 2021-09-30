@@ -1,9 +1,10 @@
 <script lang="ts">
-import Vue from 'vue'
-import FPMoney from '@/fp-money/fp-money.ts'
+import { defineComponent } from 'vue'
+import FPMoney from '@/fp-money/fp-money'
 
-export default Vue.extend({
-  data() {
+export default defineComponent({
+  name: 'Home',
+  data () {
     return {
       value: '',
       format: '',
@@ -11,7 +12,7 @@ export default Vue.extend({
       currency: ''
     }
   },
-  mounted() {
+  mounted () {
     const fp = new FPMoney({
       container: document.querySelector('#example') as HTMLDivElement,
       value: 86753.09,
@@ -34,7 +35,7 @@ export default Vue.extend({
 
 <style lang="scss">
   @import './assets/scss/_variables.scss';
-    
+
   .basic {
     #example {
       width: 200px;
@@ -54,12 +55,12 @@ export default Vue.extend({
 
 <template>
   <div class="basic">
-    <div id="example"></div>
+    <div id="example" />
     <div class="outputs">
-      Value: {{value}}<br />
-      Format: {{format}}<br />
-      Display: {{display}}<br />
-      Currency: {{currency}}
+      Value: {{ value }}<br>
+      Format: {{ format }}<br>
+      Display: {{ display }}<br>
+      Currency: {{ currency }}
     </div>
     <pre>
       <code class="language-bash">

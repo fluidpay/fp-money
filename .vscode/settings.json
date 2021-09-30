@@ -5,16 +5,13 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+
   // Vetur
   "vetur.format.defaultFormatter.js": "vscode-typescript",
   "vetur.format.defaultFormatter.ts": "vscode-typescript",
   "vetur.format.defaultFormatter.html": "js-beautify-html",
   "vetur.format.defaultFormatter.scss": "prettier",
+  
   // Eslint
-  "eslint.validate": [
-    "vue",
-    "html",
-    "javascript",
-    "typescript"
-  ]
+  "eslint.validate": ["vue", "html", "javascript", "typescript"],
 }

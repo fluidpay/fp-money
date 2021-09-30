@@ -50,7 +50,10 @@ describe('functions', () => {
   })
 
   it('displayValue', () => {
-    const val = displayValue(100, 'usd', 2)
+    let val = displayValue(100, 'usd', 2)
     assert.equal(val, '$1.00')
+
+    val = displayValue(100, 'jpy', 0)
+    assert.equal(val, '¥100')
   })
 })
