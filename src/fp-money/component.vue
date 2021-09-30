@@ -1,5 +1,5 @@
 <script>
-import FPMoney, { intToFraction, fractionToInt, currencies } from './fp-money'
+import FPMoney, { currencies } from './fp-money'
 
 export default {
   name: 'FpMoney',
