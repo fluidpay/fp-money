@@ -285,9 +285,8 @@ export default class FPMoney {
       // Dont do anything if displayOnly
       if (this.displayOnly) { e.preventDefault(); return }
 
-      console.log(this.input.selectionStart, this.input.selectionEnd)
-
       this.input.focus()
+      this.moveCursorToEnd(this.input)
     }, false)
 
     // Check if displayOnly
@@ -330,8 +329,6 @@ export default class FPMoney {
 
     const key = evt.key
     const charCode = key.charCodeAt(0)
-
-    console.log(this.input.selectionStart, this.input.selectionEnd)
 
     // Deal with unidentified keys. This usually deals with android keyboard issues
     if (key.toLowerCase() === 'unidentified') {
@@ -429,8 +426,18 @@ export default class FPMoney {
     // Disable normal operations
     evt.preventDefault()
     evt.stopPropagation()
+  }
 
-    console.log('hit')
+  // Will take in an element and select the end of the input field
+  private moveCursorToEnd (el: any) {
+    if (typeof el.selectionStart === 'number') {
+      el.selectionStart = el.selectionEnd = el.value.length
+    } else if (typeof el.createTextRange !== 'undefined') {
+      el.focus()
+      const range = el.createTextRange()
+      range.collapse(false)
+      range.select()
+    }
   }
 
   private getMobileOs () {
