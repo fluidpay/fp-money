@@ -1,9 +1,9 @@
+export interface Currencies {
+    [currency: string]: Currency;
+}
 export interface Currency {
     symbol: string;
     fraction: number;
-}
-export interface Currencies {
-    [currency: string]: Currency;
 }
 export declare const currencies: Currencies;
 export declare function intToFraction(val: string | number, fraction?: number): number;

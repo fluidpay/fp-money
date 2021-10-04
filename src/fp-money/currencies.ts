@@ -1,10 +1,10 @@
+export interface Currencies {
+  [currency: string]: Currency
+}
+
 export interface Currency {
   symbol: string
   fraction: number
-}
-
-export interface Currencies {
-  [currency: string]: Currency
 }
 
 export const currencies: Currencies = {
@@ -31,11 +31,10 @@ export const currencies: Currencies = {
   THB: { symbol: '฿', fraction: 2 },
   UAH: { symbol: '₴', fraction: 2 },
   PEN: { symbol: 'S/', fraction: 2 },
-  RUB: { symbol: '₽', fraction: 2 },
   JPY: { symbol: '¥', fraction: 0 }
 }
 
-export function intToFraction (val: string | number, fraction = 2): number {
+export function intToFraction(val: string | number, fraction: number = 2): number {
   val = val.toString()
   if (val === '') { val = '0' }
 
@@ -55,7 +54,7 @@ export function intToFraction (val: string | number, fraction = 2): number {
   return parseFloat((parseInt(val, 10) / divideInt).toFixed(fraction))
 }
 
-export function fractionToInt (val: string | number, fraction = 2): number {
+export function fractionToInt(val: string | number, fraction: number = 2): number {
   const valStr = val.toString()
   if (valStr.trim() === '') { return 0 }
 
@@ -68,7 +67,7 @@ export function fractionToInt (val: string | number, fraction = 2): number {
   return parseInt(valFloat, 10)
 }
 
-export function percentOfValue (val: string | number, perc: string | number, fraction: number, round = 'round'): number {
+export function percentOfValue(val: string | number, perc: string | number, fraction: number, round: string = 'round'): number {
   // Get a clean number from either string or number
   val = val.toString()
   if (val.trim() === '') { return 0 }
@@ -99,7 +98,7 @@ export function percentOfValue (val: string | number, perc: string | number, fra
   return Math.round(Number(((val / 100) * perc).toFixed(5)) * multiInt) / multiInt
 }
 
-export function displayValue (value: string | number, currency: string, fraction: number, locale: string = getLocale()): string {
+export function displayValue(value: string | number, currency: string, fraction: number, locale: string = getLocale()): string {
   const formatter = new Intl.NumberFormat(locale, {
     localeMatcher: 'best fit',
     style: 'currency',
@@ -114,7 +113,7 @@ export function displayValue (value: string | number, currency: string, fraction
 }
 
 // Try to identify the users locale - default en-US
-export function getLocale (): string {
+export function getLocale(): string {
   if (navigator.languages !== undefined) {
     return navigator.languages[0]
   } else if (navigator.language) {
@@ -125,11 +124,11 @@ export function getLocale (): string {
 }
 
 // Takes in a value and identifies if its a positive or negative number
-export function isNegative (value: string | number): boolean {
+export function isNegative(value: string | number): boolean {
   return String(value).indexOf('-') !== -1
 }
 
-export function bankersRounding (num: number, fraction: number): number {
+export function bankersRounding(num: number, fraction: number): number {
   const d = fraction || 0
   const m = Math.pow(10, d)
   const n = +(d ? num * m : num).toFixed(8)

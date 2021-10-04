@@ -6,12 +6,12 @@
   overflow: hidden;
 }
 
-.slide-left-enter-from {
+.slide-left-enter {
   opacity: 0;
   transform: translate(2em, 0);
 }
 
-.slide-left-leave-to {
+.slide-left-leave-active {
   opacity: 0;
   transform: translate(-2em, 0);
 }

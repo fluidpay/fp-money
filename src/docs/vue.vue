@@ -1,14 +1,13 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { Currencies, Values } from '@/fp-money/fp-money'
+import Vue from 'vue'
+import { Values, Currencies } from '@/fp-money/fp-money.ts'
 import fpmoney from '@/fp-money/component.vue'
 import Chance from 'chance'
 const chance = new Chance()
 
-export default defineComponent({
-  name: 'Vue',
+export default Vue.extend({
   components: { fpmoney },
-  data () {
+  data() {
     return {
       value: 8675309 as any,
       int: '',
@@ -32,7 +31,7 @@ export default defineComponent({
       locale: 'en-US'
     }
   },
-  mounted () {
+  mounted() {
     // setInterval(() => {
     //   // this.value = Math.random() * 1000
     //   this.value = chance.integer({ min: 1000, max: 100000 })
@@ -66,7 +65,7 @@ export default defineComponent({
     }, 1000)
   },
   methods: {
-    change (values: Values) {
+    change(values: Values) {
       // console.log(values)
     }
   }
@@ -75,7 +74,7 @@ export default defineComponent({
 
 <style lang="scss">
   @import './assets/scss/_variables.scss';
-
+    
   .vue {
     #example {
       width: 250px;
@@ -95,28 +94,26 @@ export default defineComponent({
 
 <template>
   <div class="vue">
-    <fpmoney
-      id="example"
+    <fpmoney id="example"
       v-model="value"
-      v-model:value="int"
-      v-model:format="format"
-      v-model:display="display"
-      v-model:currency="currency"
-      v-model:locale="locale"
+      :value.sync="int"
+      :format.sync="format"
+      :display.sync="display"
+      :currency.sync="currency"
       :currencies="currencies"
+      :locale.sync="locale"
       :onChange="change"
-      :show-selection="true"
-      value-format="int"
-    />
+      :showSelection="true"
+      valueFormat="int" />
     <!-- <fpmoney id="example" v-model="value" valueFormat="int" /> -->
-
+    
     <div class="outputs">
-      Value: {{ int }}<br>
-      Format: {{ format }}<br>
-      Display: {{ display }}<br>
-      Currency: {{ currency }}
+      Value: {{int}}<br />
+      Format: {{format}}<br />
+      Display: {{display}}<br />
+      Currency: {{currency}}
     </div>
-
+    
     <pre>
       <code class="language-javascript">
         import fpmoney from 'fp-money/dist/fp-money-vue.js'
@@ -143,8 +140,8 @@ export default defineComponent({
     </pre>
     <pre>
       <code class="language-html">
-        &lt;fpmoney id="example"
-          v-model="value"
+        &lt;fpmoney id="example" 
+          v-model="value" 
           :value.sync="int"           &lt;-- Optional
           :format.sync="format"       &lt;-- Optional
           :display.sync="display"     &lt;-- Optional
@@ -156,7 +153,7 @@ export default defineComponent({
           :minValue="minValue"        &lt;-- Optional
           :maxValue="maxValue"        &lt;-- Optional
           :step="step"                &lt;-- Optional
-          :onChange="change"          &lt;-- Optional
+          :onChange="change"          &lt;-- Optional 
           :showSelection="false"      &lt;-- Optional
         /&gt;
       </code>

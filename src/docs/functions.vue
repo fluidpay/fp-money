@@ -1,23 +1,23 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { fractionToInt, intToFraction, displayValue, getLocale } from '@/fp-money/fp-money'
+import Vue from 'vue'
+import { currencies, fractionToInt, intToFraction, displayValue, getLocale } from '@/fp-money/fp-money.ts'
 
-export default defineComponent({
-  data () {
+export default Vue.extend({
+  data() {
     return {
     }
   },
   methods: {
-    fractionToInt (value: number, fraction: number) {
+    fractionToInt(value: number, fraction: number) {
       return fractionToInt(value, fraction)
     },
-    intToFraction (value: number, fraction: number) {
+    intToFraction(value: number, fraction: number) {
       return intToFraction(value, fraction)
     },
-    displayValue (value: number, currency: string, fraction: number, locale: string) {
+    displayValue(value: number, currency: string, fraction: number, locale: string) {
       return displayValue(value, currency, fraction, locale)
     },
-    getLocale () {
+    getLocale() {
       return getLocale()
     }
   }
@@ -26,7 +26,7 @@ export default defineComponent({
 
 <style lang="scss">
   @import './assets/scss/_variables.scss';
-
+    
   .functions {
     .section {
       .item {
@@ -44,26 +44,18 @@ export default defineComponent({
       <code class="language-javascript">
         import {
           currencies, // Array of object currencies
-          fractionToInt,
-          intToFraction,
-          displayValue,
+          fractionToInt, 
+          intToFraction, 
+          displayValue, 
           getLocale // Will output a string based upon your local language
         } from 'fp-money'
       </code>
     </pre>
     <div class="section">
-      <div class="item">
-        fractionToInt(value, fraction): 86753.09 - {{ fractionToInt(86753.09, 2) }}
-      </div>
-      <div class="item">
-        intToFraction(value, fraction): 8675309 - {{ intToFraction(8675309, 2) }}
-      </div>
-      <div class="item">
-        displayValue(value, currency, fraction, locale): 86753.09 - {{ displayValue(86753.09, 'usd', 2, 'en-us') }}
-      </div>
-      <div class="item">
-        getLocale(): {{ getLocale() }}
-      </div>
+      <div class="item">fractionToInt(value, fraction): 86753.09 - {{fractionToInt(86753.09, 2)}}</div>
+      <div class="item">intToFraction(value, fraction): 8675309 - {{intToFraction(8675309, 2)}}</div>
+      <div class="item">displayValue(value, currency, fraction, locale): 86753.09 - {{displayValue(86753.09, 'usd', 2, 'en-us')}}</div>
+      <div class="item">getLocale(): {{getLocale()}}</div>
     </div>
   </div>
 </template>

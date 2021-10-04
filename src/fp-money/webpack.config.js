@@ -1,7 +1,7 @@
 const path = require('path')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 // const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
-const { VueLoaderPlugin } = require('vue-loader')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   mode: 'production',
@@ -25,8 +25,8 @@ module.exports = {
         test: /\.(sass|scss)$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader', // translates CSS into CommonJS
-          'sass-loader' // compiles Sass to CSS, using Node Sass by default
+          "css-loader", // translates CSS into CommonJS
+          "sass-loader" // compiles Sass to CSS, using Node Sass by default
         ]
       }
     ]
@@ -38,7 +38,7 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['.vue', '.ts', '.js']
+    extensions: [ '.vue', '.ts', '.js' ]
   },
   optimization: {
     splitChunks: {

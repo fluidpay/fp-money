@@ -1,9 +1,9 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import Vue from 'vue'
 import Header from '@/docs/header.vue'
 
-export default defineComponent({
-  name: 'App',
+export default Vue.extend({
+  name: 'app',
   components: {
     Header
   }
@@ -14,6 +14,10 @@ export default defineComponent({
   @import './assets/scss/_variables.scss';
 
   .container {
+    input {
+      border-radius: 4px; // Just to test fp-money border radius override
+    }
+
     .bluebar {
       position: absolute;
       top: -350px;
@@ -49,18 +53,14 @@ export default defineComponent({
 
 <template>
   <div class="container">
-    <div class="bluebar" />
-    <div class="greenbar" />
-    <div class="orangebar" />
+    <div class="bluebar"></div>
+    <div class="greenbar"></div>
+    <div class="orangebar"></div>
     <div class="app">
-      <Header />
-      <router-view v-slot="{ Component }">
-        <transition mode="out-in" name="slide-left">
-          <component :is="Component" />
-        </transition>
-      </router-view>
-
-      <!-- <router-view /> -->
+      <Header></Header>
+      <transition mode="out-in" name="slide-left">
+        <router-view></router-view>
+      </transition>
     </div>
   </div>
 </template>

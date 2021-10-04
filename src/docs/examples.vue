@@ -1,21 +1,19 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
-import FPMoney, { Values } from '@/fp-money/fp-money'
+import Vue from 'vue'
+import FPMoney, { Values } from '@/fp-money/fp-money.ts'
 
-export default defineComponent({
-  name: 'Examples',
-  data () {
+export default Vue.extend({
+  data() {
     return {
-      disabled: null as FPMoney | null,
-      displayOnly: null as FPMoney | null,
+      disabled: null as any,
+      displayOnly: null as any,
 
       curSelectionValues: {} as Values
     }
   },
-  mounted () {
+  mounted() {
     new FPMoney({
-      container: document.querySelector('#exampleBasic') as HTMLDivElement,
-      value: 86753.09
+      container: document.querySelector('#exampleBasic') as HTMLDivElement
     })
 
     new FPMoney({
@@ -44,15 +42,11 @@ export default defineComponent({
     })
   },
   methods: {
-    toggleDisabled () {
-      if (this.disabled) {
-        this.disabled.setDisabled(!this.disabled.disabled)
-      }
+    toggleDisabled() {
+      this.disabled.setDisabled(!this.disabled.disabled)
     },
-    toggleDisplayOnly () {
-      if (this.displayOnly) {
-        this.displayOnly.setDisplayOnly(!this.displayOnly.displayOnly)
-      }
+    toggleDisplayOnly() {
+      this.displayOnly.setDisplayOnly(!this.displayOnly.displayOnly)
     }
   }
 })
@@ -60,7 +54,7 @@ export default defineComponent({
 
 <style lang="scss">
   @import './assets/scss/_variables.scss';
-
+    
   .examples {
     .section {
       margin-bottom: $spacing;
@@ -96,10 +90,8 @@ export default defineComponent({
 <template>
   <div class="examples">
     <div class="section">
-      <div class="header">
-        Basic
-      </div>
-      <div id="exampleBasic" class="example" />
+      <div class="header">Basic</div>
+      <div class="example" id="exampleBasic"></div>
       <pre>
         <code class="language-javascript">
           new FPMoney({
@@ -110,11 +102,9 @@ export default defineComponent({
     </div>
 
     <div class="section">
-      <div class="header">
-        Currency Selection
-      </div>
-      <div id="exampleSelection" class="example" />
-      <div>{{ curSelectionValues }}</div>
+      <div class="header">Currency Selection</div>
+      <div class="example" id="exampleSelection"></div>
+      <div>{{curSelectionValues}}</div>
       <pre>
         <code class="language-javascript">
           new FPMoney({
@@ -126,14 +116,10 @@ export default defineComponent({
     </div>
 
     <div class="section">
-      <div class="header">
-        Disabled
-      </div>
+      <div class="header">Disabled</div>
       <div class="row example">
-        <div id="exampleDisabled" />
-        <button v-if="disabled" @click="toggleDisabled()">
-          {{ disabled.disabled ? 'Enable': 'Disable' }}
-        </button>
+        <div id="exampleDisabled"></div>
+        <button v-if="disabled" @click="toggleDisabled()">{{disabled.disabled ? 'Enable': 'Disable'}}</button>
       </div>
       <pre>
         <code class="language-javascript">
@@ -151,14 +137,10 @@ export default defineComponent({
     </div>
 
     <div class="section">
-      <div class="header">
-        Display Only
-      </div>
+      <div class="header">Display Only</div>
       <div class="example row">
-        <div id="exampleDisplayOnly" />
-        <button v-if="disabled" @click="toggleDisplayOnly()">
-          {{ displayOnly.displayOnly ? 'Enable': 'Disable' }}
-        </button>
+        <div id="exampleDisplayOnly"></div>
+        <button v-if="disabled" @click="toggleDisplayOnly()">{{displayOnly.displayOnly ? 'Enable': 'Disable'}}</button>
       </div>
       <pre>
         <code class="language-javascript">
@@ -176,11 +158,9 @@ export default defineComponent({
     </div>
 
     <div class="section">
-      <div class="header">
-        Min Value
-      </div>
+      <div class="header">Min Value</div>
       <div class="example row">
-        <div id="exampleMinValue" />
+        <div id="exampleMinValue"></div>
       </div>
       <pre>
         <code class="language-javascript">
@@ -191,5 +171,6 @@ export default defineComponent({
         </code>
       </pre>
     </div>
+
   </div>
 </template>

@@ -1,9 +1,8 @@
 <script>
-import FPMoney, { currencies } from './fp-money'
+import FPMoney, {intToFraction, fractionToInt, currencies} from './fp-money'
 
 export default {
-  name: 'FpMoney',
-  emits: ['input', 'update:value', 'update:format', 'update:display', 'update:currency', 'update:locale'],
+  name: 'fp-money',
   props: {
     value: [String, Number],
     currencies: Object,
@@ -21,7 +20,7 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       fpmoney: null,
       values: {
@@ -33,35 +32,35 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.init()
   },
   watch: {
-    value (newValue, oldValue) {
-      if (newValue.toString() === oldValue.toString()) { return }
+    value(newValue, oldValue) {
+      if (newValue.toString() === oldValue.toString()) {return}
       this.fpmoney.setValue(newValue)
     },
-    currencies (newValue, oldValue) {
-      if (JSON.stringify(newValue) === JSON.stringify(oldValue)) { return }
+    currencies(newValue, oldValue) {
+      if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {return}
       this.fpmoney.setCurrencies(newValue)
     },
-    currency (newValue, oldValue) {
-      if (newValue.toLowerCase() === oldValue.toLowerCase()) { return }
+    currency(newValue, oldValue) {
+      if (newValue.toLowerCase() === oldValue.toLowerCase()) {return}
       this.fpmoney.setCurrency(newValue)
     },
-    locale (newValue, oldValue) {
-      if (newValue.toLowerCase() === oldValue.toLowerCase()) { return }
+    locale(newValue, oldValue) {
+      if (newValue.toLowerCase() === oldValue.toLowerCase()) {return}
       this.fpmoney.setLocale(newValue)
     },
-    disabled (newValue, oldValue) {
+    disabled(newValue, oldValue) {
       this.fpmoney.setDisabled(newValue)
     },
-    displayOnly (newValue, oldValue) {
+    displayOnly(newValue, oldValue) {
       this.fpmoney.setDisplayOnly(newValue)
     }
   },
   methods: {
-    init () {
+    init() {
       const options = {
         container: this.$refs.fpmoney,
         onChange: (values) => {
@@ -79,16 +78,16 @@ export default {
           if (this.onChange) { this.onChange(values) }
         }
       }
-      if (this.currencies) { options.currencies = this.currencies } else { options.currencies = currencies }
-      if (this.currency) { options.currency = this.currency } else { options.currency = Object.keys(options.currencies)[0] }
-      if (this.valueFormat) { options.valueFormat = this.valueFormat }
-      if (this.value !== undefined) { options.value = this.value }
-      if (this.locale) { options.locale = this.locale }
-      if (this.minValue !== undefined) { options.minValue = this.minValue }
-      if (this.maxValue !== undefined) { options.maxValue = this.maxValue }
-      if (this.step !== undefined) { options.step = this.step }
-      if (this.disabled === true) { options.disabled = true }
-      if (this.displayOnly === true) { options.displayOnly = true }
+      if (this.currencies) {options.currencies = this.currencies} else {options.currencies = currencies}
+      if (this.currency) {options.currency = this.currency} else {options.currency = Object.keys(options.currencies)[0]}
+      if (this.valueFormat) {options.valueFormat = this.valueFormat}
+      if (this.value !== undefined) {options.value = this.value}
+      if (this.locale) {options.locale = this.locale}
+      if (this.minValue !== undefined) {options.minValue = this.minValue}
+      if (this.maxValue !== undefined) {options.maxValue = this.maxValue}
+      if (this.step !== undefined) {options.step = this.step}
+      if (this.disabled === true) {options.disabled = true}
+      if (this.displayOnly === true) {options.displayOnly = true}
       options.showSelection = this.showSelection
       this.fpmoney = new FPMoney(options)
     }
@@ -97,5 +96,5 @@ export default {
 </script>
 
 <template>
-  <div ref="fpmoney" />
+  <div ref="fpmoney"></div>
 </template>

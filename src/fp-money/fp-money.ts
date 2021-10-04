@@ -35,26 +35,26 @@ export default class FPMoney {
   public mobileOs: string
 
   // Input items
-  public isNegative = false
-  public value = ''
-  public display = ''
-  public format = ''
+  public isNegative: boolean = false
+  public value: string = ''
+  public display: string = ''
+  public format: string = ''
   public currencies: Currencies = JSON.parse(JSON.stringify(currencies))
-  public currency = '' // default is set in the constructor
+  public currency: string = '' // default is set in the constructor
   public locale: string = getLocale()
-  public valueFormat = 'float'
+  public valueFormat: string = 'float'
   public minValue?: number = undefined
   public maxValue?: number = undefined
-  public step = 1.00
-  public disabled = false
-  public displayOnly = false
-  public showSelection = false
+  public step: number = 1.00
+  public disabled: boolean = false
+  public displayOnly: boolean = false
+  public showSelection: boolean = false
 
   // Callbacks
   public onChange: (values: Values) => void
-  private debounceUpdateOutput = debounce(() => { this.updateOutput() })
+  private debounceUpdateOutput = debounce(() => {this.updateOutput()})
 
-  constructor (info: Constructor) {
+  constructor(info: Constructor) {
     this.validate(info)
 
     this.mobileOs = this.getMobileOs()
@@ -69,25 +69,25 @@ export default class FPMoney {
     this.container = el
 
     // Set values
-    if (info.currencies) { this.currencies = JSON.parse(JSON.stringify(info.currencies)) }
-    if (info.currency) { this.currency = info.currency.toUpperCase() } else { this.currency = Object.keys(this.currencies)[0] }
-    if (info.locale) { this.locale = info.locale }
-    if (info.valueFormat) { this.valueFormat = info.valueFormat }
+    if (info.currencies) {this.currencies = JSON.parse(JSON.stringify(info.currencies))}
+    if (info.currency) {this.currency = info.currency.toUpperCase()} else {this.currency = Object.keys(this.currencies)[0]}
+    if (info.locale) {this.locale = info.locale}
+    if (info.valueFormat) {this.valueFormat = info.valueFormat}
     if (info.value !== undefined) {
       let curVal = info.value
       this.isNegative = isNegative(curVal.toString())
-      if (info.valueFormat === 'int') { curVal = intToFraction(curVal, this.currencies[this.currency].fraction) }
+      if (info.valueFormat === 'int') {curVal = intToFraction(curVal, this.currencies[this.currency].fraction)}
       this.value = fractionToInt(curVal, this.currencies[this.currency].fraction).toString()
     }
-    if (info.minValue !== undefined) { this.minValue = fractionToInt(info.minValue, this.currencies[this.currency].fraction) }
-    if (info.maxValue !== undefined) { this.maxValue = fractionToInt(info.maxValue, this.currencies[this.currency].fraction) }
-    if (info.step) { this.step = info.step }
-    if (info.disabled === true) { this.disabled = true }
-    if (info.displayOnly === true) { this.displayOnly = true }
-    if (info.showSelection !== undefined) { this.showSelection = info.showSelection }
+    if (info.minValue !== undefined) {this.minValue = fractionToInt(info.minValue, this.currencies[this.currency].fraction)}
+    if (info.maxValue !== undefined) {this.maxValue = fractionToInt(info.maxValue, this.currencies[this.currency].fraction)}
+    if (info.step) {this.step = info.step}
+    if (info.disabled === true) {this.disabled = true}
+    if (info.displayOnly === true) {this.displayOnly = true}
+    if (info.showSelection !== undefined) {this.showSelection = info.showSelection}
 
     // Set Callbacks
-    this.onChange = (info.onChange ? this.onChange = info.onChange : () => {})
+    this.onChange = (info.onChange ? this.onChange = info.onChange : () => {return})
 
     // Render select and input
     this.currencyDiv = document.createElement('div')
@@ -113,12 +113,12 @@ export default class FPMoney {
     }
   }
 
-  public setValue (value: number | string) {
+  public setValue(value: number | string) {
     const fraction = this.currencies[this.currency].fraction
     value = (this.valueFormat === 'float' ? fractionToInt(value, fraction).toString() : value.toString())
 
     // Dont do anything if nothing changed
-    if (this.value.toString() === value) { return }
+    if (this.value.toString() === value) {return}
 
     // Check if negative number
     this.isNegative = isNegative(value)
@@ -129,7 +129,7 @@ export default class FPMoney {
     this.debounceUpdateOutput()
   }
 
-  public setCurrencies (currenciesValue: Currencies) {
+  public setCurrencies(currenciesValue: Currencies) {
     this.currencies = JSON.parse(JSON.stringify(currenciesValue))
 
     // Double check that the current currency is in the list presented
@@ -143,7 +143,7 @@ export default class FPMoney {
     this.setCurrency(this.currency) // This will also run this.updateOutput()
   }
 
-  public setCurrency (currency: string) {
+  public setCurrency(currency: string) {
     this.currency = currency.toUpperCase()
 
     // Currency display
@@ -164,14 +164,14 @@ export default class FPMoney {
     this.debounceUpdateOutput()
   }
 
-  public setLocale (locale: string) {
+  public setLocale(locale: string) {
     this.locale = locale
 
     // Update display input
     this.debounceUpdateOutput()
   }
 
-  public setDisabled (bool: boolean) {
+  public setDisabled(bool: boolean) {
     this.disabled = bool
 
     if (this.disabled) {
@@ -185,7 +185,7 @@ export default class FPMoney {
     }
   }
 
-  public setDisplayOnly (bool: boolean) {
+  public setDisplayOnly(bool: boolean) {
     this.displayOnly = bool
 
     if (this.displayOnly) {
@@ -201,12 +201,12 @@ export default class FPMoney {
     }
   }
 
-  public destroy () {
+  public destroy() {
     // Clean out container
     this.container.innerHTML = ''
   }
 
-  private validate (info: Constructor) {
+  private validate(info: Constructor) {
     let el: HTMLDivElement
     if (typeof info.container === 'string') {
       el = document.querySelector(info.container) as any as HTMLDivElement
@@ -216,12 +216,12 @@ export default class FPMoney {
     if (!el) { throw new Error('Could not find container') }
   }
 
-  private updateOutput () {
+  private updateOutput() {
     if (this.value !== '') {
       let val = parseInt(this.value, 10)
       // Limit if min/max
-      if (this.minValue !== undefined && val < this.minValue) { val = this.minValue }
-      if (this.maxValue !== undefined && val > this.maxValue) { val = this.maxValue }
+      if (this.minValue !== undefined && val < this.minValue) {val = this.minValue}
+      if (this.maxValue !== undefined && val > this.maxValue) {val = this.maxValue}
       this.value = val.toString()
     }
 
@@ -248,7 +248,7 @@ export default class FPMoney {
     })
   }
 
-  private updateInputDisplay () {
+  private updateInputDisplay() {
     if (this.value === '') { this.input.value = ''; return }
 
     // Clean display output
@@ -272,7 +272,7 @@ export default class FPMoney {
     this.input.value = clean
   }
 
-  private render () {
+  private render() {
     // Add classes
     this.container.classList.add('fpm')
     this.currencyDiv.classList.add('fpm-currency')
@@ -283,14 +283,14 @@ export default class FPMoney {
     this.input.addEventListener('keydown', (evt: KeyboardEvent) => { this.inputKeydown(evt) }, false)
     this.input.addEventListener('click', (e: MouseEvent) => {
       // Dont do anything if displayOnly
-      if (this.displayOnly) { e.preventDefault(); return }
+      if (this.displayOnly) {e.preventDefault(); return}
 
       this.input.focus()
       this.moveCursorToEnd(this.input)
     }, false)
 
     // Check if displayOnly
-    if (this.displayOnly) { this.setDisplayOnly(true) }
+    if (this.displayOnly) {this.setDisplayOnly(true)}
 
     // Add options to select
     this.updateCurrenciesSelect()
@@ -303,11 +303,11 @@ export default class FPMoney {
     // Add to container
     this.container.appendChild(this.currencyDiv)
     this.container.appendChild(this.input)
-    if (this.showSelection) { this.container.appendChild(this.select) }
+    if (this.showSelection) {this.container.appendChild(this.select)}
   }
 
   // For the currency select dropdown to update options
-  private updateCurrenciesSelect () {
+  private updateCurrenciesSelect() {
     // Clear out current select dropdown
     this.select.innerHTML = ''
 
@@ -323,9 +323,9 @@ export default class FPMoney {
   }
 
   // Deal with key inputs into money field
-  private inputKeydown (evt: KeyboardEvent) {
+  private inputKeydown(evt: KeyboardEvent) {
     // Dont do anything if displayOnly
-    if (this.displayOnly) { evt.preventDefault(); return }
+    if (this.displayOnly) {evt.preventDefault(); return}
 
     const key = evt.key
     const charCode = key.charCodeAt(0)
@@ -429,34 +429,34 @@ export default class FPMoney {
   }
 
   // Will take in an element and select the end of the input field
-  private moveCursorToEnd (el: any) {
+  private moveCursorToEnd(el: any) {
     if (typeof el.selectionStart === 'number') {
-      el.selectionStart = el.selectionEnd = el.value.length
+        el.selectionStart = el.selectionEnd = el.value.length
     } else if (typeof el.createTextRange !== 'undefined') {
-      el.focus()
-      const range = el.createTextRange()
-      range.collapse(false)
-      range.select()
+        el.focus()
+        const range = el.createTextRange()
+        range.collapse(false)
+        range.select()
     }
   }
 
-  private getMobileOs () {
+  private getMobileOs() {
     const w = window as any
     const userAgent = navigator.userAgent || navigator.vendor || w.opera
 
-    // Windows Phone must come first because its UA also contains "Android"
+        // Windows Phone must come first because its UA also contains "Android"
     if (/windows phone/i.test(userAgent)) {
-      return 'windows'
-    }
+          return 'windows'
+      }
 
     if (/android/i.test(userAgent)) {
-      return 'android'
-    }
+          return 'android'
+      }
 
-    // iOS detection from: http://stackoverflow.com/a/9039885/177710
+      // iOS detection from: http://stackoverflow.com/a/9039885/177710
     if (/iPad|iPhone|iPod/.test(userAgent) && !w.MSStream) {
-      return 'ios'
-    }
+          return 'ios'
+      }
 
     return 'desktop'
   }
@@ -464,14 +464,14 @@ export default class FPMoney {
 
 type Procedure = (...args: any[]) => void
 interface Options { isImmediate: boolean }
-function debounce<F extends Procedure> (
+function debounce<F extends Procedure>(
   func: F,
   waitMilliseconds = 100,
-  options: Options = { isImmediate: false }
+  options: Options = {isImmediate: false}
 ): (this: ThisParameterType<F>, ...args: Parameters<F>) => void {
   let timeoutId: ReturnType<typeof setTimeout> | undefined
 
-  return function (this: ThisParameterType<F>, ...args: Parameters<F>) {
+  return function(this: ThisParameterType<F>, ...args: Parameters<F>) {
     const context = this
 
     const doLater = () => {
