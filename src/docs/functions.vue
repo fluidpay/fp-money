@@ -1,6 +1,6 @@
 <script lang="ts">
 import Vue from 'vue'
-import { currencies, fractionToInt, intToFraction, displayValue, getLocale } from '@/fp-money/fp-money.ts'
+import { currencies, fractionToInt, intToFraction, displayValue, getLocale } from '@/fp-money/fp-money'
 
 export default Vue.extend({
   data() {
