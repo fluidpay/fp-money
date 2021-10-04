@@ -20,9 +20,6 @@
     "docs": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit"
   },
-  "dependencies": {
-    "npm-check": "^5.9.2"
-  },
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/chance": "^1.1.0",
