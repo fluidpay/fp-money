@@ -1,6 +1,6 @@
 <script lang="ts">
 import Vue from 'vue'
-import FPMoney from '@/fp-money/fp-money.ts'
+import FPMoney from '@/fp-money/fp-money'
 
 export default Vue.extend({
   data() {
