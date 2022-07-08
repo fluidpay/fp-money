@@ -277,6 +277,7 @@ export default class FPMoney {
     this.container.classList.add('fpm')
     this.currencyDiv.classList.add('fpm-currency')
     this.input.classList.add('fpm-value')
+    this.input.dataset.lpignore = 'true' // Ignore Last Pass from autocomplete
     this.select.classList.add('fpm-select')
 
     // Add event listeners for input field
