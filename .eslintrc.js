@@ -15,7 +15,8 @@ module.exports = {
     'no-new': 'off',
 
     // Vue ones
-    'vue/no-side-effects-in-computed-properties': 'off'
+    'vue/no-side-effects-in-computed-properties': 'off',
+    'vue/multi-word-component-names': 'off'
   },
   parserOptions: {
     parser: '@typescript-eslint/parser'

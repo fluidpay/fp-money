@@ -1,8 +1,9 @@
 <script lang="ts">
-import Vue from 'vue'
-import FPMoney, { Values } from '@/fp-money/fp-money'
+import { defineComponent } from 'vue'
+import FPMoney, { Values } from '../fp-money/fp-money'
 
-export default Vue.extend({
+export default defineComponent({
+  name: 'Examples',
   data() {
     return {
       disabled: null as any,
