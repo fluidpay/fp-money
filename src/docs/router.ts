@@ -1,14 +1,11 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HomePage from '@/docs/home.vue'
-import ExamplesPage from '@/docs/examples.vue'
-import FunctionsPage from '@/docs/functions.vue'
-import VuePage from '@/docs/vue.vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import HomePage from './home.vue'
+import ExamplesPage from './examples.vue'
+import FunctionsPage from './functions.vue'
+import VuePage from './vue.vue'
 
-Vue.use(Router)
-
-export default new Router({
-  mode: 'history',
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes: [
     { path: '/', component: HomePage },
     { path: '/examples', component: ExamplesPage },
@@ -16,3 +13,5 @@ export default new Router({
     { path: '/vue', component: VuePage }
   ]
 })
+
+export default router

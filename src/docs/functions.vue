@@ -1,8 +1,9 @@
 <script lang="ts">
-import Vue from 'vue'
-import { currencies, fractionToInt, intToFraction, displayValue, getLocale } from '@/fp-money/fp-money'
+import { defineComponent } from 'vue'
+import { fractionToInt, intToFraction, displayValue, getLocale } from '../fp-money/fp-money'
 
-export default Vue.extend({
+export default defineComponent({
+  name: 'Functions',
   data() {
     return {
     }

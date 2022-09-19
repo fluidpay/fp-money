@@ -1,11 +1,11 @@
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 import { Values, Currencies } from '@/fp-money/fp-money'
-import fpmoney from '@/fp-money/component.vue'
+import fpmoney from '../fp-money/fp-money'
 import Chance from 'chance'
 const chance = new Chance()
 
-export default Vue.extend({
+export default defineComponent({
   components: { fpmoney },
   data() {
     return {
