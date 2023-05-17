@@ -129,6 +129,7 @@ export function isNegative(value: string | number): boolean {
   return String(value).indexOf('-') !== -1
 }
 
+// bankersRounding handles rounding a number using bankers rounding.
 export function bankersRounding(num: number, fraction: number): number {
   const d = fraction || 0
   const m = Math.pow(10, d)
@@ -139,4 +140,33 @@ export function bankersRounding(num: number, fraction: number): number {
   const r = (f > 0.5 - e && f < 0.5 + e) ? ((i % 2 === 0) ? i : i + 1) : Math.round(n)
 
   return d ? r / m : r
+}
+
+// originalNumberFromPercentage takes in a number and a percentage and
+// calculates what the original number was multiplied by the percentage to get
+// the passed in number.
+export function originalNumberFromPercentage(number: number, percentage: number, fraction: number): number {
+  // Get a clean number from either string or number
+  const numberStr = number.toString()
+  if (numberStr.trim() === '') {
+    return 0
+  }
+  number = parseFloat(numberStr)
+
+  // Get a clean percentage from either string or number
+  const percentageStr = percentage.toString()
+  if (percentageStr.trim() === '') {
+    return 0
+  }
+  percentage = parseFloat(percentageStr)
+
+  // Get fraction multiplier
+  let multi = '1'
+  for (let i = 0; i < fraction; i++) {
+    multi += '0'
+  }
+  const multiInt = parseInt(multi, 10)
+
+  const percentageValue = 1 + percentage / 100
+  return Math.round(Number((number / percentageValue).toFixed(5)) * multiInt) / multiInt
 }
