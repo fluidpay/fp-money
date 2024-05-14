@@ -26,12 +26,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import './assets/scss/_variables.scss';
-    
   .functions {
     .section {
       .item {
-        padding: 0 0 $spacing-half 0;
+        padding: 0 0 var(--spacing-m) 0;
 
         &:last-child { padding: 0 0 0 0; }
       }
@@ -45,18 +43,26 @@ export default defineComponent({
       <code class="language-javascript">
         import {
           currencies, // Array of object currencies
-          fractionToInt, 
-          intToFraction, 
-          displayValue, 
+          fractionToInt,
+          intToFraction,
+          displayValue,
           getLocale // Will output a string based upon your local language
         } from 'fp-money'
       </code>
     </pre>
     <div class="section">
-      <div class="item">fractionToInt(value, fraction): 86753.09 - {{fractionToInt(86753.09, 2)}}</div>
-      <div class="item">intToFraction(value, fraction): 8675309 - {{intToFraction(8675309, 2)}}</div>
-      <div class="item">displayValue(value, currency, fraction, locale): 86753.09 - {{displayValue(86753.09, 'usd', 2, 'en-us')}}</div>
-      <div class="item">getLocale(): {{getLocale()}}</div>
+      <div class="item">
+        fractionToInt(value, fraction): 86753.09 - {{ fractionToInt(86753.09, 2) }}
+      </div>
+      <div class="item">
+        intToFraction(value, fraction): 8675309 - {{ intToFraction(8675309, 2) }}
+      </div>
+      <div class="item">
+        displayValue(value, currency, fraction, locale): 86753.09 - {{ displayValue(86753.09, 'usd', 2, 'en-us') }}
+      </div>
+      <div class="item">
+        getLocale(): {{ getLocale() }}
+      </div>
     </div>
   </div>
 </template>

@@ -1,17 +1,30 @@
 {
-  // Editor
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
   "editor.tabSize": 2,
-  "editor.formatOnSave": false,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+  "eslint.format.enable": true,
+  "eslint.validate": ["javascript", "typescript", "vue"],
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "[vue]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
-
-  // Vetur
-  "vetur.format.defaultFormatter.js": "vscode-typescript",
-  "vetur.format.defaultFormatter.ts": "vscode-typescript",
-  "vetur.format.defaultFormatter.html": "js-beautify-html",
-  "vetur.format.defaultFormatter.scss": "prettier",
-  
-  // Eslint
-  "eslint.validate": ["vue", "html", "javascript", "typescript"],
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll": "explicit",
+    "source.organizeImports": "never",
+    "source.sortMembers": "explicit"
+  },
+  "vitest.commandLine": "npm run vitestwatch"
 }

@@ -16,7 +16,7 @@ var symbols = {
   'UAH': '₴', // Ukrainian Hryvnia
   'VND': '₫', // Vietnamese Dong
   'HUF': 'Ft' // Hungary
-};
+}
 
 let iso = [
   {
@@ -2013,15 +2013,15 @@ module.exports.outputUniqueCurrencies = function () {
   let arr = []
   var prop
   for (prop in items) {
-      if (items.hasOwnProperty(prop)) {
-          arr.push({
-              'key': prop,
-              'value': items[prop].count
-          })
-      }
+    if (items.hasOwnProperty(prop)) {
+      arr.push({
+        'key': prop,
+        'value': items[prop].count
+      })
+    }
   }
   arr.sort(function(a, b) {
-      return b.value - a.value;
+    return b.value - a.value
   })
   arr.forEach(a => {
     newItems[a.key] = items[a.key]

@@ -6,15 +6,15 @@ export default defineComponent({
   name: 'Examples',
   data() {
     return {
-      disabled: null as any,
-      displayOnly: null as any,
+      disabled: null as FPMoney | null,
+      displayOnly: null as FPMoney | null,
 
-      curSelectionValues: {} as Values
+      curSelectionValues: {} as Values,
     }
   },
   mounted() {
     new FPMoney({
-      container: document.querySelector('#exampleBasic') as HTMLDivElement
+      container: document.querySelector('#exampleBasic') as HTMLDivElement,
     })
 
     new FPMoney({
@@ -22,24 +22,24 @@ export default defineComponent({
       showSelection: true,
       onChange: (values) => {
         this.curSelectionValues = values
-      }
+      },
     })
 
     this.disabled = new FPMoney({
       container: document.querySelector('#exampleDisabled') as HTMLDivElement,
       value: 86753.09,
-      disabled: true
+      disabled: true,
     })
 
     this.displayOnly = new FPMoney({
       container: document.querySelector('#exampleDisplayOnly') as HTMLDivElement,
       value: 86753.09,
-      displayOnly: true
+      displayOnly: true,
     })
 
     new FPMoney({
       container: document.querySelector('#exampleMinValue') as HTMLDivElement,
-      minValue: 0
+      minValue: 0,
     })
   },
   methods: {
@@ -48,51 +48,54 @@ export default defineComponent({
     },
     toggleDisplayOnly() {
       this.displayOnly.setDisplayOnly(!this.displayOnly.displayOnly)
-    }
-  }
+    },
+  },
 })
 </script>
 
 <style lang="scss">
-  @import './assets/scss/_variables.scss';
-    
-  .examples {
-    .section {
-      margin-bottom: $spacing;
-      padding: $spacing-half $spacing-half $spacing-quarter $spacing-half;
-      background-color: rgba(255, 255, 255, .7);
-      border-radius: $border-radius;
+.examples {
+  .section {
+    margin-bottom: var(--spacing-l);
+    padding: var(--spacing-m) var(--spacing-m) var(--spacing-s) var(--spacing-m);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: var(--border-radius);
 
-      .header {
-        font-size: 24px;
-        font-weight: $font-weight-bold;
-        margin: 0 0 $spacing-half 0;
-        padding: 0 0 $spacing-quarter 0;
-        border-bottom: solid 1px $color-font;
-      }
+    .header {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0 0 var(--spacing-m) 0;
+      padding: 0 0 var(--spacing-s) 0;
+      border-bottom: solid 1px var(--font-color);
+    }
 
-      .example {
-        width: 250px;
-        margin-bottom: $spacing-half;
-      }
+    .example {
+      width: 250px;
+      margin-bottom: var(--spacing-m);
+    }
 
-      .row {
-        display: flex;
-        flex-direction: row;
-      }
+    .row {
+      display: flex;
+      flex-direction: row;
+    }
 
-      button {
-        margin: 0 0 0 $spacing-half;
-      }
+    button {
+      margin: 0 0 0 var(--spacing-m);
     }
   }
+}
 </style>
 
 <template>
   <div class="examples">
     <div class="section">
-      <div class="header">Basic</div>
-      <div class="example" id="exampleBasic"></div>
+      <div class="header">
+        Basic
+      </div>
+      <div
+        id="exampleBasic"
+        class="example"
+      />
       <pre>
         <code class="language-javascript">
           new FPMoney({
@@ -103,9 +106,14 @@ export default defineComponent({
     </div>
 
     <div class="section">
-      <div class="header">Currency Selection</div>
-      <div class="example" id="exampleSelection"></div>
-      <div>{{curSelectionValues}}</div>
+      <div class="header">
+        Currency Selection
+      </div>
+      <div
+        id="exampleSelection"
+        class="example"
+      />
+      <div>{{ curSelectionValues }}</div>
       <pre>
         <code class="language-javascript">
           new FPMoney({
@@ -117,10 +125,17 @@ export default defineComponent({
     </div>
 
     <div class="section">
-      <div class="header">Disabled</div>
+      <div class="header">
+        Disabled
+      </div>
       <div class="row example">
-        <div id="exampleDisabled"></div>
-        <button v-if="disabled" @click="toggleDisabled()">{{disabled.disabled ? 'Enable': 'Disable'}}</button>
+        <div id="exampleDisabled" />
+        <button
+          v-if="disabled"
+          @click="toggleDisabled()"
+        >
+          {{ disabled.disabled ? 'Enable' : 'Disable' }}
+        </button>
       </div>
       <pre>
         <code class="language-javascript">
@@ -138,10 +153,17 @@ export default defineComponent({
     </div>
 
     <div class="section">
-      <div class="header">Display Only</div>
+      <div class="header">
+        Display Only
+      </div>
       <div class="example row">
-        <div id="exampleDisplayOnly"></div>
-        <button v-if="disabled" @click="toggleDisplayOnly()">{{displayOnly.displayOnly ? 'Enable': 'Disable'}}</button>
+        <div id="exampleDisplayOnly" />
+        <button
+          v-if="disabled"
+          @click="toggleDisplayOnly()"
+        >
+          {{ displayOnly.displayOnly ? 'Enable' : 'Disable' }}
+        </button>
       </div>
       <pre>
         <code class="language-javascript">
@@ -159,9 +181,11 @@ export default defineComponent({
     </div>
 
     <div class="section">
-      <div class="header">Min Value</div>
+      <div class="header">
+        Min Value
+      </div>
       <div class="example row">
-        <div id="exampleMinValue"></div>
+        <div id="exampleMinValue" />
       </div>
       <pre>
         <code class="language-javascript">
@@ -172,6 +196,5 @@ export default defineComponent({
         </code>
       </pre>
     </div>
-
   </div>
 </template>

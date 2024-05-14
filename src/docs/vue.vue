@@ -1,16 +1,16 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { Values, Currencies } from '@/fp-money/fp-money'
-import fpmoney from '../fp-money/fp-money'
-import Chance from 'chance'
-const chance = new Chance()
+import { Values, Currencies } from '../fp-money/fp-money'
+import FPMoneyComp from '../fp-money/component.vue'
+// import fpmoney from '../fp-money/fp-money'
+// import Chance from 'chance'
+// const chance = new Chance()
 
 export default defineComponent({
-  components: { fpmoney },
+  components: { FPMoneyComp },
   data() {
     return {
-      value: 8675309 as any,
-      int: '',
+      value: 8675309 as number,
       format: '',
       display: '',
       currency: '',
@@ -37,19 +37,19 @@ export default defineComponent({
     //   this.value = chance.integer({ min: 1000, max: 100000 })
     // }, 5000)
 
-    setTimeout(() => {
-      this.currencies = {
-        PER: {
-          symbol: '%',
-          fraction: 2
-        },
-        CAD: {
-          symbol: '$',
-          fraction: 2
-        }
-      }
+    // setTimeout(() => {
+    //   this.currencies = {
+    //     PER: {
+    //       symbol: '%',
+    //       fraction: 2
+    //     },
+    //     CAD: {
+    //       symbol: '$',
+    //       fraction: 2
+    //     }
+    //   }
 
-      this.currency = 'CAD'
+    //   this.currency = 'CAD'
 
       // setTimeout(() => {
       //   this.value = 500
@@ -62,28 +62,26 @@ export default defineComponent({
       // setTimeout(() => {
       //   this.currency = 'per'
       // }, 3000)
-    }, 1000)
+    // }, 3000)
   },
   methods: {
     change(values: Values) {
-      // console.log(values)
+      console.log(values)
     }
   }
 })
 </script>
 
 <style lang="scss">
-  @import './assets/scss/_variables.scss';
-    
   .vue {
     #example {
       width: 250px;
       margin: 0 auto;
-      margin-bottom: $spacing;
+      margin-bottom: var(--spacing-l);
     }
 
     .outputs {
-      padding: 0 0 $spacing 0;
+      padding: 0 0 var(--spacing-l) 0;
       color: #ffffff;
       font-weight: bold;
       font-size: 18px;
@@ -94,24 +92,24 @@ export default defineComponent({
 
 <template>
   <div class="vue">
-    <fpmoney id="example"
+    <FPMoneyComp
+      id="example"
       v-model="value"
-      :value.sync="int"
-      :format.sync="format"
-      :display.sync="display"
-      :currency.sync="currency"
+      v-model:format="format"
+      v-model:display="display"
+      v-model:currency="currency"
+      v-model:locale="locale"
       :currencies="currencies"
-      :locale.sync="locale"
-      :onChange="change"
-      :showSelection="true"
-      valueFormat="int" />
-    <!-- <fpmoney id="example" v-model="value" valueFormat="int" /> -->
+      :on-change="change"
+      :show-selection="true"
+    />
+    <!-- <FPMoneyComp id="example" v-model="value" valueFormat="int" /> -->
     
     <div class="outputs">
-      Value: {{int}}<br />
-      Format: {{format}}<br />
-      Display: {{display}}<br />
-      Currency: {{currency}}
+      Value: {{ value }}<br>
+      Format: {{ format }}<br>
+      Display: {{ display }}<br>
+      Currency: {{ currency }}
     </div>
     
     <pre>
@@ -140,12 +138,16 @@ export default defineComponent({
     </pre>
     <pre>
       <code class="language-html">
-        &lt;fpmoney id="example" 
-          v-model="value" 
+        &lt;fpmoney id="example"
+          v-model="value"             &lt;-- Required
+
+          // Dynamic, and will emit an update
           :value.sync="int"           &lt;-- Optional
           :format.sync="format"       &lt;-- Optional
           :display.sync="display"     &lt;-- Optional
           :currency.sync="currency"   &lt;-- Optional
+
+          // Static, only initially set
           :locale="locale"            &lt;-- Optional
           :disabled="false"           &lt;-- Optional
           :displayOnly="false"        &lt;-- Optional
@@ -153,7 +155,7 @@ export default defineComponent({
           :minValue="minValue"        &lt;-- Optional
           :maxValue="maxValue"        &lt;-- Optional
           :step="step"                &lt;-- Optional
-          :onChange="change"          &lt;-- Optional 
+          :onChange="change"          &lt;-- Optional
           :showSelection="false"      &lt;-- Optional
         /&gt;
       </code>

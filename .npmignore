@@ -1,0 +1,16 @@
+node_modules/
+.vscode/
+.github/
+
+coverage/
+
+docs/
+src/docs/
+
+public/
+
+/*.tgz
+
+fpmoney.gif
+screenshot.png
+screenshotvue.png

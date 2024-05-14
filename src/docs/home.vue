@@ -12,7 +12,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    const fp = new FPMoney({
+    new FPMoney({
       container: document.querySelector('#example') as HTMLDivElement,
       value: 86753.09,
       // minValue: 200.00,
@@ -33,17 +33,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import './assets/scss/_variables.scss';
-    
   .basic {
     #example {
       width: 200px;
       margin: 0 auto;
-      margin-bottom: $spacing;
+      margin-bottom: var(--spacing-l);
     }
 
     .outputs {
-      padding: 0 0 $spacing 0;
+      padding: 0 0 var(--spacing-l) 0;
       color: #ffffff;
       font-weight: bold;
       font-size: 18px;
@@ -54,12 +52,12 @@ export default defineComponent({
 
 <template>
   <div class="basic">
-    <div id="example"></div>
+    <div id="example" />
     <div class="outputs">
-      Value: {{value}}<br />
-      Format: {{format}}<br />
-      Display: {{display}}<br />
-      Currency: {{currency}}
+      Value: {{ value }}<br>
+      Format: {{ format }}<br>
+      Display: {{ display }}<br>
+      Currency: {{ currency }}
     </div>
     <pre>
       <code class="language-bash">
