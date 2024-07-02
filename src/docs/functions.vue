@@ -5,8 +5,7 @@ import { fractionToInt, intToFraction, displayValue, getLocale } from '../fp-mon
 export default defineComponent({
   name: 'Functions',
   data() {
-    return {
-    }
+    return {}
   },
   methods: {
     fractionToInt(value: number, fraction: number) {
@@ -26,15 +25,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .functions {
-    .section {
-      .item {
-        padding: 0 0 var(--spacing-m) 0;
+.functions {
+  .section {
+    .item {
+      padding: 0 0 var(--spacing-m) 0;
 
-        &:last-child { padding: 0 0 0 0; }
+      &:last-child {
+        padding: 0 0 0 0;
       }
     }
   }
+}
 </style>
 
 <template>
@@ -51,18 +52,12 @@ export default defineComponent({
       </code>
     </pre>
     <div class="section">
-      <div class="item">
-        fractionToInt(value, fraction): 86753.09 - {{ fractionToInt(86753.09, 2) }}
-      </div>
-      <div class="item">
-        intToFraction(value, fraction): 8675309 - {{ intToFraction(8675309, 2) }}
-      </div>
+      <div class="item">fractionToInt(value, fraction): 86753.09 - {{ fractionToInt(86753.09, 2) }}</div>
+      <div class="item">intToFraction(value, fraction): 8675309 - {{ intToFraction(8675309, 2) }}</div>
       <div class="item">
         displayValue(value, currency, fraction, locale): 86753.09 - {{ displayValue(86753.09, 'usd', 2, 'en-us') }}
       </div>
-      <div class="item">
-        getLocale(): {{ getLocale() }}
-      </div>
+      <div class="item">getLocale(): {{ getLocale() }}</div>
     </div>
   </div>
 </template>

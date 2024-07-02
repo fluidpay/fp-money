@@ -5,8 +5,8 @@ import Heading from './heading.vue'
 export default defineComponent({
   name: 'App',
   components: {
-    Heading,
-  },
+    Heading
+  }
 })
 </script>
 
@@ -58,10 +58,7 @@ export default defineComponent({
       <Heading />
 
       <router-view v-slot="{ Component }">
-        <transition
-          mode="out-in"
-          name="slide-left"
-        >
+        <transition mode="out-in" name="slide-left">
           <component :is="Component" />
         </transition>
       </router-view>

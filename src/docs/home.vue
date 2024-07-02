@@ -33,30 +33,30 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .basic {
-    #example {
-      width: 200px;
-      margin: 0 auto;
-      margin-bottom: var(--spacing-l);
-    }
-
-    .outputs {
-      padding: 0 0 var(--spacing-l) 0;
-      color: #ffffff;
-      font-weight: bold;
-      font-size: 18px;
-      text-align: center;
-    }
+.basic {
+  #example {
+    width: 200px;
+    margin: 0 auto;
+    margin-bottom: var(--spacing-l);
   }
+
+  .outputs {
+    padding: 0 0 var(--spacing-l) 0;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+  }
+}
 </style>
 
 <template>
   <div class="basic">
     <div id="example" />
     <div class="outputs">
-      Value: {{ value }}<br>
-      Format: {{ format }}<br>
-      Display: {{ display }}<br>
+      Value: {{ value }}<br />
+      Format: {{ format }}<br />
+      Display: {{ display }}<br />
       Currency: {{ currency }}
     </div>
     <pre>

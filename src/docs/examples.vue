@@ -9,12 +9,12 @@ export default defineComponent({
       disabled: null as FPMoney | null,
       displayOnly: null as FPMoney | null,
 
-      curSelectionValues: {} as Values,
+      curSelectionValues: {} as Values
     }
   },
   mounted() {
     new FPMoney({
-      container: document.querySelector('#exampleBasic') as HTMLDivElement,
+      container: document.querySelector('#exampleBasic') as HTMLDivElement
     })
 
     new FPMoney({
@@ -22,34 +22,38 @@ export default defineComponent({
       showSelection: true,
       onChange: (values) => {
         this.curSelectionValues = values
-      },
+      }
     })
 
     this.disabled = new FPMoney({
       container: document.querySelector('#exampleDisabled') as HTMLDivElement,
       value: 86753.09,
-      disabled: true,
+      disabled: true
     })
 
     this.displayOnly = new FPMoney({
       container: document.querySelector('#exampleDisplayOnly') as HTMLDivElement,
       value: 86753.09,
-      displayOnly: true,
+      displayOnly: true
     })
 
     new FPMoney({
       container: document.querySelector('#exampleMinValue') as HTMLDivElement,
-      minValue: 0,
+      minValue: 0
     })
   },
   methods: {
     toggleDisabled() {
-      this.disabled.setDisabled(!this.disabled.disabled)
+      if (this.disabled) {
+        this.disabled.setDisabled(!this.disabled.disabled)
+      }
     },
     toggleDisplayOnly() {
-      this.displayOnly.setDisplayOnly(!this.displayOnly.displayOnly)
-    },
-  },
+      if (this.displayOnly) {
+        this.displayOnly.setDisplayOnly(!this.displayOnly.displayOnly)
+      }
+    }
+  }
 })
 </script>
 
@@ -89,13 +93,8 @@ export default defineComponent({
 <template>
   <div class="examples">
     <div class="section">
-      <div class="header">
-        Basic
-      </div>
-      <div
-        id="exampleBasic"
-        class="example"
-      />
+      <div class="header">Basic</div>
+      <div id="exampleBasic" class="example" />
       <pre>
         <code class="language-javascript">
           new FPMoney({
@@ -106,13 +105,8 @@ export default defineComponent({
     </div>
 
     <div class="section">
-      <div class="header">
-        Currency Selection
-      </div>
-      <div
-        id="exampleSelection"
-        class="example"
-      />
+      <div class="header">Currency Selection</div>
+      <div id="exampleSelection" class="example" />
       <div>{{ curSelectionValues }}</div>
       <pre>
         <code class="language-javascript">
@@ -125,15 +119,10 @@ export default defineComponent({
     </div>
 
     <div class="section">
-      <div class="header">
-        Disabled
-      </div>
+      <div class="header">Disabled</div>
       <div class="row example">
         <div id="exampleDisabled" />
-        <button
-          v-if="disabled"
-          @click="toggleDisabled()"
-        >
+        <button v-if="disabled" @click="toggleDisabled()">
           {{ disabled.disabled ? 'Enable' : 'Disable' }}
         </button>
       </div>
@@ -153,15 +142,10 @@ export default defineComponent({
     </div>
 
     <div class="section">
-      <div class="header">
-        Display Only
-      </div>
+      <div class="header">Display Only</div>
       <div class="example row">
         <div id="exampleDisplayOnly" />
-        <button
-          v-if="disabled"
-          @click="toggleDisplayOnly()"
-        >
+        <button v-if="disabled && displayOnly" @click="toggleDisplayOnly()">
           {{ displayOnly.displayOnly ? 'Enable' : 'Disable' }}
         </button>
       </div>
@@ -181,9 +165,7 @@ export default defineComponent({
     </div>
 
     <div class="section">
-      <div class="header">
-        Min Value
-      </div>
+      <div class="header">Min Value</div>
       <div class="example row">
         <div id="exampleMinValue" />
       </div>
