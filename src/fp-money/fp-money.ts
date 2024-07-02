@@ -84,12 +84,11 @@ export default class FPMoney {
     if (info.currencies) {
       this.currencies = JSON.parse(JSON.stringify(info.currencies))
     }
-    if (info.currency) {
+    if (info.currency && this.currencies[info.currency]) {
       this.currency = info.currency.toUpperCase()
     } else {
       this.currency = Object.keys(this.currencies)[0]
     }
-    console.log(this.currency)
     if (info.locale) {
       this.locale = info.locale
     }
@@ -97,12 +96,7 @@ export default class FPMoney {
       this.valueFormat = info.valueFormat
     }
     if (info.value !== undefined) {
-      let curVal = info.value
-      this.isNegative = isNegative(curVal.toString())
-      if (info.valueFormat === 'int') {
-        curVal = intToFraction(curVal, this.currencies[this.currency].fraction)
-      }
-      this.value = fractionToInt(curVal, this.currencies[this.currency].fraction).toString()
+      this.setValue(info.value)
     }
     if (info.minValue !== undefined) {
       this.minValue = fractionToInt(info.minValue, this.currencies[this.currency].fraction)
@@ -161,7 +155,15 @@ export default class FPMoney {
 
   public setValue(value: number | string) {
     const fraction = this.currencies[this.currency].fraction
-    value = this.valueFormat === 'float' ? fractionToInt(value, fraction).toString() : value.toString()
+
+    // Check if value is a fraction
+    if (this.isFraction(value) && this.valueFormat === 'int') {
+      value = fractionToInt(value, fraction).toString()
+    } else if (!this.isFraction(value) && this.valueFormat === 'float') {
+      value = intToFraction(value, fraction).toString()
+    } else {
+      value = value.toString()
+    }
 
     // Dont do anything if nothing changed
     if (this.value.toString() === value) {
@@ -172,7 +174,7 @@ export default class FPMoney {
     this.isNegative = isNegative(value)
 
     // Normalize number to int
-    this.value = fractionToInt(intToFraction(value, fraction), fraction).toString()
+    this.value = value
 
     this.debounceUpdateOutput()
   }
@@ -406,6 +408,11 @@ export default class FPMoney {
         this.select.appendChild(option)
       }
     }
+  }
+
+  // Check if value is a fraction
+  private isFraction(value: number | string): boolean {
+    return value.toString().includes('.')
   }
 
   // Deal with key inputs into money field

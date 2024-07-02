@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Comp from './component.vue'
+import { nextTick } from 'vue'
 
 describe('Component', () => {
   it('Mounts properly', () => {
@@ -14,15 +15,24 @@ describe('Component', () => {
     expect(wrapper.find('input').exists()).toBe(true)
   })
 
-  it('Make sure defaults are set', () => {
+  it('Make sure defaults are set', async () => {
+    const props = {
+      modelValue: 0,
+      
+    }
     const wrapper = mount(Comp, { props: {
       modelValue: 0,
     } })
+    await nextTick()
 
-    expect(wrapper.vm.modelValue).toBe(0)
-    expect(wrapper.vm.valueFormat).toBe('float')
-    expect(wrapper.vm.currency).toBe('USD')
-    expect(wrapper.vm.locale).toBe('')
+    const data = JSON.parse(JSON.stringify(wrapper.vm))
+
+    // console.log(data)
+
+    expect(data.modelValue).toBe(0)
+    expect(data.valueFormat).toBe('float')
+    expect(data.currency).toBe('USD')
+    expect(data.locale).toBe('')
   })
 
   // it('Set initial value and update with new value', async () => {

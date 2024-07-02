@@ -4,68 +4,78 @@ import FPMoney, { Constructor, currencies, Values } from './fp-money'
 
 export default defineComponent({
   name: 'Fpmoney',
-  emits: [
-    'update:modelValue',
-    'update:format',
-    'update:display',
-    'update:currency',
-    'update:locale',
-  ],
+  emits: ['update:modelValue', 'update:currency', 'update:locale', 'update:format', 'update:display'],
   props: {
     modelValue: {
       type: [String, Number],
-      required: true,
-    },
-    currencies: {
-      type: Object,
-      required: false,
-      default: null,
+      required: true
     },
     currency: {
       type: String,
       required: false,
-      default: null,
+      default: null
     },
     locale: {
       type: String,
       required: false,
-      default: null,
+      default: null
+    },
+    format: {
+      type: String,
+      required: false,
+      default: null
+    },
+    display: {
+      type: String,
+      required: false,
+      default: null
+    },
+
+    // One way bindings
+    currencies: {
+      type: Object,
+      required: false,
+      default: null
     },
     minValue: {
       type: Number,
       required: false,
-      default: null,
+      default: null
     },
     maxValue: {
       type: Number,
       required: false,
-      default: null,
+      default: null
     },
     step: {
       type: Number,
       required: false,
-      default: null,
+      default: null
     },
     disabled: {
-      type: Boolean
+      type: Boolean,
+      default: false
     },
     displayOnly: {
-      type: Boolean
-    },
-    onChange: {
-      type: Function,
-      required: false,
-      default: null
+      type: Boolean,
+      default: false
     },
     valueFormat: {
       type: String,
       required: false,
-      default: 'float',
+      default: 'float'
     },
     showSelection: {
       type: Boolean,
-      default: false,
+      default: false
     },
+
+    // Callbacks
+    onChange: {
+      type: Function,
+      required: false,
+      default: null
+    }
   },
   data() {
     return {
@@ -75,15 +85,15 @@ export default defineComponent({
         format: '',
         display: '',
         currency: '',
-        locale: '',
-      } as Values,
+        locale: ''
+      } as Values
     }
   },
   mounted() {
     this.init()
   },
   watch: {
-    value(newValue, oldValue) {
+    modelValue(newValue, oldValue) {
       if (!this.fpmoney || newValue.toString() === oldValue.toString()) {
         return
       }
@@ -118,7 +128,7 @@ export default defineComponent({
         return
       }
       this.fpmoney.setDisplayOnly(newValue)
-    },
+    }
   },
   methods: {
     init() {
@@ -126,6 +136,8 @@ export default defineComponent({
         container: this.$refs.fpmoney,
         onChange: (values: Values) => {
           this.values = values // Set values in data
+
+          console.log(values)
 
           // Set Values
           this.$emit('update:modelValue', this.valueFormat === 'int' ? this.values.value : this.values.format)
@@ -138,14 +150,16 @@ export default defineComponent({
           if (this.onChange) {
             this.onChange(values)
           }
-        },
+        }
       } as Constructor
+
+      // Set options
       if (this.currencies) {
         options.currencies = this.currencies
       } else {
         options.currencies = currencies
       }
-      if (this.currency) {
+      if (this.currency && this.currencies && this.currencies[this.currency]) {
         options.currency = this.currency
       } else {
         options.currency = Object.keys(options.currencies)[0]
@@ -176,10 +190,12 @@ export default defineComponent({
       }
       options.showSelection = this.showSelection
 
+      console.log('options', options)
+
       // Initate the FPMoney class
       this.fpmoney = new FPMoney(options)
-    },
-  },
+    }
+  }
 })
 </script>
 
