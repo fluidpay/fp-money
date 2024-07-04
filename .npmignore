@@ -5,12 +5,13 @@ node_modules/
 coverage/
 
 docs/
-src/docs/
 
 public/
 
 /*.tgz
 
-fpmoney.gif
-screenshot.png
-screenshotvue.png
+*.gif
+*.png
+index.html
+*.config.ts
+*.config.js

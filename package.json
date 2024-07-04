@@ -1,39 +1,45 @@
 {
   "name": "fp-money",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "private": false,
   "description": "FluidPay input formatter and currency selector",
   "repository": "github.com/fluidpay/fp-money",
   "license": "MIT",
   "type": "module",
-  "main": "dist/fpmoney.umd.js",
-  "browser": "dist/fpmoney.umd.js",
-  "module": "dist/fpmoney.es.js",
-  "unpkg": "dist/fpmoney.umd.min.js",
-  "types": "dist/index.d.ts",
-  "style": "dist/fpmoney.css",
-  "sass": "src/fp-money/fpmoney.scss",
+  "main": "./dist/fp-money.umd.js",
+  "module": "./dist/fp-money.es.js",
+  "browser": "./dist/fp-money.umd.js",
+  "unpkg": "./dist/fp-money.umd.js",
+  "style": "./dist/style.css",
   "exports": {
     ".": {
-      "require": "./dist/fpmoney.umd.js",
-      "import": "./dist/fpmoney.es.js"
+      "import": "./dist/fp-money.es.js",
+      "require": "./dist/fp-money.umd.js",
+      "types": "./dist/fp-money.d.ts"
+    },
+    "./vue": {
+      "import": "./dist/component.vue.js",
+      "require": "./dist/component.vue.umd.cjs",
+      "types": "./dist/component.vue.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/fp-money.es.js",
+      "require": "./dist/fp-money.umd.js",
+      "types": "./dist/helpers.d.ts"
     }
   },
   "scripts": {
     "dev": "vite --port=1111",
     "format": "prettier --write --cache --parser typescript \"src/**/*.ts\"",
-    "build": "npm run build:clean && npm run build:docs && npm run build:library",
-    "build:clean": "rimraf ./dist/*",
-    "build:docs": "vite build",
-    "build:library": "npm run build:library:js && npm run build:library:css",
-    "build:library:js": "cd src/fp-money && rollup --config ./rollup.config.mjs && cd ../../",
-    "build:library:css": "cd src/fp-money && sass ./fpmoney.scss ../../dist/fpmoney.css --style=compressed && cd ../../",
+    "build": "vite build && rollup --config src/fp-money/rollup.config.ts --configPlugin typescript && npm run build:tsc",
+    "build:tsc": "vue-tsc --declaration --emitDeclarationOnly -p tsconfig.build.json",
     "test": "vitest run",
     "testui": "vitest --ui",
     "coverage": "vitest run --coverage",
     "vitestwatch": "vitest watch"
   },
   "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
     "@types/chance": "^1.1.6",
     "@types/prismjs": "^1.26.4",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
@@ -47,13 +53,14 @@
     "eslint-plugin-vue": "^9.26.0",
     "jsdom": "^24.0.0",
     "prismjs": "^1.29.0",
-    "sass": "^1.77.2",
+    "rollup-plugin-scss": "^4.0.0",
+    "sass": "^1.77.6",
     "sass-loader": "^14.2.1",
-    "typescript": "^5.4.5",
+    "typescript": "^5.5.2",
     "vue": "^3.2.39",
     "vue-loader": "^17.1.1",
     "vue-router": "^4.1.5",
     "vue-template-compiler": "^2.7.10",
-    "webpack-cli": "^4.10.0"
+    "vue-tsc": "^2.0.22"
   }
 }

@@ -1,5 +1,6 @@
 import { Currencies, currencies, intToFraction, fractionToInt, displayValue, getLocale, isNegative } from './helpers'
 
+import './fp-money.scss'
 export * from './helpers'
 
 export interface Values {
@@ -323,7 +324,7 @@ export default class FPMoney {
     let clean = this.display.replace(this.currencies[this.currency.toUpperCase()].symbol, '') // Remove symbol
     const cur = this.currency
     clean = clean.replace(cur, '')
-    cur.split('').forEach((c, i) => {
+    cur.split('').forEach((_, i) => {
       clean = clean.replace(cur.substring(0, cur.length - i), '')
     })
 
@@ -537,15 +538,15 @@ export default class FPMoney {
     if(/Windows Phone|iemobile/.test(userAgent)){
       return MobileOS.Windows
     }
-  
+
     if (/android/i.test(userAgent)) {
       return MobileOS.Android
     }
-  
+
     if (/iPad|iPhone|iPod/.test(userAgent)) {
       return MobileOS.iOS
     }
-  
+
     return MobileOS.Unknown
   }
 }

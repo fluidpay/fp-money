@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "declaration": true, // Generates corresponding '.d.ts' file.
-    "strict": true,
-    "outDir": "../../dist" // Output to dist folder
-  }
-}

@@ -4,9 +4,9 @@
     "rootDir": ".",
     "outDir": "dist",
     "declaration": true,
-    "target": "esnext",
+    "target": "ESNext",
     "useDefineForClassFields": true,
-    "module": "esnext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
@@ -15,7 +15,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "importHelpers": true,
-    "lib": ["esnext", "dom"],
+    "lib": ["ESNext", "dom"],
     "paths": {
       "fp-money": ["src/fp-money"]
     }
