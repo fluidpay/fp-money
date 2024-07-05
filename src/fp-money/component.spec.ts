@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Comp from './component.vue'
-import { nextTick } from 'vue'
+import {Values} from "./fp-money";
 
 describe('Component', () => {
   it('Mounts properly', () => {
@@ -16,21 +16,20 @@ describe('Component', () => {
   })
 
   it('Make sure defaults are set', async () => {
-    const props = {
-      modelValue: 0,
+    const wrapper = mount(Comp, {
+      props: {
+        modelValue: 0,
+        onChange: (data: Values) => {
+          expect(data.currency).toBe('USD')
+          expect(data.locale).toBe('en-US')
+        }
+      }
+    })
 
-    }
-    const wrapper = mount(Comp, { props: {
-      modelValue: 0,
-    } })
-    await nextTick()
-
-    const data = JSON.parse(JSON.stringify(wrapper.vm))
+    const data = JSON.parse(JSON.stringify(wrapper.getCurrentComponent().props))
 
     expect(data.modelValue).toBe(0)
     expect(data.valueFormat).toBe('float')
-    expect(data.currency).toBe('USD')
-    expect(data.locale).toBe('')
   })
 
   // it('Set initial value and update with new value', async () => {
