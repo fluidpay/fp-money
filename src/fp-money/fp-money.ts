@@ -158,10 +158,10 @@ export default class FPMoney {
     const fraction = this.currencies[this.currency].fraction
 
     // Check if value is a fraction
-    if (this.isFraction(value) && this.valueFormat === 'int') {
-      value = fractionToInt(value, fraction).toString()
-    } else if (!this.isFraction(value) && this.valueFormat === 'float') {
+    if (!this.isFraction(value) && this.valueFormat === 'int') {
       value = intToFraction(value, fraction).toString()
+    } else if (this.isFraction(value) && this.valueFormat === 'float') {
+      value = fractionToInt(value, fraction).toString()
     } else {
       value = value.toString()
     }

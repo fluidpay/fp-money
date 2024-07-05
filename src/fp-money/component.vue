@@ -137,8 +137,6 @@ export default defineComponent({
         onChange: (values: Values) => {
           this.values = values // Set values in data
 
-          console.log(values)
-
           // Set Values
           this.$emit('update:modelValue', this.valueFormat === 'int' ? this.values.value : this.values.format)
           this.$emit('update:format', this.values.format)
@@ -182,15 +180,13 @@ export default defineComponent({
       if (this.step !== undefined && this.step !== null) {
         options.step = this.step
       }
-      if (this.disabled === true) {
+      if (this.disabled) {
         options.disabled = true
       }
-      if (this.displayOnly === true) {
+      if (this.displayOnly) {
         options.displayOnly = true
       }
       options.showSelection = this.showSelection
-
-      console.log('options', options)
 
       // Initate the FPMoney class
       this.fpmoney = new FPMoney(options)

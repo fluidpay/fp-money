@@ -18,7 +18,7 @@ describe('Component', () => {
   it('Make sure defaults are set', async () => {
     const props = {
       modelValue: 0,
-      
+
     }
     const wrapper = mount(Comp, { props: {
       modelValue: 0,
@@ -26,8 +26,6 @@ describe('Component', () => {
     await nextTick()
 
     const data = JSON.parse(JSON.stringify(wrapper.vm))
-
-    // console.log(data)
 
     expect(data.modelValue).toBe(0)
     expect(data.valueFormat).toBe('float')

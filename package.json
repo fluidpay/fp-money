@@ -29,10 +29,11 @@
     }
   },
   "scripts": {
-    "dev": "vite --port=1111",
+    "dev": "vite --config=src/docs/vite.config.ts --port=1111",
     "format": "prettier --write --cache --parser typescript \"src/**/*.ts\"",
     "build": "vite build && rollup --config src/fp-money/rollup.config.ts --configPlugin typescript && npm run build:tsc",
     "build:tsc": "vue-tsc --declaration --emitDeclarationOnly -p tsconfig.build.json",
+    "build:docs": "vite --config=src/docs/vite.config.ts build",
     "test": "vitest run",
     "testui": "vitest --ui",
     "coverage": "vitest run --coverage",

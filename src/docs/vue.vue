@@ -2,15 +2,12 @@
 import { defineComponent } from 'vue'
 import { Values, Currencies } from '../fp-money/fp-money'
 import FPMoneyComp from '../fp-money/component.vue'
-// import fpmoney from '../fp-money/fp-money'
-// import Chance from 'chance'
-// const chance = new Chance()
 
 export default defineComponent({
   components: { FPMoneyComp },
   data() {
     return {
-      value: 8675309 as number,
+      value: 100000 as number,
       format: '',
       display: '',
       currency: '',
