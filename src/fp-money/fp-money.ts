@@ -1,6 +1,5 @@
 import { Currencies, currencies, intToFraction, fractionToInt, displayValue, getLocale, isNegative } from './helpers'
 
-import './fp-money.scss'
 export * from './helpers'
 
 export interface Values {

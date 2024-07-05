@@ -3,7 +3,10 @@
   "version": "2.0.0",
   "private": false,
   "description": "FluidPay input formatter and currency selector",
-  "repository": "github.com/fluidpay/fp-money",
+  "repository": {
+    "type": "git",
+    "url": "github.com/fluidpay/fp-money"
+  },
   "license": "MIT",
   "type": "module",
   "main": "./dist/fp-money.umd.js",
@@ -11,6 +14,7 @@
   "browser": "./dist/fp-money.umd.js",
   "unpkg": "./dist/fp-money.umd.js",
   "style": "./dist/style.css",
+  "scss": "./src/fp-money/fp-money.scss",
   "exports": {
     ".": {
       "import": "./dist/fp-money.es.js",

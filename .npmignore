@@ -1,6 +1,7 @@
 node_modules/
 .vscode/
 .github/
+.idea
 
 coverage/
 
@@ -15,3 +16,11 @@ public/
 index.html
 *.config.ts
 *.config.js
+
+.eslintrc.cjs
+.nvmrc
+
+src/docs/
+src/fp-money/*.ts
+src/fp-money/*.vue
+src/fp-money/*.js

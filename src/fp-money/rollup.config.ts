@@ -4,7 +4,7 @@ import typescript from '@rollup/plugin-typescript';
 import scss from "rollup-plugin-scss";
 
 const libConfig: RollupOptions = {
-    plugins: [typescript({ tsconfig: 'tsconfig.build.json' }), scss({ fileName: 'style.css' })],
+    plugins: [typescript({ tsconfig: 'tsconfig.build.json' })],
     input: fileURLToPath(new URL('fp-money.ts', import.meta.url)),
     output: [
         {
@@ -20,5 +20,15 @@ const libConfig: RollupOptions = {
     ]
 };
 
+const scssConfig: RollupOptions = {
+    plugins: [scss({ fileName: 'style.css' })],
+    input: fileURLToPath(new URL('fp-money.scss', import.meta.url)),
+    output: [
+        {
+            file: 'dist/style.css',
+        }
+    ]
+}
 
-export default libConfig
+
+export default [libConfig, scssConfig]
