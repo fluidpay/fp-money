@@ -94,7 +94,7 @@ export default defineComponent({
   },
   watch: {
     modelValue(newValue, oldValue) {
-      if (!this.fpmoney || newValue.toString() === oldValue.toString()) {
+      if (!this.fpmoney || newValue?.toString() === oldValue?.toString()) {
         return
       }
       this.fpmoney.setValue(newValue)
@@ -106,13 +106,13 @@ export default defineComponent({
       this.fpmoney.setCurrencies(newValue)
     },
     currency(newValue, oldValue) {
-      if (!this.fpmoney || newValue.toLowerCase() === oldValue.toLowerCase()) {
+      if (!this.fpmoney || newValue?.toLowerCase() === oldValue?.toLowerCase()) {
         return
       }
       this.fpmoney.setCurrency(newValue)
     },
     locale(newValue, oldValue) {
-      if (!this.fpmoney || newValue.toLowerCase() === oldValue.toLowerCase()) {
+      if (!this.fpmoney || newValue?.toLowerCase() === oldValue?.toLowerCase()) {
         return
       }
       this.fpmoney.setLocale(newValue)
