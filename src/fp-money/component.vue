@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import {defineComponent, PropType} from 'vue'
 import FPMoney, { Constructor, currencies, Values } from './fp-money'
 
 export default defineComponent({
@@ -7,8 +7,10 @@ export default defineComponent({
   emits: ['update:modelValue', 'update:currency', 'update:locale', 'update:format', 'update:display'],
   props: {
     modelValue: {
-      type: [String, Number],
-      required: true
+      type: [String, Number] as PropType<string | number | null>,
+      validator: (v): boolean => {
+        return ['string', 'number'].includes(typeof v) || v === null
+      }
     },
     currency: {
       type: String,
