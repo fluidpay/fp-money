@@ -128,6 +128,3 @@ MIT
 - [Documentation](http://fpmoney.fluidpay.com)
 - [GitHub](https://github.com/fluidpay/fp-money)
 - [npm](https://www.npmjs.com/package/fp-money)
-
-![Screenshot](https://raw.githubusercontent.com/fluidpay/fp-money/master/screenshot.png)
-![Vue Screenshot](https://raw.githubusercontent.com/fluidpay/fp-money/master/screenshotvue.png)
