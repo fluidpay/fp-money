@@ -1,9 +1,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import FPMoney, { Values } from '../fp-money/fp-money'
+import ShikiStyle from './components/shiki_style.vue'
 
 export default defineComponent({
   name: 'Examples',
+  components: { ShikiStyle },
   data() {
     return {
       disabled: null as FPMoney | null,
@@ -95,27 +97,27 @@ export default defineComponent({
     <div class="section">
       <div class="header">Basic</div>
       <div id="exampleBasic" class="example" />
-      <pre>
-        <code class="language-javascript">
-          new FPMoney({
-            container: document.querySelector('#example')
-          })
-        </code>
-      </pre>
+      <ShikiStyle language="javascript">
+        <pre>
+new FPMoney({
+  container: document.querySelector('#example')
+})
+        </pre>
+      </ShikiStyle>
     </div>
 
     <div class="section">
       <div class="header">Currency Selection</div>
       <div id="exampleSelection" class="example" />
       <div>{{ curSelectionValues }}</div>
-      <pre>
-        <code class="language-javascript">
-          new FPMoney({
-            container: document.querySelector('#example'),
-            showSelection: true
-          })
-        </code>
-      </pre>
+      <ShikiStyle language="javascript">
+        <pre>
+new FPMoney({
+  container: document.querySelector('#example'),
+  showSelection: true
+})
+        </pre>
+      </ShikiStyle>
     </div>
 
     <div class="section">
@@ -126,19 +128,19 @@ export default defineComponent({
           {{ disabled.disabled ? 'Enable' : 'Disable' }}
         </button>
       </div>
-      <pre>
-        <code class="language-javascript">
-          new FPMoney({
-            container: document.querySelector('#example'),
-            disabled: true
-          })
+      <ShikiStyle language="javascript">
+        <pre>
+new FPMoney({
+  container: document.querySelector('#example'),
+  disabled: true
+})
 
-          // Or
+// Or
 
-          var fp = new FPMoney({ container: document.querySelector('#example') })
-          fp.setDisabled(true)
-        </code>
-      </pre>
+var fp = new FPMoney({ container: document.querySelector('#example') })
+fp.setDisabled(true)
+        </pre>
+      </ShikiStyle>
     </div>
 
     <div class="section">
@@ -149,19 +151,19 @@ export default defineComponent({
           {{ displayOnly.displayOnly ? 'Enable' : 'Disable' }}
         </button>
       </div>
-      <pre>
-        <code class="language-javascript">
-          new FPMoney({
-            container: document.querySelector('#example'),
-            displayOnly: true
-          })
+      <ShikiStyle language="javascript">
+        <pre>
+new FPMoney({
+  container: document.querySelector('#example'),
+  displayOnly: true
+})
 
-          // Or
+// Or
 
-          var fp = new FPMoney({ container: document.querySelector('#example') })
-          fp.setDisplayOnly(true)
-        </code>
-      </pre>
+var fp = new FPMoney({ container: document.querySelector('#example') })
+fp.setDisplayOnly(true)
+        </pre>
+      </ShikiStyle>
     </div>
 
     <div class="section">
@@ -169,14 +171,14 @@ export default defineComponent({
       <div class="example row">
         <div id="exampleMinValue" />
       </div>
-      <pre>
-        <code class="language-javascript">
-          new FPMoney({
-            container: document.querySelector('#example'),
-            minValue: 0 // only positive numbers allowed
-          })
-        </code>
-      </pre>
+      <ShikiStyle language="javascript">
+        <pre>
+new FPMoney({
+  container: document.querySelector('#example'),
+  minValue: 0 // only positive numbers allowed
+})
+        </pre>
+      </ShikiStyle>
     </div>
   </div>
 </template>

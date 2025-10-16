@@ -1,7 +1,6 @@
-@import "_variables";
-@import "reset";
-@import "layout";
-@import "buttons";
-@import "prism";
-@import "animations";
-@import "../../../fp-money/fp-money.scss";
+@use '_variables';
+@use 'reset';
+@use 'layout';
+@use 'buttons';
+@use 'animations';
+@use '../../../fp-money/fp-money';

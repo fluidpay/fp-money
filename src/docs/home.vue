@@ -1,8 +1,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import FPMoney from '../fp-money/fp-money'
+import ShikiStyle from './components/shiki_style.vue'
 
 export default defineComponent({
+  components: { ShikiStyle },
   data() {
     return {
       value: '',
@@ -59,46 +61,42 @@ export default defineComponent({
       Display: {{ display }}<br />
       Currency: {{ currency }}
     </div>
-    <pre>
-      <code class="language-bash">
-        npm install fp-money
-      </code>
-    </pre>
-    <pre>
-      <code class="language-html">
-        &lt;div id="example"&gt;&lt;/div&gt;
-      </code>
-    </pre>
-    <pre>
-      <code class="language-javascript">
-        import FPMoney from 'fp-money'
-        import 'fp-money/dist/fp-money.css'
+    <ShikiStyle language="shell">
+      <pre>npm install fp-money</pre>
+    </ShikiStyle>
+    <ShikiStyle language="vue">
+      <pre>&lt;div id="example"&gt;&lt;/div&gt;</pre>
+    </ShikiStyle>
+    <ShikiStyle language="javascript">
+      <pre>
+import FPMoney from 'fp-money'
+import 'fp-money/dist/fp-money.css'
 
-        new FPMoney({
-          container: document.querySelector('#example'),
-          // value: 86753.09,     // optional - default ''
-          // currencies: Object   // optional - {USD: {symbol: '$', fraction:2}}
-          // currency: 'USD',     // optional - default 'USD'
-          // locale: 'en-us',     // optional - default navigator.language
-          // minValue: 999,       // optional - default no limit
-          // maxValue: 999,       // optional - default no limit
-          // step: 1.00,          // optional - set up/down increment
-          // disabled: false,      // optional - default false
-          // displayOnly: false,      // optional - default false
-          // showSelection: false, // optional - default false
+new FPMoney({
+  container: document.querySelector('#example'),
+  // value: 86753.09,     // optional - default ''
+  // currencies: Object   // optional - {USD: {symbol: '$', fraction:2}}
+  // currency: 'USD',     // optional - default 'USD'
+  // locale: 'en-us',     // optional - default navigator.language
+  // minValue: 999,       // optional - default no limit
+  // maxValue: 999,       // optional - default no limit
+  // step: 1.00,          // optional - set up/down increment
+  // disabled: false,      // optional - default false
+  // displayOnly: false,      // optional - default false
+  // showSelection: false, // optional - default false
 
-          onChange: (values) => {
-            console.log(values)
-            // {
-            //   value: "8675309",
-            //   format: "86753.09",
-            //   display: "$86,753.09",
-            //   currency: "USD",
-            //   locale: "en-US"
-            // }
-          }
-        })
-      </code>
-    </pre>
+  onChange: (values) => {
+    console.log(values)
+    // {
+    //   value: "8675309",
+    //   format: "86753.09",
+    //   display: "$86,753.09",
+    //   currency: "USD",
+    //   locale: "en-US"
+    // }
+  }
+})
+      </pre>
+    </ShikiStyle>
   </div>
 </template>
