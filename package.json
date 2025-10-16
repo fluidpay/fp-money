@@ -1,6 +1,6 @@
 {
-  "name": "@gwservices/fp-money",
-  "version": "2.0.3-next.5",
+  "name": "fp-money",
+  "version": "2.0.3",
   "private": false,
   "description": "Input formatter and currency selector",
   "repository": {
@@ -42,6 +42,8 @@
     "testui": "vitest --ui",
     "coverage": "vitest run --coverage",
     "vitestwatch": "vitest watch",
+    "type-check": "vue-tsc --noEmit -p tsconfig.json",
+    "release": "node release.js",
     "deploy:next": "npm run build && npm version prerelease --no-git-tag-version --preid=next && npm publish"
   },
   "devDependencies": {
