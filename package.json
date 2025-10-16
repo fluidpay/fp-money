@@ -13,31 +13,34 @@
   "module": "./dist/fp-money.es.js",
   "browser": "./dist/fp-money.umd.js",
   "unpkg": "./dist/fp-money.umd.js",
-  "style": "./dist/style.css",
-  "scss": "./src/fp-money/fp-money.scss",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/fp-money.es.js",
-      "require": "./dist/fp-money.umd.js",
-      "types": "./dist/fp-money.d.ts"
+      "require": "./dist/fp-money.umd.js"
     },
+    "./style.css": "./dist/style.css",
     "./vue": {
-      "import": "./dist/component.vue.js",
-      "require": "./dist/component.vue.umd.cjs",
-      "types": "./dist/component.vue.d.ts"
+      "types": "./dist/vue/index.d.ts",
+      "import": "./dist/vue/index.js",
+      "require": "./dist/vue/index.umd.cjs"
     },
-    "./utils": {
-      "import": "./dist/fp-money.es.js",
-      "require": "./dist/fp-money.umd.js",
-      "types": "./dist/helpers.d.ts"
-    }
+    "./vue/style.css": "./dist/vue/style.css"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "dev": "vite --config=src/docs/vite.config.ts --port=1111",
+    "dev": "vite --config=vite.config.docs.mts",
     "format": "prettier --write --cache --parser typescript \"src/**/*.ts\"",
-    "build": "vite build && rollup --config src/fp-money/rollup.config.ts --configPlugin typescript && npm run build:tsc",
-    "build:tsc": "vue-tsc --declaration --emitDeclarationOnly -p tsconfig.build.json",
-    "build:docs": "vite --config=src/docs/vite.config.ts build",
+    "build": "npm run build:clean && npm run build:lib && npm run build:vue && npm run build:types && npm run build:docs",
+    "build:clean": "rm -rf ./dist ./docs",
+    "build:lib": "vite build --config=vite.config.lib.mts",
+    "build:vue": "vite build --config=vite.config.vue.mts",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly -p tsconfig.build.json",
+    "build:docs": "vite build --config=vite.config.docs.mts",
     "test": "vitest run",
     "testui": "vitest --ui",
     "coverage": "vitest run --coverage",
@@ -47,28 +50,22 @@
     "deploy:next": "npm run build && npm version prerelease --no-git-tag-version --preid=next && npm publish"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@types/chance": "^1.1.6",
-    "@types/prismjs": "^1.26.4",
-    "@typescript-eslint/eslint-plugin": "^7.9.0",
-    "@typescript-eslint/parser": "^7.9.0",
-    "@vitejs/plugin-vue": "^5.0.4",
-    "@vitest/ui": "^1.6.0",
+    "@types/node": "^22.10.2",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "@typescript-eslint/parser": "^8.20.0",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitest/ui": "^3.2.4",
     "@vue/test-utils": "^2.4.6",
-    "chance": "^1.1.11",
-    "eslint": "^8.2.0",
-    "eslint-plugin-prettier": "^5.1.3",
-    "eslint-plugin-vue": "^9.26.0",
-    "jsdom": "^24.0.0",
-    "prismjs": "^1.29.0",
-    "rollup-plugin-scss": "^4.0.0",
-    "sass": "^1.77.6",
-    "sass-loader": "^14.2.1",
-    "typescript": "^5.5.2",
-    "vue": "^3.2.39",
-    "vue-loader": "^17.1.1",
-    "vue-router": "^4.1.5",
-    "vue-template-compiler": "^2.7.10",
-    "vue-tsc": "^2.0.22"
+    "eslint": "^9.18.0",
+    "eslint-plugin-prettier": "^5.2.2",
+    "eslint-plugin-vue": "^9.32.0",
+    "gofakeit": "^2.4.1",
+    "jsdom": "^27.0.0",
+    "sass": "^1.93.2",
+    "shiki": "^1.29.1",
+    "typescript": "^5.9.3",
+    "vue": "^3.5.22",
+    "vue-router": "^4.6.3",
+    "vue-tsc": "^3.1.1"
   }
 }
