@@ -28,6 +28,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "exclude": ["src/docs", "src/**/*.spec.ts", "src/**/*.test.ts", "src/**/rollup.config.ts"],
+  "exclude": ["src/docs", "src/**/*.spec.ts", "src/**/*.test.ts", "src/**/rollup.config.ts", "src/**/vite.config.ts"],
   "include": ["src/fp-money/**/*.ts", "src/fp-money/**/*.d.ts", "src/fp-money/*.vue"]
 }

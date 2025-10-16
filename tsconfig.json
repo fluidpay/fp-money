@@ -7,7 +7,7 @@
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "strict": true,
     "jsx": "preserve",
     "allowJs": false,
@@ -17,6 +17,7 @@
     "importHelpers": true,
     "lib": ["ESNext", "dom"],
     "paths": {
+      "@/*": ["src/*"],
       "fp-money": ["src/fp-money"]
     }
   },
