@@ -1,6 +1,6 @@
 <script lang="ts">
-import {defineComponent, PropType} from 'vue'
-import FPMoney, { Constructor, currencies, Values } from './fp-money'
+import { defineComponent, PropType } from 'vue'
+import FPMoney, { Constructor, currencies, Values } from '../fp-money'
 
 export default defineComponent({
   name: 'Fpmoney',
@@ -196,6 +196,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss">
+@use '../fp-money.scss';
+</style>
 
 <template>
   <div ref="fpmoney" />
