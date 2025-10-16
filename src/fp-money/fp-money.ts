@@ -1,6 +1,6 @@
-import { Currencies, currencies, intToFraction, fractionToInt, displayValue, getLocale, isNegative } from './currencies'
+import { Currencies, currencies, intToFraction, fractionToInt, displayValue, getLocale, isNegative } from './helpers'
 
-export * from './currencies'
+export * from './helpers'
 
 export interface Values {
   value: string
@@ -26,6 +26,13 @@ export interface Constructor {
   onChange?: (values: Values) => void
 }
 
+enum MobileOS {
+  Windows = 'windows',
+  Android = 'android',
+  iOS = 'ios',
+  Unknown = 'unknown'
+}
+
 export default class FPMoney {
   public container: HTMLDivElement
   public currencyDiv: HTMLDivElement
@@ -35,24 +42,26 @@ export default class FPMoney {
   public mobileOs: string
 
   // Input items
-  public isNegative: boolean = false
-  public value: string = ''
-  public display: string = ''
-  public format: string = ''
+  public isNegative = false
+  public value = ''
+  public display = ''
+  public format = ''
   public currencies: Currencies = JSON.parse(JSON.stringify(currencies))
-  public currency: string = '' // default is set in the constructor
+  public currency = '' // default is set in the constructor
   public locale: string = getLocale()
-  public valueFormat: string = 'float'
+  public valueFormat = 'float'
   public minValue?: number = undefined
   public maxValue?: number = undefined
-  public step: number = 1.00
-  public disabled: boolean = false
-  public displayOnly: boolean = false
-  public showSelection: boolean = false
+  public step = 1.0
+  public disabled = false
+  public displayOnly = false
+  public showSelection = false
 
   // Callbacks
   public onChange: (values: Values) => void
-  private debounceUpdateOutput = debounce(() => {this.updateOutput()})
+  private debounceUpdateOutput = debounce(() => {
+    this.updateOutput()
+  })
 
   constructor(info: Constructor) {
     this.validate(info)
@@ -60,42 +69,73 @@ export default class FPMoney {
     this.mobileOs = this.getMobileOs()
 
     // Set container
-    let el: HTMLDivElement
+    let el: HTMLDivElement | null
     if (typeof info.container === 'string') {
-      el = document.querySelector(info.container) as any as HTMLDivElement
+      el = document.querySelector(info.container)
     } else {
       el = info.container
+    }
+    if (!el) {
+      throw new Error('Container not found')
     }
     this.container = el
 
     // Set values
-    if (info.currencies) {this.currencies = JSON.parse(JSON.stringify(info.currencies))}
-    if (info.currency) {this.currency = info.currency.toUpperCase()} else {this.currency = Object.keys(this.currencies)[0]}
-    if (info.locale) {this.locale = info.locale}
-    if (info.valueFormat) {this.valueFormat = info.valueFormat}
-    if (info.value !== undefined) {
-      let curVal = info.value
-      this.isNegative = isNegative(curVal.toString())
-      if (info.valueFormat === 'int') {curVal = intToFraction(curVal, this.currencies[this.currency].fraction)}
-      this.value = fractionToInt(curVal, this.currencies[this.currency].fraction).toString()
+    if (info.currencies) {
+      this.currencies = JSON.parse(JSON.stringify(info.currencies))
     }
-    if (info.minValue !== undefined) {this.minValue = fractionToInt(info.minValue, this.currencies[this.currency].fraction)}
-    if (info.maxValue !== undefined) {this.maxValue = fractionToInt(info.maxValue, this.currencies[this.currency].fraction)}
-    if (info.step) {this.step = info.step}
-    if (info.disabled === true) {this.disabled = true}
-    if (info.displayOnly === true) {this.displayOnly = true}
-    if (info.showSelection !== undefined) {this.showSelection = info.showSelection}
+    if (info.currency && this.currencies[info.currency]) {
+      this.currency = info.currency.toUpperCase()
+    } else {
+      this.currency = Object.keys(this.currencies)[0]
+    }
+    if (info.locale) {
+      this.locale = info.locale
+    }
+    if (info.valueFormat) {
+      this.valueFormat = info.valueFormat
+    }
+    if (info.value !== undefined) {
+      this.setValue(info.value)
+    }
+    if (info.minValue !== undefined) {
+      this.minValue = fractionToInt(info.minValue, this.currencies[this.currency].fraction)
+    }
+    if (info.maxValue !== undefined) {
+      this.maxValue = fractionToInt(info.maxValue, this.currencies[this.currency].fraction)
+    }
+    if (info.step) {
+      this.step = info.step
+    }
+    if (info.disabled === true) {
+      this.disabled = true
+    }
+    if (info.displayOnly === true) {
+      this.displayOnly = true
+    }
+    if (info.showSelection !== undefined) {
+      this.showSelection = info.showSelection
+    }
 
     // Set Callbacks
-    this.onChange = (info.onChange ? this.onChange = info.onChange : () => {return})
+    this.onChange = info.onChange
+      ? (this.onChange = info.onChange)
+      : () => {
+          return
+        }
 
     // Render select and input
     this.currencyDiv = document.createElement('div')
 
     // Input specifics
     this.input = document.createElement('input')
-    if (this.mobileOs === 'android') { this.input.inputMode = 'numeric' }
-    if (this.mobileOs === 'ios') { this.input.inputMode = 'numeric'; this.input.pattern = '[0-9]*' }
+    if (this.mobileOs === 'android') {
+      this.input.inputMode = 'numeric'
+    }
+    if (this.mobileOs === 'ios') {
+      this.input.inputMode = 'numeric'
+      this.input.pattern = '[0-9]*'
+    }
     this.select = document.createElement('select')
     this.render()
 
@@ -115,16 +155,26 @@ export default class FPMoney {
 
   public setValue(value: number | string) {
     const fraction = this.currencies[this.currency].fraction
-    value = (this.valueFormat === 'float' ? fractionToInt(value, fraction).toString() : value.toString())
+
+    // Check if value is a fraction
+    if (this.isFraction(value) && this.valueFormat === 'int') {
+      value = intToFraction(value, fraction).toString()
+    } else if (this.isFraction(value) && this.valueFormat === 'float') {
+      value = fractionToInt(value, fraction).toString()
+    } else {
+      value = value.toString()
+    }
 
     // Dont do anything if nothing changed
-    if (this.value.toString() === value) {return}
+    if (this.value.toString() === value) {
+      return
+    }
 
     // Check if negative number
     this.isNegative = isNegative(value)
 
     // Normalize number to int
-    this.value = fractionToInt(intToFraction(value, fraction), fraction).toString()
+    this.value = value
 
     this.debounceUpdateOutput()
   }
@@ -143,7 +193,12 @@ export default class FPMoney {
     this.setCurrency(this.currency) // This will also run this.updateOutput()
   }
 
-  public setCurrency(currency: string) {
+  public setCurrency(currency: string | null) {
+    // If currency is null, set to first key in object
+    if (!currency) {
+      currency = Object.keys(this.currencies)[0]
+    }
+
     this.currency = currency.toUpperCase()
 
     // Currency display
@@ -207,33 +262,43 @@ export default class FPMoney {
   }
 
   private validate(info: Constructor) {
-    let el: HTMLDivElement
+    let el: HTMLDivElement | null
     if (typeof info.container === 'string') {
-      el = document.querySelector(info.container) as any as HTMLDivElement
+      el = document.querySelector(info.container)
     } else {
       el = info.container
     }
-    if (!el) { throw new Error('Could not find container') }
+    if (!el) {
+      throw new Error('Could not find container')
+    }
   }
 
   private updateOutput() {
     if (this.value !== '') {
       let val = parseInt(this.value, 10)
       // Limit if min/max
-      if (this.minValue !== undefined && val < this.minValue) {val = this.minValue}
-      if (this.maxValue !== undefined && val > this.maxValue) {val = this.maxValue}
+      if (this.minValue !== undefined && val < this.minValue) {
+        val = this.minValue
+      }
+      if (this.maxValue !== undefined && val > this.maxValue) {
+        val = this.maxValue
+      }
       this.value = val.toString()
     }
 
     // Identify isNegative
     if (this.isNegative) {
       this.value = '-' + this.value.replace('-', '')
-      if (this.value === '-') { this.value = '' }
+      if (this.value === '-') {
+        this.value = ''
+      }
     } else {
       this.value = this.value.replace('-', '')
     }
 
-    this.format = intToFraction(this.value, this.currencies[this.currency].fraction).toFixed(this.currencies[this.currency].fraction)
+    this.format = intToFraction(this.value, this.currencies[this.currency].fraction).toFixed(
+      this.currencies[this.currency].fraction
+    )
     this.display = displayValue(this.value, this.currency, this.currencies[this.currency].fraction, this.locale)
 
     this.updateInputDisplay()
@@ -249,26 +314,31 @@ export default class FPMoney {
   }
 
   private updateInputDisplay() {
-    if (this.value === '') { this.input.value = ''; return }
+    if (this.value === '') {
+      this.input.value = ''
+      return
+    }
 
     // Clean display output
     let clean = this.display.replace(this.currencies[this.currency.toUpperCase()].symbol, '') // Remove symbol
     const cur = this.currency
     clean = clean.replace(cur, '')
-    cur.split('').forEach((c, i) => {
+    cur.split('').forEach((_, i) => {
       clean = clean.replace(cur.substring(0, cur.length - i), '')
     })
 
     // Remove all other symbols that are in base currencies
     for (const key in currencies) {
-      if (currencies.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(currencies, key)) {
         clean = clean.replace(key, '')
         clean = clean.replace(currencies[key].symbol, '')
       }
     }
 
     clean = clean.trim() // Remove whitespace
-    if (this.isNegative) { clean = '-' + clean.replace('-', '') }
+    if (this.isNegative) {
+      clean = '-' + clean.replace('-', '')
+    }
     this.input.value = clean
   }
 
@@ -281,17 +351,32 @@ export default class FPMoney {
     this.select.classList.add('fpm-select')
 
     // Add event listeners for input field
-    this.input.addEventListener('keydown', (evt: KeyboardEvent) => { this.inputKeydown(evt) }, false)
-    this.input.addEventListener('click', (e: MouseEvent) => {
-      // Dont do anything if displayOnly
-      if (this.displayOnly) {e.preventDefault(); return}
+    this.input.addEventListener(
+      'keydown',
+      (evt: KeyboardEvent) => {
+        this.inputKeydown(evt)
+      },
+      false
+    )
+    this.input.addEventListener(
+      'click',
+      (e: MouseEvent) => {
+        // Dont do anything if displayOnly
+        if (this.displayOnly) {
+          e.preventDefault()
+          return
+        }
 
-      this.input.focus()
-      this.moveCursorToEnd(this.input)
-    }, false)
+        this.input.focus()
+        this.moveCursorToEnd(this.input)
+      },
+      false
+    )
 
     // Check if displayOnly
-    if (this.displayOnly) {this.setDisplayOnly(true)}
+    if (this.displayOnly) {
+      this.setDisplayOnly(true)
+    }
 
     // Add options to select
     this.updateCurrenciesSelect()
@@ -304,7 +389,9 @@ export default class FPMoney {
     // Add to container
     this.container.appendChild(this.currencyDiv)
     this.container.appendChild(this.input)
-    if (this.showSelection) {this.container.appendChild(this.select)}
+    if (this.showSelection) {
+      this.container.appendChild(this.select)
+    }
   }
 
   // For the currency select dropdown to update options
@@ -314,7 +401,7 @@ export default class FPMoney {
 
     // Loop through currencies and add options
     for (const c in this.currencies) {
-      if (this.currencies.hasOwnProperty(c)) {
+      if (Object.prototype.hasOwnProperty.call(this.currencies, c)) {
         const option = document.createElement('option')
         option.value = c
         option.text = c.toUpperCase()
@@ -323,10 +410,18 @@ export default class FPMoney {
     }
   }
 
+  // Check if value is a fraction
+  private isFraction(value: number | string): boolean {
+    return value.toString().includes('.')
+  }
+
   // Deal with key inputs into money field
   private inputKeydown(evt: KeyboardEvent) {
     // Dont do anything if displayOnly
-    if (this.displayOnly) {evt.preventDefault(); return}
+    if (this.displayOnly) {
+      evt.preventDefault()
+      return
+    }
 
     const key = evt.key
     const charCode = key.charCodeAt(0)
@@ -347,7 +442,9 @@ export default class FPMoney {
       // Remove key from value
 
       this.value = this.value.substring(0, this.value.length - 1)
-      if (this.value === '-') { this.value = '' }
+      if (this.value === '-') {
+        this.value = ''
+      }
 
       // Update display in input field
       this.updateOutput()
@@ -430,61 +527,45 @@ export default class FPMoney {
   }
 
   // Will take in an element and select the end of the input field
-  private moveCursorToEnd(el: any) {
-    if (typeof el.selectionStart === 'number') {
-        el.selectionStart = el.selectionEnd = el.value.length
-    } else if (typeof el.createTextRange !== 'undefined') {
-        el.focus()
-        const range = el.createTextRange()
-        range.collapse(false)
-        range.select()
-    }
+  private moveCursorToEnd(el: HTMLInputElement) {
+    el.setSelectionRange(el.value.length, el.value.length)
   }
 
-  private getMobileOs() {
-    const w = window as any
-    const userAgent = navigator.userAgent || navigator.vendor || w.opera
+  private getMobileOs(): MobileOS {
+    const userAgent = navigator.userAgent || navigator.vendor
 
-        // Windows Phone must come first because its UA also contains "Android"
-    if (/windows phone/i.test(userAgent)) {
-          return 'windows'
-      }
+    if (/Windows Phone|iemobile/.test(userAgent)) {
+      return MobileOS.Windows
+    }
 
     if (/android/i.test(userAgent)) {
-          return 'android'
-      }
+      return MobileOS.Android
+    }
 
-      // iOS detection from: http://stackoverflow.com/a/9039885/177710
-    if (/iPad|iPhone|iPod/.test(userAgent) && !w.MSStream) {
-          return 'ios'
-      }
+    if (/iPad|iPhone|iPod/.test(userAgent)) {
+      return MobileOS.iOS
+    }
 
-    return 'desktop'
+    return MobileOS.Unknown
   }
 }
 
-type Procedure = (...args: any[]) => void
-interface Options { isImmediate: boolean }
-function debounce<F extends Procedure>(
-  func: F,
-  waitMilliseconds = 100,
-  options: Options = {isImmediate: false}
-): (this: ThisParameterType<F>, ...args: Parameters<F>) => void {
-  let timeoutId: ReturnType<typeof setTimeout> | undefined
-
-  return function(this: ThisParameterType<F>, ...args: Parameters<F>) {
-    const context = this
-
-    const doLater = () => {
-      timeoutId = undefined
-      if (!options.isImmediate) {
+// debounce will call the last requested function after the wait time
+export function debounce<T extends (...args: any[]) => void>(func: T, wait = 50, immediate = false): () => void {
+  let timeout: any
+  return function (this: any, ...args: any[]): void {
+    const context = self
+    const later = () => {
+      timeout = null
+      if (!immediate) {
         func.apply(context, args)
       }
     }
-
-    const shouldCallNow = options.isImmediate && timeoutId === undefined
-    if (timeoutId !== undefined) { clearTimeout(timeoutId) }
-    timeoutId = setTimeout(doLater, waitMilliseconds)
-    if (shouldCallNow) { func.apply(context, args) }
+    const callNow = immediate && !timeout
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+    if (callNow) {
+      func.apply(context, args)
+    }
   }
 }

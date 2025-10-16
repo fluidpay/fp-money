@@ -1,5 +1,5 @@
-import { Currencies } from './currencies';
-export * from './currencies';
+import { Currencies } from './helpers';
+export * from './helpers';
 export interface Values {
     value: string;
     display: string;
@@ -47,7 +47,7 @@ export default class FPMoney {
     constructor(info: Constructor);
     setValue(value: number | string): void;
     setCurrencies(currenciesValue: Currencies): void;
-    setCurrency(currency: string): void;
+    setCurrency(currency: string | null): void;
     setLocale(locale: string): void;
     setDisabled(bool: boolean): void;
     setDisplayOnly(bool: boolean): void;
@@ -57,7 +57,9 @@ export default class FPMoney {
     private updateInputDisplay;
     private render;
     private updateCurrenciesSelect;
+    private isFraction;
     private inputKeydown;
     private moveCursorToEnd;
     private getMobileOs;
 }
+export declare function debounce<T extends (...args: any[]) => void>(func: T, wait?: number, immediate?: boolean): () => void;

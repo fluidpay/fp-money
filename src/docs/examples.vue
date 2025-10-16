@@ -1,13 +1,15 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import FPMoney, { Values } from '../fp-money/fp-money'
+import ShikiStyle from './components/shiki_style.vue'
 
 export default defineComponent({
   name: 'Examples',
+  components: { ShikiStyle },
   data() {
     return {
-      disabled: null as any,
-      displayOnly: null as any,
+      disabled: null as FPMoney | null,
+      displayOnly: null as FPMoney | null,
 
       curSelectionValues: {} as Values
     }
@@ -44,134 +46,139 @@ export default defineComponent({
   },
   methods: {
     toggleDisabled() {
-      this.disabled.setDisabled(!this.disabled.disabled)
+      if (this.disabled) {
+        this.disabled.setDisabled(!this.disabled.disabled)
+      }
     },
     toggleDisplayOnly() {
-      this.displayOnly.setDisplayOnly(!this.displayOnly.displayOnly)
+      if (this.displayOnly) {
+        this.displayOnly.setDisplayOnly(!this.displayOnly.displayOnly)
+      }
     }
   }
 })
 </script>
 
 <style lang="scss">
-  @import './assets/scss/_variables.scss';
-    
-  .examples {
-    .section {
-      margin-bottom: $spacing;
-      padding: $spacing-half $spacing-half $spacing-quarter $spacing-half;
-      background-color: rgba(255, 255, 255, .7);
-      border-radius: $border-radius;
+.examples {
+  .section {
+    margin-bottom: var(--spacing-l);
+    padding: var(--spacing-m) var(--spacing-m) var(--spacing-s) var(--spacing-m);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: var(--border-radius);
 
-      .header {
-        font-size: 24px;
-        font-weight: $font-weight-bold;
-        margin: 0 0 $spacing-half 0;
-        padding: 0 0 $spacing-quarter 0;
-        border-bottom: solid 1px $color-font;
-      }
+    .header {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0 0 var(--spacing-m) 0;
+      padding: 0 0 var(--spacing-s) 0;
+      border-bottom: solid 1px var(--font-color);
+    }
 
-      .example {
-        width: 250px;
-        margin-bottom: $spacing-half;
-      }
+    .example {
+      width: 250px;
+      margin-bottom: var(--spacing-m);
+    }
 
-      .row {
-        display: flex;
-        flex-direction: row;
-      }
+    .row {
+      display: flex;
+      flex-direction: row;
+    }
 
-      button {
-        margin: 0 0 0 $spacing-half;
-      }
+    button {
+      margin: 0 0 0 var(--spacing-m);
     }
   }
+}
 </style>
 
 <template>
   <div class="examples">
     <div class="section">
       <div class="header">Basic</div>
-      <div class="example" id="exampleBasic"></div>
-      <pre>
-        <code class="language-javascript">
-          new FPMoney({
-            container: document.querySelector('#example')
-          })
-        </code>
-      </pre>
+      <div id="exampleBasic" class="example" />
+      <ShikiStyle language="javascript">
+        <pre>
+new FPMoney({
+  container: document.querySelector('#example')
+})
+        </pre>
+      </ShikiStyle>
     </div>
 
     <div class="section">
       <div class="header">Currency Selection</div>
-      <div class="example" id="exampleSelection"></div>
-      <div>{{curSelectionValues}}</div>
-      <pre>
-        <code class="language-javascript">
-          new FPMoney({
-            container: document.querySelector('#example'),
-            showSelection: true
-          })
-        </code>
-      </pre>
+      <div id="exampleSelection" class="example" />
+      <div>{{ curSelectionValues }}</div>
+      <ShikiStyle language="javascript">
+        <pre>
+new FPMoney({
+  container: document.querySelector('#example'),
+  showSelection: true
+})
+        </pre>
+      </ShikiStyle>
     </div>
 
     <div class="section">
       <div class="header">Disabled</div>
       <div class="row example">
-        <div id="exampleDisabled"></div>
-        <button v-if="disabled" @click="toggleDisabled()">{{disabled.disabled ? 'Enable': 'Disable'}}</button>
+        <div id="exampleDisabled" />
+        <button v-if="disabled" @click="toggleDisabled()">
+          {{ disabled.disabled ? 'Enable' : 'Disable' }}
+        </button>
       </div>
-      <pre>
-        <code class="language-javascript">
-          new FPMoney({
-            container: document.querySelector('#example'),
-            disabled: true
-          })
+      <ShikiStyle language="javascript">
+        <pre>
+new FPMoney({
+  container: document.querySelector('#example'),
+  disabled: true
+})
 
-          // Or
+// Or
 
-          var fp = new FPMoney({ container: document.querySelector('#example') })
-          fp.setDisabled(true)
-        </code>
-      </pre>
+var fp = new FPMoney({ container: document.querySelector('#example') })
+fp.setDisabled(true)
+        </pre>
+      </ShikiStyle>
     </div>
 
     <div class="section">
       <div class="header">Display Only</div>
       <div class="example row">
-        <div id="exampleDisplayOnly"></div>
-        <button v-if="disabled" @click="toggleDisplayOnly()">{{displayOnly.displayOnly ? 'Enable': 'Disable'}}</button>
+        <div id="exampleDisplayOnly" />
+        <button v-if="disabled && displayOnly" @click="toggleDisplayOnly()">
+          {{ displayOnly.displayOnly ? 'Enable' : 'Disable' }}
+        </button>
       </div>
-      <pre>
-        <code class="language-javascript">
-          new FPMoney({
-            container: document.querySelector('#example'),
-            displayOnly: true
-          })
+      <ShikiStyle language="javascript">
+        <pre>
+new FPMoney({
+  container: document.querySelector('#example'),
+  displayOnly: true
+})
 
-          // Or
+// Or
 
-          var fp = new FPMoney({ container: document.querySelector('#example') })
-          fp.setDisplayOnly(true)
-        </code>
-      </pre>
+var fp = new FPMoney({ container: document.querySelector('#example') })
+fp.setDisplayOnly(true)
+        </pre>
+      </ShikiStyle>
     </div>
 
     <div class="section">
       <div class="header">Min Value</div>
       <div class="example row">
-        <div id="exampleMinValue"></div>
+        <div id="exampleMinValue" />
       </div>
-      <pre>
-        <code class="language-javascript">
-          new FPMoney({
-            container: document.querySelector('#example'),
-            minValue: 0 // only positive numbers allowed
-          })
-        </code>
-      </pre>
+      <ShikiStyle language="javascript">
+        <pre>
+new FPMoney({
+  container: document.querySelector('#example'),
+  minValue: 0 // only positive numbers allowed
+})
+        </pre>
+      </ShikiStyle>
     </div>
-
   </div>
 </template>

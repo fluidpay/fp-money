@@ -5,7 +5,7 @@ import FunctionsPage from './functions.vue'
 import VuePage from './vue.vue'
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     { path: '/', component: HomePage },
     { path: '/examples', component: ExamplesPage },
