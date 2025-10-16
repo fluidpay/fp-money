@@ -15,7 +15,8 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        assetFileNames: 'style.css'
+        assetFileNames: 'style.css',
+        exports: 'named'
       }
     },
     outDir: path.resolve(process.cwd(), 'dist')
