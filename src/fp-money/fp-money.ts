@@ -30,7 +30,7 @@ enum MobileOS {
   Windows = 'windows',
   Android = 'android',
   iOS = 'ios',
-  Unknown = 'unknown',
+  Unknown = 'unknown'
 }
 
 export default class FPMoney {
@@ -121,8 +121,8 @@ export default class FPMoney {
     this.onChange = info.onChange
       ? (this.onChange = info.onChange)
       : () => {
-        return
-      }
+          return
+        }
 
     // Render select and input
     this.currencyDiv = document.createElement('div')
@@ -297,7 +297,7 @@ export default class FPMoney {
     }
 
     this.format = intToFraction(this.value, this.currencies[this.currency].fraction).toFixed(
-      this.currencies[this.currency].fraction,
+      this.currencies[this.currency].fraction
     )
     this.display = displayValue(this.value, this.currency, this.currencies[this.currency].fraction, this.locale)
 
@@ -309,7 +309,7 @@ export default class FPMoney {
       display: this.display,
       format: this.format,
       currency: this.currency,
-      locale: this.locale,
+      locale: this.locale
     })
   }
 
@@ -356,7 +356,7 @@ export default class FPMoney {
       (evt: KeyboardEvent) => {
         this.inputKeydown(evt)
       },
-      false,
+      false
     )
     this.input.addEventListener(
       'click',
@@ -370,7 +370,7 @@ export default class FPMoney {
         this.input.focus()
         this.moveCursorToEnd(this.input)
       },
-      false,
+      false
     )
 
     // Check if displayOnly
@@ -534,7 +534,7 @@ export default class FPMoney {
   private getMobileOs(): MobileOS {
     const userAgent = navigator.userAgent || navigator.vendor
 
-    if(/Windows Phone|iemobile/.test(userAgent)){
+    if (/Windows Phone|iemobile/.test(userAgent)) {
       return MobileOS.Windows
     }
 
@@ -551,7 +551,6 @@ export default class FPMoney {
 }
 
 // debounce will call the last requested function after the wait time
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export function debounce<T extends (...args: any[]) => void>(func: T, wait = 50, immediate = false): () => void {
   let timeout: any
   return function (this: any, ...args: any[]): void {
