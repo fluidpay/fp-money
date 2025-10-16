@@ -8,5 +8,4 @@ coverage
 
 # Log files
 npm-debug.log*
-dist
 .idea
